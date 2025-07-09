@@ -3,6 +3,5 @@
   "installCommand": "npm install",
   "outputDirectory": "frontend/dist",
   "framework": "vite",
-  "devCommand": "npm run dev --workspace=frontend",
-  "ignore": ["backend/**/*", "node_modules/backend/**/*"]
+  "devCommand": "npm run dev --workspace=frontend"
 }
