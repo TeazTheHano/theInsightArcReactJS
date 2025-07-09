@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import viteLogo from '/vite.svg'
 
 import { TextBodyLarge, TextDisplaySmall } from './components/TextBox/textBox'
 import LazyImage from './components/LazyImage/lazyImage'
@@ -30,6 +29,7 @@ function App() {
 
     function mediaQueryListener(e: MediaQueryListEvent) {
       if (theme === 'light') {
+        console.log(e)
         applyTheme(theme);
       }
     }
@@ -77,6 +77,7 @@ function App() {
       </h1>
       <TextBodyLarge children='Coming soon...' color='var(--Schemes-On-Primary-Container)' />
       <br />
+      <div className="" style={{ display: 'none' }} onClick={() => setTheme('dark')}></div>
       <LazyImage src='/src/assets/photos/home/theinsightArcbanner.jpg' alt='logo' aspectRatio='16/9' />
     </div>
 

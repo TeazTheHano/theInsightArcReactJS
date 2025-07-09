@@ -161,9 +161,6 @@
 /* END OF LAYOUT */
 
 /* VARIANT MODE */
-.variantModeDefault {
-    /*  */
-}
 
 button[class*="variantModeIcon"]>span:not([class^="iconMain"]),
 button[class*="variantModeIconRatio1W"]>span:not([class^="iconMain"]),
