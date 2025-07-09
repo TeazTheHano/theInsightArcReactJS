@@ -1,0 +1,17 @@
+/* Chip Border stroke Mode - No border */
+.chip-borderStrokeMode-none {
+    --Chip-Stroke: var(--Stroke-Stroke-none);
+    --Chip-Stroke-1: var(--Stroke-Stroke-none);
+}
+
+/* Chip Border stroke Mode - Thin */
+.chip-borderStrokeMode-thin {
+    --Chip-Stroke: var(--Stroke-Stroke-1);
+    --Chip-Stroke-1: var(--Stroke-Stroke-2);
+}
+
+/* Chip Border stroke Mode - Thick */
+.chip-borderStrokeMode-thick {
+    --Chip-Stroke: var(--Stroke-Stroke-2);
+    --Chip-Stroke-1: var(--Stroke-Stroke-3);
+}

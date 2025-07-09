@@ -1,0 +1,83 @@
+// Chip Color Mode Surface
+.chip-ColorMode-surface {
+    --Chip-BG-ChipBG-Filled: var(--Schemes-Surface);
+    --Chip-BG-ChipBG-Outlined: var(--Schemes-Surface);
+    --Chip-BG-ChipBG-Combined: var(--Chip-BG-ChipBG-Filled);
+    --Chip-BG-ChipBG-Filled-Selected: var(--Palettes-Primary-80);
+    --Chip-BG-ChipBG-Outlined-Selected: var(--Chip-BG-ChipBG-Outlined);
+    --Chip-BG-ChipBG-Combined-Selected: var(--Chip-BG-ChipBG-Filled-Selected);
+    --Chip-Text-ChipText-Default: var(--Schemes-On-Surface-Variant);
+    --Chip-Text-ChipText-Selected: var(--Schemes-On-Surface);
+    --Chip-Text-ChipText-Outlined-Selected: var(--Schemes-On-Surface);
+    --Chip-Border-ChipBorder-Filled: #FFFFFF00;
+    --Chip-Border-ChipBorder-Outlined: var(--Schemes-Outline);
+    --Chip-Border-ChipBorder-Combined: var(--Chip-Border-ChipBorder-Outlined);
+    --Chip-Border-ChipBorder-Filled-Selected: var(--Chip-Border-ChipBorder-Filled);
+    --Chip-Border-ChipBorder-Outlined-Selected: var(--Palettes-Primary-20);
+    --ChipBG-Filled: #FFFFFF00;
+    --Chip-Stale-layer-ChipStaleLayer-Color: var(--Chip-BG-ChipBG-Combined-Selected);
+    --Chip-Border-ChipBorder-Combined-Selected: var(--Chip-Border-ChipBorder-Outlined-Selected);
+}
+
+// Chip Color Mode Primary
+.chip-ColorMode-primary {
+    --Chip-BG-ChipBG-Filled: var(--Palettes-Primary-90);
+    --Chip-BG-ChipBG-Outlined: var(--Schemes-Surface);
+    --Chip-BG-ChipBG-Combined: var(--Chip-BG-ChipBG-Filled);
+    --Chip-BG-ChipBG-Filled-Selected: var(--Schemes-Primary-Container);
+    --Chip-BG-ChipBG-Outlined-Selected: var(--Chip-BG-ChipBG-Outlined);
+    --Chip-BG-ChipBG-Combined-Selected: var(--Chip-BG-ChipBG-Filled-Selected);
+    --Chip-Text-ChipText-Default: var(--Palettes-Primary-10);
+    --Chip-Text-ChipText-Selected: var(--Schemes-On-Primary-Container);
+    --Chip-Text-ChipText-Outlined-Selected: var(--Chip-Border-ChipBorder-Outlined-Selected);
+    --Chip-Border-ChipBorder-Filled: #FFFFFF00;
+    --Chip-Border-ChipBorder-Outlined: var(--Palettes-Primary-70);
+    --Chip-Border-ChipBorder-Combined: var(--Chip-Border-ChipBorder-Outlined);
+    --Chip-Border-ChipBorder-Filled-Selected: var(--Chip-Border-ChipBorder-Filled);
+    --Chip-Border-ChipBorder-Outlined-Selected: var(--Schemes-Primary);
+    --ChipBG-Filled: var(--Palettes-Primary-90);
+    --Chip-Stale-layer-ChipStaleLayer-Color: var(--Schemes-Primary);
+    --Chip-Border-ChipBorder-Combined-Selected: var(--Palettes-Primary-20);
+}
+
+// Chip Color Mode Secondary
+.chip-ColorMode-secondary {
+    --Chip-BG-ChipBG-Filled: var(--Palettes-Secondary-80);
+    --Chip-BG-ChipBG-Outlined: var(--Schemes-Surface);
+    --Chip-BG-ChipBG-Combined: var(--Chip-BG-ChipBG-Filled);
+    --Chip-BG-ChipBG-Filled-Selected: var(--Schemes-Secondary-Container);
+    --Chip-BG-ChipBG-Outlined-Selected: var(--Chip-BG-ChipBG-Outlined);
+    --Chip-BG-ChipBG-Combined-Selected: var(--Chip-BG-ChipBG-Filled-Selected);
+    --Chip-Text-ChipText-Default: var(--Palettes-Secondary-10);
+    --Chip-Text-ChipText-Selected: var(--Schemes-On-Secondary-Container);
+    --Chip-Text-ChipText-Outlined-Selected: var(--Chip-Border-ChipBorder-Outlined-Selected);
+    --Chip-Border-ChipBorder-Filled: #FFFFFF00;
+    --Chip-Border-ChipBorder-Outlined: var(--Palettes-Secondary-70);
+    --Chip-Border-ChipBorder-Combined: var(--Chip-Border-ChipBorder-Outlined);
+    --Chip-Border-ChipBorder-Filled-Selected: var(--Chip-Border-ChipBorder-Filled);
+    --Chip-Border-ChipBorder-Outlined-Selected: var(--Schemes-Secondary);
+    --ChipBG-Filled: var(--Palettes-Secondary-90);
+    --Chip-Stale-layer-ChipStaleLayer-Color: var(--Schemes-Secondary);
+    --Chip-Border-ChipBorder-Combined-Selected: var(--Palettes-Secondary-20);
+}
+
+// Chip Color Mode Tertiary
+.chip-ColorMode-tertiary {
+    --Chip-BG-ChipBG-Filled: var(--Palettes-Tertiary-90);
+    --Chip-BG-ChipBG-Outlined: var(--Schemes-Surface);
+    --Chip-BG-ChipBG-Combined: var(--Chip-BG-ChipBG-Filled);
+    --Chip-BG-ChipBG-Filled-Selected: var(--Schemes-Tertiary-Container);
+    --Chip-BG-ChipBG-Outlined-Selected: var(--Chip-BG-ChipBG-Outlined);
+    --Chip-BG-ChipBG-Combined-Selected: var(--Chip-BG-ChipBG-Filled-Selected);
+    --Chip-Text-ChipText-Default: var(--Palettes-Tertiary-10);
+    --Chip-Text-ChipText-Selected: var(--Schemes-On-Tertiary-Container);
+    --Chip-Text-ChipText-Outlined-Selected: var(--Chip-Border-ChipBorder-Outlined-Selected);
+    --Chip-Border-ChipBorder-Filled: #FFFFFF00;
+    --Chip-Border-ChipBorder-Outlined: var(--Palettes-Tertiary-70);
+    --Chip-Border-ChipBorder-Combined: var(--Chip-Border-ChipBorder-Outlined);
+    --Chip-Border-ChipBorder-Filled-Selected: var(--Chip-Border-ChipBorder-Filled);
+    --Chip-Border-ChipBorder-Outlined-Selected: var(--Schemes-Tertiary);
+    --ChipBG-Filled: var(--Palettes-Tertiary-90);
+    --Chip-Stale-layer-ChipStaleLayer-Color: var(--Schemes-Tertiary);
+    --Chip-Border-ChipBorder-Combined-Selected: var(--Palettes-Tertiary-20);
+}

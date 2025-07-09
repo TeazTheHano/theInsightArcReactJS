@@ -1,0 +1,210 @@
+/* Scale factor */
+
+.scaleFactor0_75 {
+    --scale-factor: 0.75;
+}
+
+.scaleFactor1 {
+    --scale-factor: 1;
+}
+
+.scaleFactor1_5 {
+    --scale-factor: 1.5;
+}
+
+.scaleFactor2 {
+    --scale-factor: 2;
+}
+
+
+/* COLOR MODE */
+.colorModePrimary {
+    color: var(--Schemes-On-Primary-Container, #0E2000);
+    border-color: var(--Schemes-On-Primary-Container, #0E2000);
+    background-color: var(--Schemes-Primary-Container, #A6FF47);
+}
+
+.colorModeSecondary {
+    color: var(--Schemes-On-Secondary-Container, #FFFBFF);
+    border-color: var(--Schemes-On-Secondary-Container, #FFFBFF);
+    background-color: var(--Schemes-Secondary-Container, #D24200);
+}
+
+.colorModeTertiary {
+    color: var(--Schemes-On-Tertiary-Container, #7A93C0);
+    border-color: var(--Schemes-On-Tertiary-Container, #7A93C0);
+    background-color: var(--Schemes-Tertiary-Container, #0D2B52);
+}
+
+/* END OF COLOR MODE */
+
+
+/* STYLE MODE */
+/* không áp dụng cho đối tượng state layer */
+
+.styleModeText {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.styleModeText:hover {
+    box-shadow: none !important;
+}
+
+.styleModeOutlined {
+    background-color: transparent !important;
+    border-width: var(--Button-Border-Outlined-Border, 1px);
+    border-style: solid;
+}
+
+.styleModeOutlined:hover {
+    box-shadow: none !important;
+}
+
+.styleModeFilled {
+    border: none !important;
+}
+
+.styleModeElevated {
+    border: none !important;
+    box-shadow: var(--shadow-1) !important;
+    background-color: var(--Schemes-Surface-Container-Low, #F4F3F2) !important;
+}
+
+.styleModeElevated:hover {
+    box-shadow: var(--shadow-3) !important;
+}
+
+.styleModeElevated:active {
+    box-shadow: var(--shadow-1) !important;
+}
+
+/* END OF STYLE MODE */
+
+/* LAYOUT */
+
+.layoutLabel {
+    /* Title */
+    font-family: var(--Title-Family);
+    font-size: calc(var(--Title-Font-Size, 16px) * var(--scale-factor, 1));
+    font-weight: 500;
+    line-height: calc(var(--Title-Line-height, 20px) * var(--scale-factor, 1));
+    /* 125% */
+    letter-spacing: calc(var(--Title-Letter-spacing, 0.15px) * var(--scale-factor, 1));
+    min-height: var(--Icon-BASE-Icon-size, 24px);
+    /* để không xung đột với màu sắc ở các chế độ style */
+    background-color: transparent;
+}
+
+.layoutIcon {
+    display: flex;
+    height: calc(var(--Icon-BASE-Icon-size, 24px) * var(--scale-factor, 1));
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    /* để không xung đột với màu sắc ở các chế độ style */
+    background-color: transparent;
+}
+
+.layoutIcon * {
+    width: auto;
+    height: inherit;
+    object-fit: contain;
+}
+
+.layoutButtonWrapper {
+    display: flex;
+    padding: calc(var(--Button-padding-Btn-Padding-V-0, 8px) * var(--scale-factor, 1)) calc(var(--Button-padding-Btn-Padding-H-0, 12px) * var(--scale-factor, 1));
+    justify-content: center;
+    align-items: center;
+    gap: calc(var(--Gap-Gap-m2, 4px) * var(--scale-factor, 1));
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+
+.layoutButtonWrapper:hover {
+    box-shadow: var(--shadow-1);
+}
+
+.stateLayer {
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    z-index: 2;
+    opacity: 0;
+}
+
+.stateLayer:hover {
+    opacity: 0.08;
+}
+
+.stateLayer:active {
+    opacity: 0.12;
+}
+
+.stateLayer:focus {
+    opacity: 0.16;
+}
+
+.disabled {
+    filter: saturate(0);
+    opacity: 0.5;
+    /* diable hover */
+    pointer-events: none;
+}
+
+/* END OF LAYOUT */
+
+/* VARIANT MODE */
+.variantModeDefault {
+    /*  */
+}
+
+button[class*="variantModeIcon"]>span:not([class^="iconMain"]),
+button[class*="variantModeIconRatio1W"]>span:not([class^="iconMain"]),
+button[class*="variantModeIconRatio1H"]>span:not([class^="iconMain"]) {
+    display: none !important;
+}
+
+.variantModeIcon {
+    padding: var(--Button-padding-Btn-Padding-H-m2, 8px) !important;
+}
+
+.variantModeIconRatio1W {
+    aspect-ratio: 1 / 1;
+    width: auto;
+    height: auto;
+}
+
+.variantModeIconRatio1H span * {
+    width: calc(var(--Icon-BASE-Icon-size, 24px) * var(--scale-factor, 1));
+}
+
+[class*='variantModeIconRatio1W'] span,
+[class*='variantModeIconRatio1W'] span * {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.variantModeExtreme:hover .layoutLabel {
+    /* Headline */
+    font-family: var(--Headline-Family, Epilogue);
+    font-size: calc(var(--Headline-Font-Size, 20px) * var(--scale-factor, 1));
+    font-style: normal;
+    font-weight: 500;
+    line-height: calc(var(--Headline-Line-height, 24px) * var(--scale-factor, 1));
+    display: flex;
+    /* make the text center vertical */
+    padding-top: 4%;
+    /* 120% */
+    letter-spacing: calc(var(--Headline-Letter-spacing, 0px) * var(--scale-factor, 1));
+}
+
+.variantModeExtreme:hover .layoutIcon {
+    height: calc(var(--Icon-BASE-Icon-size, 24px) * var(--scale-factor, 1) * 2);
+}
