@@ -1,7 +1,25 @@
 {
-  "buildCommand": "npm install && npm run build --workspace=frontend",
   "installCommand": "npm install",
-  "outputDirectory": "frontend/dist",
-  "framework": "vite",
-  "devCommand": "npm run dev --workspace=frontend"
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "buildCommand": "npm run build",
+        "outputDirectory": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/$1"
+    }
+  ],
+  "git": {
+    "deploymentEnabled": {
+      "frontend": true,
+      "backend": false
+    }
+  }
 }
