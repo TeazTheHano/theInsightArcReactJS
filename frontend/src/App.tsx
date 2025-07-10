@@ -1,11 +1,23 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { TextBodyLarge, TextDisplaySmall } from './components/TextBox/textBox'
 import LazyImage from './components/LazyImage/lazyImage'
+import { ButtonDefault } from './components/Button/Button'
 
 function App() {
   const [theme, setTheme] = useState<'light' | 'dark' | 'light-medium-contrast' | 'light-high-contrast'>('light')
   const [sizeAndSpacing, setSizeAndSpacing] = useState<'sm' | 'md' | 'lg' | 'xl'>('md')
+
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    // Example of focusing the button programmatically after 2 seconds
+    const timer = setTimeout(() => {
+      buttonRef.current?.focus();
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Apply theme class to body and listen to system theme changes
   useEffect(() => {
@@ -78,7 +90,16 @@ function App() {
       <TextBodyLarge children='Coming soon...' color='var(--Schemes-On-Primary-Container)' />
       <br />
       <div className="" style={{ display: 'none' }} onClick={() => setTheme('dark')}></div>
-      <LazyImage src='/src/assets/photos/home/theinsightArcbanner.jpg' alt='logo' aspectRatio='16/9' />
+      <LazyImage src='/src/assets/photos/home/theinsightArcbanner.jpg' alt='logo' aspectRatio='16/9'/>
+
+      <ButtonDefault autoFocus>
+        I am focused on mount
+      </ButtonDefault>
+
+      {/* Use a ref to focus it programmatically */}
+      <ButtonDefault ref={buttonRef}>
+        I will be focused after 2 seconds
+      </ButtonDefault>
     </div>
 
 

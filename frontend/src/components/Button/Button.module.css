@@ -147,7 +147,7 @@
     opacity: 0.12;
 }
 
-.stateLayer:focus {
+.stateLayer:focus-visible {
     opacity: 0.16;
 }
 

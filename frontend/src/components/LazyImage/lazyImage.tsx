@@ -1,22 +1,25 @@
-import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useRef, useState, useEffect, useCallback, useMemo, memo } from 'react';
 import styles from './LazyImage.module.css';
 
-// Định nghĩa kiểu dữ liệu cho props của LazyImage
+// A tiny, transparent 1x1 pixel GIF
+const BLANK_IMAGE_SRC = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
+// Define the props for the LazyImage component
 interface LazyImageProps extends React.HTMLAttributes<HTMLDivElement> {
     src: string;
     alt: string;
-    width?: number | string; // Có thể là số (px) hoặc chuỗi (ví dụ: "100%", "300px", "50vw")
-    height?: number | string; // Có thể là số (px) hoặc chuỗi (ví dụ: "auto", "200px", "30vh")
-    aspectRatio?: string; // Ví dụ: "16/9", "4/3", "1/1" (cho CSS `aspect-ratio` property)
+    width?: number | string; // Can be a number (px) or a string (e.g., "100%", "300px", "50vw")
+    height?: number | string; // Can be a number (px) or a string (e.g., "auto", "200px", "30vh")
+    aspectRatio?: string; // e.g., "16/9", "4/3", "1/1" for the CSS `aspect-ratio` property
     className?: string;
     onErrorIcon?: React.ReactNode;
     rootMargin?: string;
 }
 
-const LazyImage: React.FC<LazyImageProps> = ({
+const LazyImageComponent: React.FC<LazyImageProps> = ({
     src,
     alt,
-    width = '100%', // Mặc định là 100% chiều rộng
+    width, // Mặc định là 100% chiều rộng
     height,
     aspectRatio,
     className = '',
@@ -27,7 +30,7 @@ const LazyImage: React.FC<LazyImageProps> = ({
     const imgRef = useRef<HTMLImageElement>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<boolean>(false);
-    const [imageSrc, setImageSrc] = useState<string>('');
+    const [imageSrc, setImageSrc] = useState<string>(BLANK_IMAGE_SRC);
 
     const handleImageLoad = useCallback(() => {
         setIsLoading(false);
@@ -66,53 +69,18 @@ const LazyImage: React.FC<LazyImageProps> = ({
         };
     }, [src, rootMargin]);
 
-    // --- LOGIC XỬ LÝ KÍCH THƯỚC VÀ TỶ LỆ (KHÔNG DÙNG PADDING-TOP) ---
+    // --- Logic for handling size and aspect ratio using modern CSS ---
     const wrapperStyles = useMemo(() => {
-        const styles: React.CSSProperties = {
+        // This simplified approach relies on CSS's natural handling of aspect-ratio.
+        // If width and aspectRatio are provided, height will be calculated by the browser.
+        // If height and aspectRatio are provided, width will be calculated.
+        // This prevents layout shifts effectively with less complex logic.
+        return {
             width: typeof width === 'number' ? `${width}px` : width,
             height: typeof height === 'number' ? `${height}px` : height,
-            // aspect-ratio property: Cho phép trình duyệt tự động giữ tỷ lệ nếu có đủ thông tin
             aspectRatio: aspectRatio,
         };
-
-        const hasExplicitWidth = width !== undefined && width !== null;
-        const hasExplicitHeight = height !== undefined && height !== null;
-        const hasAspectRatio = aspectRatio !== undefined && aspectRatio !== null;
-
-        // Trường hợp 1: Có cả width và height (ưu tiên cao nhất)
-        // Khi này, aspect-ratio có thể bị bỏ qua bởi trình duyệt nếu nó mâu thuẫn
-        if (hasExplicitWidth && hasExplicitHeight) {
-            return styles;
-        }
-
-        // Trường hợp 2: Có width và aspectRatio
-        // `height` sẽ được trình duyệt tự động điều chỉnh theo `aspect-ratio`
-        if (hasExplicitWidth && hasAspectRatio) {
-            styles.height = 'auto';
-            return styles;
-        }
-
-        // Trường hợp 3: Có height và aspectRatio
-        // `width` sẽ được trình duyệt tự động điều chỉnh theo `aspect-ratio`
-        if (hasExplicitHeight && hasAspectRatio) {
-            styles.width = 'auto';
-            return styles;
-        }
-
-        // Trường hợp 4: Chỉ có aspectRatio (hoặc không có gì, và width/height cũng không có)
-        // Nếu chỉ có aspectRatio mà không có width/height, ta cần cung cấp một chiều để nó có tác dụng.
-        // Mặc định width 100%. Height sẽ được điều chỉnh bởi aspect-ratio.
-        if (hasAspectRatio || (!hasExplicitWidth && !hasExplicitHeight)) {
-            styles.width = hasExplicitWidth ? styles.width : '100%';
-            styles.height = hasExplicitHeight ? styles.height : 'auto';
-            // Nếu không có cả width/height, và không có aspectRatio, thì sẽ mặc định width 100% height auto,
-            // dẫn đến layout shift nếu ảnh chưa load. Điều này đúng với yêu cầu "bỏ padding-top"
-        }
-
-        // Fallback: nếu không có bất kỳ logic nào ở trên phù hợp
-        return styles;
     }, [width, height, aspectRatio]);
-    // --- KẾT THÚC LOGIC CẬP NHẬT ---
 
     return (
         <div
@@ -147,4 +115,6 @@ const LazyImage: React.FC<LazyImageProps> = ({
     );
 };
 
-export default LazyImage;
+LazyImageComponent.displayName = 'LazyImage';
+
+export default memo(LazyImageComponent);

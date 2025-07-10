@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback, useEffect } from 'react'
+import React, { useMemo, useState, useCallback, useEffect, forwardRef, memo } from 'react'
 import buttonStyle from './Button.module.css'
 
 interface ButtonProps {
@@ -16,9 +16,10 @@ interface ButtonProps {
     iconMain?: React.ReactNode;
     iconRight?: React.ReactNode;
     borderRadius?: 'none' | 'default' | 'rounded' | number;
+    autoFocus?: boolean;
 }
 
-export const ButtonDefault: React.FC<ButtonProps> = ({
+const ButtonWithRef = forwardRef<HTMLButtonElement, ButtonProps>(({
     onClick,
     children,
     className = '',
@@ -32,15 +33,16 @@ export const ButtonDefault: React.FC<ButtonProps> = ({
     state = 'default',
     iconMain,
     iconRight,
-    borderRadius = 'default'
-}) => {
+    borderRadius = 'default',
+    autoFocus = false,
+}, ref) => {
     // Internal state to manage button state
     const [internalState, setInternalState] = useState(state);
 
-    // Đồng bộ hóa internalState với prop 'state'
+    // Sync internalState with 'state' prop
     useEffect(() => {
         setInternalState(state);
-    }, [state]); // Chạy lại khi prop 'state' thay đổi
+    }, [state]); // Reruns when 'state' prop changes
 
     // Memoize the button class to avoid recomputation on every render
     const buttonClass = useMemo(() => {
@@ -98,13 +100,30 @@ export const ButtonDefault: React.FC<ButtonProps> = ({
         }
     }, [disabled, internalState]);
 
+    // handle focus event
+    const handleFocus = useCallback(() => {
+        if (!disabled && internalState !== 'disabled' && internalState !== 'focus') {
+            setInternalState('focus');
+        }
+    }, [disabled, internalState]);
+
+    // handle blur event
+    const handleBlur = useCallback(() => {
+        if (!disabled && internalState === 'focus') {
+            setInternalState('default');
+        }
+    }, [disabled, internalState]);
+
     return (
         <button
+            ref={ref}
             onClick={handleClick}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
             className={buttonClass}
             disabled={disabled || internalState === 'disabled'}
             type={type}
@@ -112,6 +131,7 @@ export const ButtonDefault: React.FC<ButtonProps> = ({
                 borderRadius: typeof borderRadius === 'number' ? `${borderRadius}px` : undefined,
                 ...style,
             }}
+            autoFocus={autoFocus}
         >
             <div className={[buttonStyle.stateLayer, buttonStyle[`colorMode${colorMode}`], internalState === 'disabled' ? buttonStyle.disabled : ''].join(' ')}></div>
             {iconMain && <span className={[`iconMain`, buttonStyle.layoutIcon].join(' ')}>{iconMain}</span>}
@@ -127,4 +147,8 @@ export const ButtonDefault: React.FC<ButtonProps> = ({
             {iconRight && <span className={buttonStyle.layoutIcon}>{iconRight}</span>}
         </button >
     );
-}
+})
+
+ButtonWithRef.displayName = 'ButtonDefault';
+
+export const ButtonDefault = memo(ButtonWithRef);
