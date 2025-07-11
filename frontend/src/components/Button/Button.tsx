@@ -33,7 +33,7 @@ const ButtonWithRef = forwardRef<HTMLButtonElement, ButtonProps>(({
     state = 'default',
     iconMain,
     iconRight,
-    borderRadius = 'default',
+    borderRadius = 'rounded',
     autoFocus = false,
 }, ref) => {
     // Internal state to manage button state
@@ -129,21 +129,14 @@ const ButtonWithRef = forwardRef<HTMLButtonElement, ButtonProps>(({
             type={type}
             style={{
                 borderRadius: typeof borderRadius === 'number' ? `${borderRadius}px` : undefined,
+                width: 'fit-content',
                 ...style,
             }}
             autoFocus={autoFocus}
         >
             <div className={[buttonStyle.stateLayer, buttonStyle[`colorMode${colorMode}`], internalState === 'disabled' ? buttonStyle.disabled : ''].join(' ')}></div>
             {iconMain && <span className={[`iconMain`, buttonStyle.layoutIcon].join(' ')}>{iconMain}</span>}
-            <span className={buttonStyle.layoutLabel}>{children}</span>
-            {/* <p style={{
-                fontFamily: 'var(--Headline-Family, Epilogue)',
-                fontSize: 'calc(var(--Headline-Font-Size, 20px) * var(--scale-factor, 1))',
-                fontStyle: 'normal',
-                fontWeight: 500,
-                lineHeight: 'calc(var(--Headline-Line-height, 24px) * var(--scale-factor, 1))',
-                letterSpacing: 'calc(var(--Headline-Letter-spacing, 0px) * var(--scale-factor, 1))',
-            }}>Teeeey</p> */}
+            <span className={[buttonStyle.layoutLabel, `typography-system-medium`].join(' ')}>{children}</span>
             {iconRight && <span className={buttonStyle.layoutIcon}>{iconRight}</span>}
         </button >
     );

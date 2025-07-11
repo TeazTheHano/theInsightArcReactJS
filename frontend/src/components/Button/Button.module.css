@@ -24,6 +24,12 @@
     background-color: var(--Schemes-Primary-Container, #A6FF47);
 }
 
+.colorModePrimary.styleModeText {
+    color: var(--Schemes-Primary, #3C6A00);
+    border-color: var(--Schemes-Primary, #3C6A00);
+    background-color: transparent;
+}
+
 .colorModeSecondary {
     color: var(--Schemes-On-Secondary-Container, #FFFBFF);
     border-color: var(--Schemes-On-Secondary-Container, #FFFBFF);
@@ -127,6 +133,11 @@
 
 .layoutButtonWrapper:hover {
     box-shadow: var(--shadow-1);
+    z-index: 1;
+}
+
+.layoutButtonWrapper:focus-visible {
+    z-index: 1;
 }
 
 .stateLayer {
