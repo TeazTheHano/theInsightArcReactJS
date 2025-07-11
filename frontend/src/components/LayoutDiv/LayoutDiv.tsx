@@ -4,6 +4,7 @@ interface LayoutDivProps extends React.HTMLAttributes<HTMLDivElement> {
     className?: string;
     style?: React.CSSProperties;
     onClick?: React.MouseEventHandler<HTMLDivElement>;
+    ref?: React.RefObject<HTMLDivElement> | React.Ref<HTMLDivElement> | null;
     rest?: any // Thêm rest để có thể truyền thêm các props khác nếu cần
 }
 
