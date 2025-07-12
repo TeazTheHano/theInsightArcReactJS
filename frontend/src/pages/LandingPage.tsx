@@ -5,7 +5,7 @@ function LandingPage() {
     return (
 
         <div className={``}>
-            <LazyImage src='/src/assets/photos/home/theinsightArcbanner.jpg' alt='logo' aspectRatio='16/9' />
+            <LazyImage src='/photos/home/theinsightArcbanner.jpg' alt='logo' aspectRatio='16/9' />
             <br />
             {/* content */}
             <div style={{
