@@ -2,11 +2,19 @@ import { ButtonDefault } from '../Button/Button'
 import { useTheme } from '../../hooks/useTheme'
 import { TextBodySmall, TextHeadlineLarge } from '../TextBox/textBox'
 import { DivFlexColumn, DivFlexRow } from '../LayoutDiv/LayoutDiv'
-import { InstagramIcon, MailIcon } from '../../assets/icon/OtherIcon'
+import { IconGen } from '../../assets/icon/OtherIcon'
+import i18n, { languageList } from '../../i18n'
+import { useTranslation } from 'react-i18next'
+import { useEffect, useState } from 'react'
 
 export default function Footer() {
 
-    const { setTheme } = useTheme()
+    const { theme, setTheme } = useTheme()
+    const { t } = useTranslation('common');
+
+    const changeLanguage = (lng: string) => {
+        i18n.changeLanguage(lng);
+    };
 
     return (
         <footer
@@ -23,22 +31,16 @@ export default function Footer() {
             >
                 <TextHeadlineLarge children='The insightArc' color='var(--Schemes-On-Surface-Variant, #434843)' />
                 <TextBodySmall>
-                    Dự án The insightArc.<br />
-                    Hà Nội, tháng 5, năm 2025
+                    {t('footer-item-1')}<br />{t('footer-item-2')}
                 </TextBodySmall>
             </DivFlexColumn>
-
-            <div style={{ display: 'none' }}>
-                <InstagramIcon />
-                <MailIcon />
-            </div>
 
             <DivFlexColumn>
                 <ButtonDefault
                     children='@the_insightarc'
                     styleMode='Text'
                     colorMode='Primary'
-                    iconMain={<InstagramIcon fillColor='var(--Schemes-Primary)' />}
+                    iconMain={<IconGen svgName='instagram' fillColor='var(--Schemes-Primary)' />}
                     onClick={() => {
                         window.open('https://www.instagram.com/the_insightarc/', '_blank')
                     }}
@@ -47,7 +49,7 @@ export default function Footer() {
                     children='contact@theinsightarc.id.vn'
                     styleMode='Text'
                     colorMode='Primary'
-                    iconMain={<MailIcon fillColor='var(--Schemes-Primary)' />}
+                    iconMain={<IconGen svgName='mail' fillColor='var(--Schemes-Primary)' />}
                     onClick={() => {
                         window.open('mailto:contact@theinsightarc.id.vn', '_blank')
                     }}
@@ -58,12 +60,11 @@ export default function Footer() {
             <DivFlexRow
                 style={{ gap: 'var(--Gap-Gap-m2, 24px)', }}
             >
-                <ButtonDefault autoFocus onClick={() => { setTheme('system') }}>
-                    reset theme
-                </ButtonDefault>
-                <ButtonDefault autoFocus onClick={() => { setTheme('light') }}>
-                    light theme
-                </ButtonDefault>
+                <ButtonDefault onClick={() => { setTheme('system') }} children='Reset theme' />
+                <ButtonDefault onClick={() => {
+                    setTheme(theme === 'light' ? 'dark' : 'light')
+                }} children='Toggle theme' />
+                <ButtonDefault onClick={() => { changeLanguage(i18n.language != 'en' ? 'en' : 'vi') }} children={i18n.language != 'en' ? 'English' : 'Tiếng Việt'} />
             </DivFlexRow>
         </footer >
     )

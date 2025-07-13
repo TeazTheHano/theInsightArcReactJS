@@ -1,0 +1,4 @@
+.wrapperLayout {
+    padding: var(--Padding-and-Margin-PM-0, 24px) var(--Padding-and-Margin-PM-0, 24px) var(--Padding-and-Margin-PM-2, 48px) var(--Padding-and-Margin-PM-0, 24px);
+    gap: var(--Gap-Gap-0, 24px);
+}

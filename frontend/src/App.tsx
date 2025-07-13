@@ -5,9 +5,10 @@ import { ThemeProvider } from './hooks/useTheme'; // Import cả ThemeProvider v
 
 import GlobalLayout from './layouts/GlobalLayout';
 
-import LandingPage from './pages/LandingPage';
+import LandingPage from './pages/LandingPage/LandingPage';
 import Test from './pages/Test';
 
+import './i18n';
 
 export default function App() {
 

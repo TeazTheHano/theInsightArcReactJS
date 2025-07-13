@@ -32,6 +32,7 @@ export default function GlobalLayout({ children }: { children: React.ReactNode }
   useEffect(() => {
     document.body.classList.remove('size-and-spacing-sm', 'size-and-spacing-md', 'size-and-spacing-lg', 'size-and-spacing-xl');
     document.body.classList.add(`size-and-spacing-${sizeAndSpacing}`);
+    document.body.style.setProperty('background-color', 'grey')
     localStorage.setItem('sizeAndSpacing', sizeAndSpacing);
   }, [sizeAndSpacing]);
 
@@ -45,18 +46,15 @@ export default function GlobalLayout({ children }: { children: React.ReactNode }
 
   let navLayout: CSSProperties = {
     display: `flex`,
-    flexDirection: `column`
+    flexDirection: `column`,
+    height: '100vh',
+    position: 'sticky',
+    top: '0',
+    left: '0',
   }
   let contentContainerLayout: CSSProperties = {
     width: '100%',
   }
-
-
-
-  // layout switch case
-  // switch (sizeAndSpacing) {
-  //   case 'sm':
-  //     return (
 
 
   return (

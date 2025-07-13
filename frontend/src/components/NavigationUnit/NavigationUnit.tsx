@@ -4,13 +4,18 @@ import { TextTitleSmall } from '../TextBox/textBox'
 import TheInsightArcLogo from '../../assets/icon/Logo'
 import Divider from '../Divider/Divider'
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 export default function NavigationUnit(layoutProps: React.CSSProperties) {
 
     const navRef = useRef<HTMLDivElement>(null);
     const [logoWidth, setLogoWidth] = useState(0);
 
+    const [t] = useTranslation('common');
+
     useEffect(() => {
+        console.log('run nav cal');
+
         const calculateLogoContentWidth = () => {
 
             let value = document.getElementById('NavMenu')?.offsetWidth || 0
@@ -39,10 +44,18 @@ export default function NavigationUnit(layoutProps: React.CSSProperties) {
         };
     }, [navRef.current])
 
+    const styles: { [key: string]: React.CSSProperties } = {
+        navMenu: {
+            gap: 'var(--Gap-Gap-m2, 8px)',
+            padding: 'var(--PAGE-Prop-Body-margin, 24px) var(--Padding-and-Margin-PM-2, 48px) var(--PAGE-Prop-Body-margin, 24px) var(--PAGE-Prop-Body-margin, 24px)'
+        },
+        linkObject: { textDecoration: 'none' },
+        linkText: { flex: 1, whiteSpace: 'nowrap' },
+        linkTextSmall: { color: 'var(--Schemes-Primary)', letterSpacing: 4 }
+    }
+
     return (
-        <nav
-            style={layoutProps}
-        >
+        <nav style={layoutProps}>
             <Link to="/" style={{ display: 'block' }}> {/* Đảm bảo Link là block element để chiếm toàn bộ chiều rộng */}
                 <div
                     id='navLogo'
@@ -59,37 +72,40 @@ export default function NavigationUnit(layoutProps: React.CSSProperties) {
             <DivFlexColumn
                 id='NavMenu'
                 ref={navRef}
-                style={{
-
-                    gap: 'var(--Gap-Gap-m2, 8px)',
-                    padding: 'var(--PAGE-Prop-Body-margin, 24px) var(--Padding-and-Margin-PM-2, 48px) var(--PAGE-Prop-Body-margin, 24px) var(--PAGE-Prop-Body-margin, 24px)'
-                }}>
-                <Link to="/" style={{ textDecoration: 'none' }}>
-                    <TextTitleSmall style={{ flex: 1, whiteSpace: 'nowrap' }} children='Định hướng' />
+                style={styles.navMenu}>
+                <Link to="/" style={styles.linkObject}>
+                    <TextTitleSmall style={styles.linkText} children={t('nav-item-1')} />
                 </Link>
-                <Link to="/" style={{ textDecoration: 'none' }}>
-                    <TextTitleSmall style={{ flex: 1, whiteSpace: 'nowrap' }} >Về The insightArc<sup><b style={{ color: 'var(--Schemes-Primary)', letterSpacing: 4 }}>01</b></sup></TextTitleSmall>
+                <Link to="/" style={styles.linkObject}>
+                    <TextTitleSmall style={styles.linkText}>{t('nav-item-2')}<sup><b style={styles.linkTextSmall}>01</b></sup></TextTitleSmall>
                 </Link>
-                <Link to="/" style={{ textDecoration: 'none' }}>
-                    <TextTitleSmall style={{ flex: 1, whiteSpace: 'nowrap' }} >Nguồn cảm hứng<sup><b style={{ color: 'var(--Schemes-Primary)', letterSpacing: 4 }}>02</b></sup></TextTitleSmall>
+                <Link to="/" style={styles.linkObject}>
+                    <TextTitleSmall style={styles.linkText}>{t('nav-item-3')}<sup><b style={styles.linkTextSmall}>02</b></sup></TextTitleSmall>
                 </Link>
-                <Link to="/" style={{ textDecoration: 'none' }}>
-                    <TextTitleSmall style={{ flex: 1, whiteSpace: 'nowrap' }} >Viết và Bàn luận<sup><b style={{ color: 'var(--Schemes-Primary)', letterSpacing: 4 }}>03</b></sup></TextTitleSmall>
+                <Link to="/" style={styles.linkObject}>
+                    <TextTitleSmall style={styles.linkText}>{t('nav-item-4')}<sup><b style={styles.linkTextSmall}>03</b></sup></TextTitleSmall>
                 </Link>
-                <Link to="/" style={{ textDecoration: 'none' }}>
-                    <TextTitleSmall style={{ flex: 1, whiteSpace: 'nowrap' }} >Vui cùng Đất Nước<sup><b style={{ color: 'var(--Schemes-Primary)', letterSpacing: 4 }}>04</b></sup></TextTitleSmall>
+                <Link to="/" style={styles.linkObject}>
+                    <TextTitleSmall style={styles.linkText}>{t('nav-item-5')}<sup><b style={styles.linkTextSmall}>04</b></sup></TextTitleSmall>
                 </Link>
             </DivFlexColumn>
             <Divider />
             <DivFlexColumn
                 style={{
-                    gap: 'var(--Gap-Gap-m2, 8px)',
-                    padding: 'var(--PAGE-Prop-Body-margin, 24px) var(--Padding-and-Margin-PM-2, 48px) var(--PAGE-Prop-Body-margin, 24px) var(--PAGE-Prop-Body-margin, 24px)'
+                    flex: 1,
+                    ...styles.navMenu,
                 }}>
-                <Link to="/" style={{ textDecoration: 'none' }}>
-                    <TextTitleSmall style={{ flex: 1, whiteSpace: 'nowrap' }} color='var(--Schemes-On-Surface-Variant)' children='Liên hệ' />
+                <Link to="/" style={styles.linkObject}>
+                    <TextTitleSmall style={styles.linkText} color='var(--Schemes-On-Surface-Variant)' children={t('nav-item-6')} />
                 </Link>
             </DivFlexColumn>
-        </nav >
+            <Divider />
+            <DivFlexColumn
+                style={styles.navMenu}>
+                <Link to="/test" style={styles.linkObject}>
+                    <TextTitleSmall style={styles.linkText} color='var(--Schemes-On-Surface-Variant)' children={t('nav-item-7')} />
+                </Link>
+            </DivFlexColumn>
+        </nav>
     )
 }

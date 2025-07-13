@@ -134,7 +134,12 @@ const ButtonWithRef = forwardRef<HTMLButtonElement, ButtonProps>(({
             }}
             autoFocus={autoFocus}
         >
-            <div className={[buttonStyle.stateLayer, buttonStyle[`colorMode${colorMode}`], internalState === 'disabled' ? buttonStyle.disabled : ''].join(' ')}></div>
+            <div className={[
+                buttonStyle.stateLayer,
+                buttonStyle[`colorMode${colorMode}`],
+                internalState === 'disabled' ? buttonStyle.disabled : '',
+                typeof borderRadius !== 'number' ? `CM-border-radius-mode-${borderRadius}` : '',
+            ].join(' ')}></div>
             {iconMain && <span className={[`iconMain`, buttonStyle.layoutIcon].join(' ')}>{iconMain}</span>}
             <span className={[buttonStyle.layoutLabel, `typography-system-medium`].join(' ')}>{children}</span>
             {iconRight && <span className={buttonStyle.layoutIcon}>{iconRight}</span>}
