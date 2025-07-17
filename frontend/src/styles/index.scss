@@ -17,10 +17,10 @@
 * {
   box-sizing: border-box;
   margin: 0;
+  font-family: 'Inconsolata', 'Roboto', sans-serif;
 
   @import './keyValue.scss';
   @extend %var-key-value;
-  font-family: 'Inconsolata', 'Roboto', sans-serif;
   @import './ShadowEffect/shadows';
   @extend %variable-shadow;
 }

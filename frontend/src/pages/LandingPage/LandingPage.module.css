@@ -2,3 +2,12 @@
     padding: var(--Padding-and-Margin-PM-0, 24px) var(--Padding-and-Margin-PM-0, 24px) var(--Padding-and-Margin-PM-2, 48px) var(--Padding-and-Margin-PM-0, 24px);
     gap: var(--Gap-Gap-0, 24px);
 }
+
+.wrapperLayoutVer2 {
+    padding: var(--Padding-and-Margin-PM-0, 24px) var(--Padding-and-Margin-PM-0, 24px) var(--Padding-and-Margin-PM-2, 48px) var(--Padding-and-Margin-PM-0, 24px);
+    gap: var(--Gap-Gap-2, 48px);
+}
+
+.wrapperLayoutVer2 .wrapperLayoutVer2_itemWrapper {
+    gap: var(--Gap-Gap-0, 24px);
+}

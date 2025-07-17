@@ -131,6 +131,9 @@
     /* overflow: hidden; */
 }
 
+.layoutButtonWrapper, .layoutButtonWrapper * {
+    transition: all 0.2s ease-in-out;
+}
 
 .layoutButtonWrapper:hover {
     box-shadow: var(--shadow-1);

@@ -13,6 +13,7 @@ interface LazyImageProps extends React.HTMLAttributes<HTMLDivElement> {
     aspectRatio?: string; // e.g., "16/9", "4/3", "1/1" for the CSS `aspect-ratio` property
     className?: string;
     onErrorIcon?: React.ReactNode;
+    errorMessage?: string;
     rootMargin?: string;
 }
 
@@ -24,6 +25,7 @@ const LazyImageComponent: React.FC<LazyImageProps> = ({
     aspectRatio,
     className = '',
     onErrorIcon = '⚠️',
+    errorMessage = 'Failed to load image',
     rootMargin = '0px 0px 100px 0px',
     ...restProps
 }) => {
@@ -91,7 +93,7 @@ const LazyImageComponent: React.FC<LazyImageProps> = ({
             {error ? (
                 <div className={styles.errorPlaceholder}>
                     {onErrorIcon}
-                    <p>Failed to load image</p>
+                    <p>{errorMessage}</p>
                 </div>
             ) : (
                 <>
