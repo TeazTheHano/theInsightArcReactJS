@@ -11,6 +11,8 @@ interface LazyImageProps extends React.HTMLAttributes<HTMLDivElement> {
     width?: number | string; // Can be a number (px) or a string (e.g., "100%", "300px", "50vw")
     height?: number | string; // Can be a number (px) or a string (e.g., "auto", "200px", "30vh")
     aspectRatio?: string; // e.g., "16/9", "4/3", "1/1" for the CSS `aspect-ratio` property
+    maxWidth?: string; // e.g., "100%", "300px", "50vw"
+    maxHeight?: string; // e.g., "auto", "200px", "30vh"
     className?: string;
     onErrorIcon?: React.ReactNode;
     errorMessage?: string;
@@ -23,6 +25,8 @@ const LazyImageComponent: React.FC<LazyImageProps> = ({
     width, // Mặc định là 100% chiều rộng
     height,
     aspectRatio,
+    maxWidth,
+    maxHeight,
     className = '',
     onErrorIcon = '⚠️',
     errorMessage = 'Failed to load image',
@@ -72,7 +76,7 @@ const LazyImageComponent: React.FC<LazyImageProps> = ({
     }, [src, rootMargin]);
 
     // --- Logic for handling size and aspect ratio using modern CSS ---
-    const wrapperStyles = useMemo(() => {
+    const wrapperStyles = useMemo((): React.CSSProperties => {
         // This simplified approach relies on CSS's natural handling of aspect-ratio.
         // If width and aspectRatio are provided, height will be calculated by the browser.
         // If height and aspectRatio are provided, width will be calculated.
@@ -81,8 +85,10 @@ const LazyImageComponent: React.FC<LazyImageProps> = ({
             width: typeof width === 'number' ? `${width}px` : width,
             height: typeof height === 'number' ? `${height}px` : height,
             aspectRatio: aspectRatio,
+            maxWidth: maxWidth,
+            maxHeight: maxHeight,
         };
-    }, [width, height, aspectRatio]);
+    }, [width, height, aspectRatio, maxWidth, maxHeight]);
 
     return (
         <div

@@ -1,9 +1,10 @@
-import React, { useMemo, useState, useCallback, useEffect, forwardRef, memo } from 'react'
+import React, { useMemo, useState, useCallback, useEffect, forwardRef, memo, useRef } from 'react'
 import buttonStyle from './Button.module.css'
+import { IconGen } from '../../assets/icon/OtherIcon';
 
 interface ButtonProps {
     onClick?: () => void;
-    children: React.ReactNode;
+    children?: React.ReactNode;
     className?: string;
     style?: React.CSSProperties;
     disabled?: boolean;
@@ -13,8 +14,8 @@ interface ButtonProps {
     colorMode?: 'Primary' | 'Secondary' | 'Tertiary';
     scale?: `0_75` | `1` | `1_5` | `2`;
     state?: 'default' | 'hover' | 'active' | 'pressed' | 'focus' | 'disabled';
-    iconMain?: React.ReactNode;
-    iconRight?: React.ReactNode;
+    iconMain?: React.ReactNode | string;
+    iconRight?: React.ReactNode | string;
     borderRadius?: 'none' | 'default' | 'rounded' | number;
     autoFocus?: boolean;
 }
@@ -140,9 +141,25 @@ const ButtonWithRef = forwardRef<HTMLButtonElement, ButtonProps>(({
                 internalState === 'disabled' ? buttonStyle.disabled : '',
                 typeof borderRadius !== 'number' ? `CM-border-radius-mode-${borderRadius}` : '',
             ].join(' ')}></div>
-            {iconMain && <span className={[`iconMain`, buttonStyle.layoutIcon].join(' ')}>{iconMain}</span>}
-            <span className={[buttonStyle.layoutLabel, `typography-system-medium`].join(' ')}>{children}</span>
-            {iconRight && <span className={buttonStyle.layoutIcon}>{iconRight}</span>}
+            {iconMain && (
+                typeof iconMain === 'string' ? (
+                    <IconGen className={[`iconMain`, buttonStyle.layoutIcon].join(' ')} svgName={iconMain} />
+                ) : (
+                    <span className={[`iconMain`, buttonStyle.layoutIcon].join(' ')}>{iconMain}</span>
+                )
+            )}
+            {children && (
+                <span className={[buttonStyle.layoutLabel, `typography-system-medium`].join(' ')}>
+                    {children}
+                </span>
+            )}
+            {iconRight && (
+                typeof iconRight === 'string' ? (
+                    <IconGen className={buttonStyle.layoutIcon} svgName={iconRight} />
+                ) : (
+                    <span className={buttonStyle.layoutIcon}>{iconRight}</span>
+                )
+            )}
         </button >
     );
 })

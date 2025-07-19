@@ -6,7 +6,7 @@ interface TheInsightArcLogoProps {
     height?: string | number;
 }
 
-const TheInsightArcLogo: React.FC<TheInsightArcLogoProps> = ({ fillColor, width = '100%', height = '100%' }) => {
+const TheInsightArcLogo: React.FC<TheInsightArcLogoProps> = ({ fillColor, width, height = '100%' }) => {
     // Màu mặc định nếu fillColor không được cung cấp.
     // Hoặc bạn có thể dùng 'currentColor' để nó kế thừa màu chữ.
     const defaultFill = '#1A1C1B';

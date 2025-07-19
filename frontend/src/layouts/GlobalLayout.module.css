@@ -1,0 +1,16 @@
+.appLayout {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: var(--Schemes-Surface);
+    min-height: 100dvh;
+}
+
+.contentContainerLayout {
+    width: 100%;
+}
+
+:global(body.size-and-spacing-md) .appLayout,
+:global(body.size-and-spacing-sm) .appLayout {
+    flex-direction: column;
+}

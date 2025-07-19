@@ -3,8 +3,7 @@ import styles from './LandingPage.module.css'
 import LazyImage from '../../components/LazyImage/lazyImage'
 import { DivFlexColumn, DivFlexRow } from '../../components/LayoutDiv/LayoutDiv'
 import { ButtonDefault } from '../../components/Button/Button'
-import { IconGen } from '../../assets/icon/OtherIcon'
-import { TextBodySmall, TextDisplayMedium, TextHeadlineLarge, TextHeadlineSmall } from '../../components/TextBox/textBox'
+import { TextBodyMedium, TextDisplayMedium, TextHeadlineLarge, TextHeadlineSmall } from '../../components/TextBox/textBox'
 import Divider from '../../components/Divider/Divider'
 import { Trans, useTranslation } from 'react-i18next'
 
@@ -15,7 +14,7 @@ function LandingPage() {
     return (
 
         <div>
-            <LazyImage src='/photos/home/theinsightArcbanner.jpg' alt='logo' aspectRatio='16/9' />
+            <LazyImage src='/photos/home/theinsightArcbanner.jpg' alt='logo' height={'50dvh'} maxHeight='100dvw' />
             <br />
             {/* content */}
 
@@ -28,14 +27,14 @@ function LandingPage() {
                         variantMode='Extreme'
                         children={t('section-1-button')}
                         onClick={() => { }}
-                        iconMain={<IconGen svgName='phone' fillColor='var(--Schemes-On-Primary-Container)' />}
+                        iconMain={'phone_filled'}
                     />
                 </DivFlexColumn>
                 {/* right */}
                 <DivFlexColumn style={{ gap: `var(--Gap-Gap-m1, 12px)`, flex: 1, textAlign: 'justify' }}>
-                    <TextBodySmall children={t('section-1-description-1')} />
-                    <TextBodySmall children={t('section-1-description-2')} />
-                    <TextBodySmall children={t('section-1-description-3')} />
+                    <TextBodyMedium children={t('section-1-description-1')} />
+                    <TextBodyMedium children={t('section-1-description-2')} />
+                    <TextBodyMedium children={t('section-1-description-3')} />
                 </DivFlexColumn>
             </DivFlexRow>
 
@@ -47,11 +46,11 @@ function LandingPage() {
                     <TextHeadlineSmall children={t('section-2-title')} />
                 </DivFlexColumn>
                 {/* right */}
-                <DivFlexColumn style={{ gap: `var(--Gap-Gap-m1, 12px)`, flex: 1, textAlign: 'justify' }}>
-                    <TextBodySmall children={t('section-2-description-1')} />
-                    <TextBodySmall children={t('section-2-description-2')} />
-                    <TextBodySmall children={t('section-2-description-3')} />
-                    <TextBodySmall children={t('section-2-description-4')} />
+                <DivFlexColumn style={{ gap: `var(--Gap-Gap-m1, 12px)`, flex: 1, }}>
+                    <TextBodyMedium children={t('section-2-description-1')} />
+                    <TextBodyMedium children={t('section-2-description-2')} />
+                    <TextBodyMedium children={t('section-2-description-3')} />
+                    <TextBodyMedium children={t('section-2-description-4')} />
                 </DivFlexColumn >
             </DivFlexRow >
 
@@ -64,22 +63,22 @@ function LandingPage() {
                 </DivFlexColumn>
                 {/* right */}
                 <DivFlexColumn style={{ gap: `var(--Gap-Gap-m1, 12px)`, flex: 1, textAlign: 'justify' }}>
-                    <TextBodySmall children={t('section-3-description-1')} />
+                    <TextBodyMedium children={t('section-3-description-1')} />
 
                     <LazyImage errorMessage='Will update sooooon' onErrorIcon="🙆" src='placeholder' alt='' aspectRatio='1' />
 
-                    <TextBodySmall children={t('section-3-description-2')} />
-                    <TextBodySmall>
+                    <TextBodyMedium children={t('section-3-description-2')} />
+                    <TextBodyMedium>
                         <Trans i18nKey="section-3-description-3" ns="landingPage"
                             components={{ b: <strong /> }}
                         />
-                    </TextBodySmall>
+                    </TextBodyMedium>
                     {/* Sử dụng Trans component cho section-3-description-4 */}
-                    <TextBodySmall>
+                    <TextBodyMedium>
                         <Trans i18nKey="section-3-description-4" ns="landingPage"
                             components={{ b: <strong /> }}
                         />
-                    </TextBodySmall>
+                    </TextBodyMedium>
                 </DivFlexColumn >
             </DivFlexRow >
 
@@ -94,12 +93,12 @@ function LandingPage() {
                         <ButtonDefault
                             children={t('section-4-button')}
                             onClick={() => { }}
-                            iconMain={<IconGen svgName='arrow_outward' fillColor='var(--Schemes-On-Primary-Container)' />}
+                            iconMain={'arrow_outward'}
                         />
                     </DivFlexColumn>
                     {/* right */}
                     <DivFlexColumn style={{ gap: `var(--Gap-Gap-m1, 12px)`, flex: 1, textAlign: 'justify' }}>
-                        <TextBodySmall children={t('section-4-description')} />
+                        <TextBodyMedium children={t('section-4-description')} />
                     </DivFlexColumn>
                 </DivFlexRow>
                 {/* image */}
@@ -117,12 +116,12 @@ function LandingPage() {
                         <ButtonDefault
                             children={t('section-5-button')}
                             onClick={() => { }}
-                            iconMain={<IconGen svgName='arrow_outward' fillColor='var(--Schemes-On-Primary-Container)' />}
+                            iconMain={'arrow_outward'}
                         />
                     </DivFlexColumn>
                     {/* right */}
                     <DivFlexColumn style={{ gap: `var(--Gap-Gap-m1, 12px)`, flex: 1, textAlign: 'justify' }}>
-                        <TextBodySmall children={t('section-5-description')} />
+                        <TextBodyMedium children={t('section-5-description')} />
                     </DivFlexColumn>
                 </DivFlexRow>
                 {/* blog list */}
@@ -142,12 +141,12 @@ function LandingPage() {
                         <ButtonDefault
                             children={t('section-6-button')}
                             onClick={() => { }}
-                            iconMain={<IconGen svgName='arrow_outward' fillColor='var(--Schemes-On-Primary-Container)' />}
+                            iconMain={'arrow_outward'}
                         />
                     </DivFlexColumn>
                     {/* right */}
                     <DivFlexColumn style={{ gap: `var(--Gap-Gap-m1, 12px)`, flex: 1, textAlign: 'justify' }}>
-                        <TextBodySmall children={t('section-6-description')} />
+                        <TextBodyMedium children={t('section-6-description')} />
                     </DivFlexColumn>
                 </DivFlexRow>
                 {/* blog list */}

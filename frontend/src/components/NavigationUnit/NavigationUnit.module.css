@@ -1,0 +1,129 @@
+* {
+    transition: all 0.2s ease-in-out;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background-color: var(--Schemes-Surface);
+}
+
+.navLogo {
+    padding: var(--Padding-and-Margin-PM-0, 24px);
+}
+
+.navMenu {
+    gap: var(--Gap-Gap-m2, 8px);
+    width: fit-content;
+    padding: var(--Padding-and-Margin-PM-0, 24px) var(--Padding-and-Margin-PM-2, 48px) var(--Padding-and-Margin-PM-0, 24px) var(--Padding-and-Margin-PM-0, 24px);
+}
+
+.linkObject {
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+    /* Add specific transition for links */
+}
+
+.linkText {
+    white-space: nowrap;
+}
+
+.linkTextSmall {
+    color: var(--Schemes-Primary);
+    letter-spacing: 4;
+}
+
+/* responsive cho nav */
+:global(body.size-and-spacing-md) nav,
+:global(body.size-and-spacing-sm) nav {
+    height: auto;
+}
+
+/* Hide elements on specific breakpoints using display: none */
+:global(body.size-and-spacing-md) .hideMdSm,
+:global(body.size-and-spacing-sm) .hideMdSm,
+:global(body.size-and-spacing-md) .hideMd {
+    display: none !important;
+}
+
+/* điều chỉnh size của logo */
+:global(body.size-and-spacing-md) .navLogo {
+    width: auto !important;
+    padding: var(--Padding-and-Margin-PM-m2) var(--Padding-and-Margin-PM-0) !important;
+}
+
+:global(body.size-and-spacing-sm) .navLogo {
+    width: auto !important;
+    padding: var(--Padding-and-Margin-PM-m1) var(--Padding-and-Margin-PM-0) !important;
+}
+
+/* nav menu cho MD */
+:global(body.size-and-spacing-md) .navMenu {
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--Gap-Gap-m1);
+    flex-wrap: wrap;
+    width: 100%;
+    padding: var(--Padding-and-Margin-PM-m1) var(--Padding-and-Margin-PM-0, 24px) !important;
+    flex-direction: row !important;
+}
+
+:global(body.size-and-spacing-md) .navHidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    display: none !important;
+    pointer-events: none;
+}
+
+/* sub menu next to logo */
+.navLogoContainer>div {
+    display: none !important;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+:global(body.size-and-spacing-md) .navLogoContainer>div,
+:global(body.size-and-spacing-sm) .navLogoContainer>div {
+    display: flex !important;
+}
+
+:global(body.size-and-spacing-sm) .navLogoContainer>div>a {
+    display: none;
+}
+
+:global(body.size-and-spacing-md) .navLogoContainer button {
+    display: none;
+}
+
+/* kết thúc sub menu */
+
+/* nav menu cho SM */
+:global(body.size-and-spacing-sm) .navMenu {
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 110dvh;
+    backdrop-filter: blur(20px);
+    background-color: color-mix(in srgb, var(--Schemes-Surface) 50%, transparent);
+
+    /* Base styles for the transition */
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+}
+
+/* For the mobile menu, use opacity/transform for transitions instead of display:none */
+:global(body.size-and-spacing-sm) .hideSm {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(-10px) !important;
+    pointer-events: none !important;
+    /* Make sure it's not interactive when hidden */
+}

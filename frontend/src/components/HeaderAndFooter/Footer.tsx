@@ -2,7 +2,6 @@ import { ButtonDefault } from '../Button/Button'
 import { useTheme } from '../../hooks/useTheme'
 import { TextBodySmall, TextHeadlineLarge } from '../TextBox/textBox'
 import { DivFlexColumn, DivFlexRow } from '../LayoutDiv/LayoutDiv'
-import { IconGen } from '../../assets/icon/OtherIcon'
 import i18n from '../../i18n'
 import { useTranslation } from 'react-i18next'
 
@@ -39,7 +38,7 @@ export default function Footer() {
                     children='@the_insightarc'
                     styleMode='Text'
                     colorMode='Primary'
-                    iconMain={<IconGen svgName='instagram' fillColor='var(--Schemes-Primary)' />}
+                    iconMain={'instagram'}
                     onClick={() => {
                         window.open('https://www.instagram.com/the_insightarc/', '_blank')
                     }}
@@ -48,7 +47,7 @@ export default function Footer() {
                     children='contact@theinsightarc.id.vn'
                     styleMode='Text'
                     colorMode='Primary'
-                    iconMain={<IconGen svgName='mail' fillColor='var(--Schemes-Primary)' />}
+                    iconMain={'mail'}
                     onClick={() => {
                         window.open('mailto:contact@theinsightarc.id.vn', '_blank')
                     }}

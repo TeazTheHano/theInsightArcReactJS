@@ -11,3 +11,9 @@
 .wrapperLayoutVer2 .wrapperLayoutVer2_itemWrapper {
     gap: var(--Gap-Gap-0, 24px);
 }
+
+:global(body.size-and-spacing-sm) .wrapperLayout,
+:global(body.size-and-spacing-sm) .wrapperLayoutVer2_itemWrapper,
+:global(body.size-and-spacing-md) [class*='shiftVerticalMd'] {
+    flex-direction: column !important;
+}

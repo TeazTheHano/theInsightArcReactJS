@@ -1,8 +1,10 @@
-import React, { useEffect, useState, type CSSProperties } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTheme } from '../hooks/useTheme';
 import NavigationUnit from '../components/NavigationUnit/NavigationUnit';
 import Footer from '../components/HeaderAndFooter/Footer';
 import Divider from '../components/Divider/Divider';
+
+import styles from './GlobalLayout.module.css'
 
 export default function GlobalLayout({ children }: { children: React.ReactNode }) {
 
@@ -32,44 +34,27 @@ export default function GlobalLayout({ children }: { children: React.ReactNode }
   useEffect(() => {
     document.body.classList.remove('size-and-spacing-sm', 'size-and-spacing-md', 'size-and-spacing-lg', 'size-and-spacing-xl');
     document.body.classList.add(`size-and-spacing-${sizeAndSpacing}`);
-    document.body.style.setProperty('background-color', 'grey')
     localStorage.setItem('sizeAndSpacing', sizeAndSpacing);
   }, [sizeAndSpacing]);
 
-
-  // define the layout item
-  let appLayout: CSSProperties = {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-  }
-
-  let navLayout: CSSProperties = {
-    display: `flex`,
-    flexDirection: `column`,
-    height: '100vh',
-    position: 'sticky',
-    top: '0',
-    left: '0',
-  }
-  let contentContainerLayout: CSSProperties = {
-    width: '100%',
-  }
-
+  useEffect(() => {
+    setTimeout(() => {
+      const labelElement = document.querySelector(`.App`);
+      if (labelElement) {
+        const computedStyle = getComputedStyle(labelElement);
+        document.body.style.setProperty('background-color', computedStyle.backgroundColor);
+        console.log(computedStyle.backgroundColor);
+      }
+    }, 1000)
+  }, [resolvedTheme]);
 
   return (
-    <div className={`App theme-${resolvedTheme} size-and-spacing-${sizeAndSpacing}`}
-      style={{
-        backgroundColor: 'var(--Schemes-Surface)',
-        minHeight: '100dvh',
-        ...appLayout,
-      }}
-    >
+    <div className={`App theme-${resolvedTheme} size-and-spacing-${sizeAndSpacing} ${styles.appLayout}`} style={{ backgroundColor: 'var(--Schemes-Surface)' }}>
       {/* Thanh điều hướng */}
-      <NavigationUnit {...navLayout} />
+      <NavigationUnit />
       <Divider direction='vertical' />
       {/* Content */}
-      <div style={contentContainerLayout}>
+      <div className={styles.contentContainerLayout}>
         <main>
           {children}
         </main>
