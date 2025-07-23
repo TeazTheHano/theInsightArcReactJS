@@ -3,7 +3,7 @@ import { DivFlexColumn, DivFlexRow, DivFlexRowSpaceBetweenCenter } from '../Layo
 import { TextTitleSmall } from '../TextBox/textBox'
 import TheInsightArcLogo from '../../assets/icon/Logo'
 import Divider from '../Divider/Divider'
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import styles from './NavigationUnit.module.css'
@@ -11,42 +11,43 @@ import { ButtonDefault } from '../Button/Button'
 
 export default function NavigationUnit() {
 
-    const navRef = useRef<HTMLDivElement>(null);
-    const [logoWidth, setLogoWidth] = useState(0);
-    const [logoHeight, setLogoHeight] = useState(0);
-
     const [t] = useTranslation('common');
 
-    const calculateLogoContentSize = useCallback(() => {
-        let widthValue = document.getElementById('NavMenu')?.offsetWidth || 0
-        setLogoWidth(widthValue)
+    const navRef = useRef<HTMLDivElement>(null);
+    // const [logoWidth, setLogoWidth] = useState(0);
+    // const [logoHeight, setLogoHeight] = useState(0);
 
-        let heightValue = (document.querySelector('nav [class*="navLogoContainer"] > div') as HTMLElement)?.offsetHeight || 0
-        setLogoHeight(heightValue)
-    }, []);
 
-    useEffect(() => {
-        let observer: ResizeObserver | null = null;
-        if (navRef.current) {
-            observer = new ResizeObserver((entries) => {
-                // Only recalculate if navRef.current size changes
-                if (entries.length > 0 && entries[0].target === navRef.current) {
-                    calculateLogoContentSize();
-                }
-            });
-            observer.observe(navRef.current);
+    // const calculateLogoContentSize = useCallback(() => {
+    //     let widthValue = document.getElementById('NavMenu')?.offsetWidth || 0
+    //     setLogoWidth(widthValue)
 
-            // Initial calculation on mount
-            calculateLogoContentSize();
-        }
+    //     let heightValue = (document.querySelector('nav [class*="navLogoContainer"] > div') as HTMLElement)?.offsetHeight || 0
+    //     setLogoHeight(heightValue)
+    // }, []);
 
-        // Cleanup function for ResizeObserver
-        return () => {
-            if (observer) {
-                observer.disconnect();
-            }
-        };
-    }, [navRef, calculateLogoContentSize]);
+    // useEffect(() => {
+    //     let observer: ResizeObserver | null = null;
+    //     if (navRef.current) {
+    //         observer = new ResizeObserver((entries) => {
+    //             // Only recalculate if navRef.current size changes
+    //             if (entries.length > 0 && entries[0].target === navRef.current) {
+    //                 calculateLogoContentSize();
+    //             }
+    //         });
+    //         observer.observe(navRef.current);
+
+    //         // Initial calculation on mount
+    //         calculateLogoContentSize();
+    //     }
+
+    //     // Cleanup function for ResizeObserver
+    //     return () => {
+    //         if (observer) {
+    //             observer.disconnect();
+    //         }
+    //     };
+    // }, [navRef, calculateLogoContentSize]);
 
     // const [isNavVisible, setIsNavVisible] = useState(true);
     // const lastScrollY = useRef(0);
@@ -99,75 +100,78 @@ export default function NavigationUnit() {
     const [logoSubButtonIcon, setLogoSubButtonIcon] = useState('dehaze');
 
     return (
-        <nav className={styles.nav}>
-
-            <DivFlexRowSpaceBetweenCenter className={styles.navLogoContainer}>
-                {/* Logo icon */}
-                <Link to="/">
-                    <DivFlexRow
-                        id='NavLogo'
-                        className={styles.navLogo}
-                        style={{
-                            width: logoWidth,
-                            height: logoHeight || 'auto',
-                        }}>
-                        <TheInsightArcLogo fillColor='var(--Schemes-On-Surface)' />
-                    </DivFlexRow>
-                </Link>
-
-                {/* Logo sub button */}
-                <DivFlexRow>
-                    <Link to="/" className={styles.linkObject}>
-                        <DivFlexRow style={{
-                            padding: 'var(--Padding-and-Margin-PM-m1, 12px) var(--Padding-and-Margin-PM-0, 24px)',
-                            alignItems: 'center',
-                        }}>
-                            <TextTitleSmall className={styles.linkText} color='var(--Schemes-On-Surface-Variant)' children={t('nav-item-6')} />
+        <>
+            <nav className={styles.nav}>
+                <DivFlexRowSpaceBetweenCenter className={styles.navLogoContainer}>
+                    {/* Logo icon */}
+                    <Link to="/">
+                        <DivFlexRow
+                            id='NavLogo'
+                            className={styles.navLogo}
+                        // style={{
+                        //     width: logoWidth,
+                        //     height: logoHeight || 'auto',
+                        // }}
+                        >
+                            <TheInsightArcLogo fillColor='var(--Schemes-On-Surface)' />
                         </DivFlexRow>
                     </Link>
-                    <ButtonDefault
-                        onClick={() => {
-                            document.getElementsByClassName(styles.navMenu)[0].classList.toggle(styles.hideSm)
-                            setLogoSubButtonIcon(logoSubButtonIcon === 'dehaze' ? 'cancel_filled' : 'dehaze')
-                        }}
-                        styleMode='Text'
-                        iconMain={logoSubButtonIcon}
-                    />
-                </DivFlexRow>
+
+                    {/* Logo sub button */}
+                    <DivFlexRow>
+                        <Link to="/" className={styles.linkObject}>
+                            <DivFlexRow style={{
+                                padding: 'var(--Padding-and-Margin-PM-m1, 12px) var(--Padding-and-Margin-PM-0, 24px)',
+                                alignItems: 'center',
+                            }}>
+                                <TextTitleSmall className={styles.linkText} color='var(--Schemes-On-Surface-Variant)' children={t('nav-item-6')} />
+                            </DivFlexRow>
+                        </Link>
+                        <ButtonDefault
+                            onClick={() => {
+                                document.getElementsByClassName(styles.navMenu)[0].classList.toggle(styles.hideSm)
+                                setLogoSubButtonIcon(logoSubButtonIcon === 'dehaze' ? 'cancel_filled' : 'dehaze')
+                            }}
+                            styleMode='Text'
+                            iconMain={logoSubButtonIcon}
+                        />
+                    </DivFlexRow>
 
 
-            </DivFlexRowSpaceBetweenCenter >
-            <Divider />
+                </DivFlexRowSpaceBetweenCenter >
+                <Divider />
 
-            {/* Nav Menu */}
-            <DivFlexColumn
-                id='NavMenu'
-                ref={navRef}
-                className={[
-                    styles.navMenu, styles.hideSm,
-                    // !isNavVisible ? styles.navHidden : ""
-                ].join(' ')}>
-                {navItems}
-            </DivFlexColumn>
+                {/* Nav Menu */}
+                <DivFlexColumn
+                    id='NavMenu'
+                    ref={navRef}
+                    className={[
+                        styles.navMenu, styles.hideSm,
+                        // !isNavVisible ? styles.navHidden : ""
+                    ].join(' ')}>
+                    {navItems}
+                </DivFlexColumn>
 
-            {/* Other in nav */}
-            <Divider className={styles.hideMdSm} />
-            <DivFlexColumn
-                className={[styles.navMenu, styles.hideMdSm].join(' ')}
-                style={{ flex: 1 }}>
-                <Link to="/" className={styles.linkObject}>
-                    <TextTitleSmall className={styles.linkText} color='var(--Schemes-On-Surface-Variant)' children={t('nav-item-6')} />
-                </Link>
-            </DivFlexColumn>
+                {/* Other in nav */}
+                <Divider className={styles.hideMdSm} />
+                <DivFlexColumn
+                    className={[styles.navMenu, styles.hideMdSm].join(' ')}
+                    style={{ flex: 1 }}>
+                    <Link to="/" className={styles.linkObject}>
+                        <TextTitleSmall className={styles.linkText} color='var(--Schemes-On-Surface-Variant)' children={t('nav-item-6')} />
+                    </Link>
+                </DivFlexColumn>
 
-            {/* Nav bottom */}
-            <Divider className={styles.hideMdSm} />
-            <DivFlexColumn
-                className={[styles.navMenu, styles.hideMdSm].join(' ')}>
-                <Link to="/test" className={styles.linkObject}>
-                    <TextTitleSmall className={styles.linkText} color='var(--Schemes-On-Surface-Variant)' children={t('nav-item-7')} />
-                </Link>
-            </DivFlexColumn>
-        </nav >
+                {/* Nav bottom */}
+                <Divider className={styles.hideMdSm} />
+                <DivFlexColumn
+                    className={[styles.navMenu, styles.hideMdSm].join(' ')}>
+                    <Link to="/test" className={styles.linkObject}>
+                        <TextTitleSmall className={styles.linkText} color='var(--Schemes-On-Surface-Variant)' children={t('nav-item-7')} />
+                    </Link>
+                </DivFlexColumn>
+            </nav >
+            <Divider direction='vertical' className={styles.hideMdSm} />
+        </>
     )
 }

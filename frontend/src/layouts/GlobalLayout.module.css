@@ -7,7 +7,8 @@
 }
 
 .contentContainerLayout {
-    width: 100%;
+    flex: 1;
+    overflow-x: hidden;
 }
 
 :global(body.size-and-spacing-md) .appLayout,

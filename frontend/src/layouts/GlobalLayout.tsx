@@ -52,7 +52,7 @@ export default function GlobalLayout({ children }: { children: React.ReactNode }
     <div className={`App theme-${resolvedTheme} size-and-spacing-${sizeAndSpacing} ${styles.appLayout}`} style={{ backgroundColor: 'var(--Schemes-Surface)' }}>
       {/* Thanh điều hướng */}
       <NavigationUnit />
-      <Divider direction='vertical' />
+
       {/* Content */}
       <div className={styles.contentContainerLayout}>
         <main>
