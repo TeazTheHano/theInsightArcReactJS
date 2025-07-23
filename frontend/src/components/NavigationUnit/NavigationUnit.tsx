@@ -81,15 +81,15 @@ export default function NavigationUnit() {
     // }, [handleScroll]);
 
     const navItemsData = [
-        { key: 'nav-item-1', supText: null },
-        { key: 'nav-item-2', supText: '01' },
-        { key: 'nav-item-3', supText: '02' },
-        { key: 'nav-item-4', supText: '03' },
-        { key: 'nav-item-5', supText: '04' },
+        { href: '/', key: 'nav-item-1', supText: null },
+        { href: '/', key: 'nav-item-2', supText: '01' },
+        { href: '/', key: 'nav-item-3', supText: '02' },
+        { href: '/', key: 'nav-item-4', supText: '03' },
+        { href: '/', key: 'nav-item-5', supText: '04' },
     ];
 
-    const navItems = navItemsData.map(({ key, supText }, index) => (
-        <Link key={index} to="/" className={styles.linkObject}>
+    const navItems = navItemsData.map(({ href, key, supText }, index) => (
+        <Link key={index} to={href} aria-label={t(key)} className={styles.linkObject}>
             <TextTitleSmall className={styles.linkText}>
                 {t(key)}
                 {supText && <sup><b className={styles.linkTextSmall}>{supText}</b></sup>}
@@ -104,7 +104,7 @@ export default function NavigationUnit() {
             <nav className={styles.nav}>
                 <DivFlexRowSpaceBetweenCenter className={styles.navLogoContainer}>
                     {/* Logo icon */}
-                    <Link to="/">
+                    <Link to="/" aria-label='Logo'>
                         <DivFlexRow
                             id='NavLogo'
                             className={styles.navLogo}
@@ -119,7 +119,7 @@ export default function NavigationUnit() {
 
                     {/* Logo sub button */}
                     <DivFlexRow>
-                        <Link to="/" className={styles.linkObject}>
+                        <Link to="/" aria-label={t('nav-item-6')} className={styles.linkObject}>
                             <DivFlexRow style={{
                                 padding: 'var(--Padding-and-Margin-PM-m1, 12px) var(--Padding-and-Margin-PM-0, 24px)',
                                 alignItems: 'center',
@@ -128,6 +128,7 @@ export default function NavigationUnit() {
                             </DivFlexRow>
                         </Link>
                         <ButtonDefault
+                            label={t('nav-item-8')}
                             onClick={() => {
                                 document.getElementsByClassName(styles.navMenu)[0].classList.toggle(styles.hideSm)
                                 setLogoSubButtonIcon(logoSubButtonIcon === 'dehaze' ? 'cancel_filled' : 'dehaze')
@@ -156,8 +157,11 @@ export default function NavigationUnit() {
                 <Divider className={styles.hideMdSm} />
                 <DivFlexColumn
                     className={[styles.navMenu, styles.hideMdSm].join(' ')}
-                    style={{ flex: 1 }}>
-                    <Link to="/" className={styles.linkObject}>
+                    style={{
+                        flex: 1,
+                        color: 'var(--Schemes-On-Surface-Variant)'
+                    }}>
+                    <Link to="/" aria-label={t('nav-item-6')} className={styles.linkObject}>
                         <TextTitleSmall className={styles.linkText} color='var(--Schemes-On-Surface-Variant)' children={t('nav-item-6')} />
                     </Link>
                 </DivFlexColumn>
@@ -166,7 +170,7 @@ export default function NavigationUnit() {
                 <Divider className={styles.hideMdSm} />
                 <DivFlexColumn
                     className={[styles.navMenu, styles.hideMdSm].join(' ')}>
-                    <Link to="/test" className={styles.linkObject}>
+                    <Link to="/test" aria-label={t('nav-item-7')} className={styles.linkObject}>
                         <TextTitleSmall className={styles.linkText} color='var(--Schemes-On-Surface-Variant)' children={t('nav-item-7')} />
                     </Link>
                 </DivFlexColumn>

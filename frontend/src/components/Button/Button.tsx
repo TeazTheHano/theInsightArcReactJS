@@ -5,6 +5,7 @@ import { IconGen } from '../../assets/icon/OtherIcon';
 interface ButtonProps {
     onClick?: () => void;
     children?: React.ReactNode;
+    label: string;
     className?: string;
     style?: React.CSSProperties;
     disabled?: boolean;
@@ -23,6 +24,7 @@ interface ButtonProps {
 const ButtonWithRef = forwardRef<HTMLButtonElement, ButtonProps>(({
     onClick,
     children,
+    label,
     className = '',
     style = {},
     disabled = false,
@@ -118,6 +120,7 @@ const ButtonWithRef = forwardRef<HTMLButtonElement, ButtonProps>(({
     return (
         <button
             ref={ref}
+            aria-label={label}
             onClick={handleClick}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}

@@ -36,6 +36,7 @@ export default function Footer() {
             <DivFlexColumn>
                 <ButtonDefault
                     children='@the_insightarc'
+                    label='Contact us on instagram: @the_insightarc'
                     styleMode='Text'
                     colorMode='Primary'
                     iconMain={'instagram'}
@@ -45,6 +46,7 @@ export default function Footer() {
                 />
                 <ButtonDefault
                     children='contact@theinsightarc.id.vn'
+                    label='Contact us via email: contact@theinsightarc.id.vn'
                     styleMode='Text'
                     colorMode='Primary'
                     iconMain={'mail'}
@@ -58,11 +60,11 @@ export default function Footer() {
             <DivFlexRow
                 style={{ gap: 'var(--Gap-Gap-m2, 24px)', }}
             >
-                <ButtonDefault onClick={() => { setTheme('system') }} children='Reset theme' />
+                <ButtonDefault onClick={() => { setTheme('system') }} children='Reset theme' label='theme' />
                 <ButtonDefault onClick={() => {
                     setTheme(theme === 'light' ? 'dark' : 'light')
-                }} children='Toggle theme' />
-                <ButtonDefault onClick={() => { changeLanguage(i18n.language != 'en' ? 'en' : 'vi') }} children={i18n.language != 'en' ? 'English' : 'Tiếng Việt'} />
+                }} children='Toggle theme' label='theme' />
+                <ButtonDefault onClick={() => { changeLanguage(i18n.language != 'en' ? 'en' : 'vi') }} children={i18n.language != 'en' ? 'English' : 'Tiếng Việt'} label='language' />
             </DivFlexRow>
         </footer >
     )
