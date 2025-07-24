@@ -1,20 +1,3 @@
-// CM state layer opacity:
-.CM-state-layer-opacity-enabled-and-disabled {
-    opacity: 0;
-}
-
-.CM-state-layer-opacity-hover {
-    opacity: 0.12;
-}
-
-.CM-state-layer-opacity-pressed-and-focused {
-    opacity: 0.20;
-}
-
-.CM-state-layer-opacity-dragged {
-    opacity: 0.24;
-}
-
 // CM Border Radius
 .CM-border-radius-mode-none {
     border-radius: var(--Border-radius-BR-none);

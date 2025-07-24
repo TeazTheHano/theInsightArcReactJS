@@ -16,6 +16,10 @@ $Stroke-Stroke-none: 0px;
 $Stroke-Stroke-1: 1px;
 $Stroke-Stroke-2: 2px;
 $Stroke-Stroke-3: 3px;
+$CM-state-layer-opacity-enabled-and-disabled: 0;
+$CM-state-layer-opacity-hover: 0.12;
+$CM-state-layer-opacity-pressed-and-focused: 0.20;
+$CM-state-layer-opacity-dragged: 0.24;
 
 %var-key-value {
     --Typeface-Font-family-1: #{$Typeface-Font-family-1};
@@ -35,4 +39,8 @@ $Stroke-Stroke-3: 3px;
     --Stroke-Stroke-1: #{$Stroke-Stroke-1};
     --Stroke-Stroke-2: #{$Stroke-Stroke-2};
     --Stroke-Stroke-3: #{$Stroke-Stroke-3};
+    --CM-state-layer-opacity-enabled-and-disabled: #{$CM-state-layer-opacity-enabled-and-disabled};
+    --CM-state-layer-opacity-hover: #{$CM-state-layer-opacity-hover};
+    --CM-state-layer-opacity-pressed-and-focused: #{$CM-state-layer-opacity-pressed-and-focused};
+    --CM-state-layer-opacity-dragged: #{$CM-state-layer-opacity-dragged};
 }

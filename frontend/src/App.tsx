@@ -9,6 +9,7 @@ import LandingPage from './pages/LandingPage/LandingPage';
 import Test from './pages/Test';
 
 import './i18n';
+import NotFoundPage from './pages/NotFoundPage';
 
 export default function App() {
 
@@ -22,6 +23,9 @@ export default function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/test" element={<Test />} />
+
+            {/* 404 */}
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </GlobalLayout>
       </ThemeProvider>

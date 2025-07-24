@@ -73,6 +73,29 @@ export const DivFlexRowCenter: React.FC<LayoutDivProps> = ({
     )
 }
 
+export const DivFlexRowStretch: React.FC<LayoutDivProps> = ({
+    children,
+    id,
+    className,
+    style = {},
+    onClick,
+    ...rest
+}) => {
+    return (
+        <div className={className} id={id}
+            style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'stretch',
+                justifyContent: 'center',
+                ...style
+            }}
+            onClick={onClick} {...rest}>
+            {children}
+        </div>
+    )
+}
+
 export const DivFlexColumnCenter: React.FC<LayoutDivProps> = ({
     children,
     id,

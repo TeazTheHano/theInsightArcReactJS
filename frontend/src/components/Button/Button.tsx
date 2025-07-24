@@ -9,8 +9,9 @@ interface ButtonProps {
     className?: string;
     style?: React.CSSProperties;
     disabled?: boolean;
+    autoFocus?: boolean;
     type?: 'button' | 'submit' | 'reset';
-    styleMode?: 'Filled' | 'Outlined' | 'Text';
+    styleMode?: 'Filled' | 'Outlined' | 'Text' | 'Elevated';
     variantMode?: 'Default' | 'Icon' | 'IconRatio1W' | 'IconRatio1H' | 'Extreme'; //IconRatio1 mean it 1:1 width and height
     colorMode?: 'Primary' | 'Secondary' | 'Tertiary';
     scale?: `0_75` | `1` | `1_5` | `2`;
@@ -18,7 +19,6 @@ interface ButtonProps {
     iconMain?: React.ReactNode | string;
     iconRight?: React.ReactNode | string;
     borderRadius?: 'none' | 'default' | 'rounded' | number;
-    autoFocus?: boolean;
 }
 
 const ButtonWithRef = forwardRef<HTMLButtonElement, ButtonProps>(({
@@ -133,7 +133,6 @@ const ButtonWithRef = forwardRef<HTMLButtonElement, ButtonProps>(({
             type={type}
             style={{
                 borderRadius: typeof borderRadius === 'number' ? `${borderRadius}px` : undefined,
-                width: 'fit-content',
                 ...style,
             }}
             autoFocus={autoFocus}

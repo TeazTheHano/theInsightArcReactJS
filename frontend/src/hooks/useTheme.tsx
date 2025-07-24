@@ -2,7 +2,7 @@
 import { useState, useEffect, createContext, useContext, type ReactNode } from 'react';
 
 // Định nghĩa các loại theme có thể có, bao gồm 'system'
-type Theme = 'light' | 'dark' | 'light-medium-contrast' | 'light-high-contrast' | 'system';
+export type Theme = 'light' | 'dark' | 'light-medium-contrast' | 'light-high-contrast' | 'system';
 
 // Định nghĩa kiểu cho Context Value
 interface ThemeContextType {

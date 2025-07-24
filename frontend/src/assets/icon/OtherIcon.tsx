@@ -83,6 +83,12 @@ export const IconGen = ({ fillColor, width = '100%', height = '100%', svgName, c
                 </g>
             </svg>,
 
+        check: <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none">
+            <g mask="url(#mask0_347_28680)">
+                <path d="M9.93193 18.4503L4.23193 12.7503L5.65693 11.3253L9.93193 15.6003L19.1069 6.42527L20.5319 7.85027L9.93193 18.4503Z" fill={currentFill} />
+            </g>
+        </svg>,
+
     }
 
     return (

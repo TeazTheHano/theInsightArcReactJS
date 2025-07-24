@@ -1,9 +1,10 @@
 import { ButtonDefault } from '../Button/Button'
-import { useTheme } from '../../hooks/useTheme'
+import { useTheme, type Theme } from '../../hooks/useTheme'
 import { TextBodySmall, TextHeadlineLarge } from '../TextBox/textBox'
 import { DivFlexColumn, DivFlexRow } from '../LayoutDiv/LayoutDiv'
 import i18n from '../../i18n'
 import { useTranslation } from 'react-i18next'
+import SegmentedButton from '../Button/SegmentedButton'
 
 export default function Footer() {
 
@@ -57,15 +58,32 @@ export default function Footer() {
             </DivFlexColumn>
 
             {/* change themes */}
-            <DivFlexRow
-                style={{ gap: 'var(--Gap-Gap-m2, 24px)', }}
-            >
-                <ButtonDefault onClick={() => { setTheme('system') }} children='Reset theme' label='theme' />
-                <ButtonDefault onClick={() => {
-                    setTheme(theme === 'light' ? 'dark' : 'light')
-                }} children='Toggle theme' label='theme' />
-                <ButtonDefault onClick={() => { changeLanguage(i18n.language != 'en' ? 'en' : 'vi') }} children={i18n.language != 'en' ? 'English' : 'Tiếng Việt'} label='language' />
-            </DivFlexRow>
+
+            <SegmentedButton
+                dataList={[
+                    { label: 'English', value: 'en' },
+                    { label: 'Tiếng Việt', value: 'vi' },
+                ]}
+                onChange={(value: string) => {
+                    changeLanguage(value)
+                }}
+                preSelected={i18n.language}
+            />
+
+            <SegmentedButton
+                dataList={[
+                    { label: 'Light', value: 'light' },
+                    { label: 'Dark', value: 'dark' },
+                    { label: 'Light Medium Constrast', value: 'light-medium-contrast' },
+                    { label: 'Light High Constrast', value: 'light-high-contrast' },
+                    { label: 'System', value: 'system' }
+                ]}
+                onChange={(value: string) => {
+                    setTheme(value as Theme)
+                }}
+                preSelected={theme}
+                styleMode='Outlined'
+            />
         </footer >
     )
 }

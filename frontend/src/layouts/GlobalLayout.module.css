@@ -15,3 +15,7 @@
 :global(body.size-and-spacing-sm) .appLayout {
     flex-direction: column;
 }
+
+main {
+    min-height: 60dvh;
+}
