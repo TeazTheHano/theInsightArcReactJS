@@ -1,6 +1,6 @@
 import { ButtonDefault } from '../components/Button/Button';
 import SegmentedButton from '../components/Button/SegmentedButton';
-import { DivFlexColumn, DivFlexRowCenter } from '../components/LayoutDiv/LayoutDiv';
+import { DivFlexColumn } from '../components/LayoutDiv/LayoutDiv';
 
 export default function Test() {
 

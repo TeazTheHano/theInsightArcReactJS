@@ -1,10 +1,11 @@
 import { ButtonDefault } from '../Button/Button'
 import { useTheme, type Theme } from '../../hooks/useTheme'
 import { TextBodySmall, TextHeadlineLarge } from '../TextBox/textBox'
-import { DivFlexColumn, DivFlexRow } from '../LayoutDiv/LayoutDiv'
+import { DivFlexColumn } from '../LayoutDiv/LayoutDiv'
 import i18n from '../../i18n'
 import { useTranslation } from 'react-i18next'
 import SegmentedButton from '../Button/SegmentedButton'
+import Divider from '../Divider/Divider'
 
 export default function Footer() {
 
@@ -69,13 +70,14 @@ export default function Footer() {
                 }}
                 preSelected={i18n.language}
             />
+            <Divider />
 
             <SegmentedButton
                 dataList={[
                     { label: 'Light', value: 'light' },
                     { label: 'Dark', value: 'dark' },
-                    { label: 'Light Medium Constrast', value: 'light-medium-contrast' },
-                    { label: 'Light High Constrast', value: 'light-high-contrast' },
+                    { label: 'Light Medium Contrast', value: 'light-medium-contrast' },
+                    { label: 'Light High Contrast', value: 'light-high-contrast' },
                     { label: 'System', value: 'system' }
                 ]}
                 onChange={(value: string) => {
@@ -84,6 +86,7 @@ export default function Footer() {
                 preSelected={theme}
                 styleMode='Outlined'
             />
+
         </footer >
     )
 }

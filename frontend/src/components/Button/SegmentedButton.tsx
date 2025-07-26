@@ -77,30 +77,32 @@ const SegmentedButton: React.FC<SegmentedButtonProps> = ({
                 ) : null;
 
                 return (
-                    <button
-                        key={item.value}
-                        onClick={() => handleButtonClick(item.value)}
-                        disabled={isDisabled}
-                        aria-label={item.label}
-                        className={buttonClass}
-                        style={{
-                            ...borderRadiusStyle,
-                            ...style
-                        }}
-                    >
-                        <div
-                            className={[
-                                segmentedButtonStyle.stateLayer,
-                                segmentedButtonStyle[`colorMode${colorMode}`],
-                            ].filter(Boolean).join(' ')}
-                        />
-                        {iconElement}
-                        {item.label && (
-                            <span className={[segmentedButtonStyle.layoutLabel, 'typography-system-medium'].join(' ')}>
-                                {item.label}
-                            </span>
-                        )}
-                    </button>
+                    <>
+                        <button
+                            key={item.value}
+                            onClick={() => handleButtonClick(item.value)}
+                            disabled={isDisabled}
+                            aria-label={item.label}
+                            className={buttonClass}
+                            style={{
+                                ...borderRadiusStyle,
+                                ...style,
+                            }}
+                        >
+                            <div
+                                className={[
+                                    segmentedButtonStyle.stateLayer,
+                                    segmentedButtonStyle[`colorMode${colorMode}`],
+                                ].filter(Boolean).join(' ')}
+                            />
+                            {iconElement}
+                            {item.label && (
+                                <span className={[segmentedButtonStyle.layoutLabel, 'typography-system-medium'].join(' ')}>
+                                    {item.label}
+                                </span>
+                            )}
+                        </button>
+                    </>
                 );
             })}
         </DivFlexRowCenter>

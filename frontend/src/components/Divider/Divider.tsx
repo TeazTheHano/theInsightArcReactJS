@@ -18,12 +18,12 @@ const Divider: React.FC<DividerProps> = ({ direction, color, thickness, length, 
     const styles: CSSProperties = {
         backgroundColor: color || 'var(--Schemes-Outline)',
         height: direction === 'horizontal' ? thickness || 1 : length || 'auto',
-        width: direction === 'vertical' ? thickness || 1 : length || 'auto',
+        width: direction === 'vertical' ? thickness || 1 : length || '100%',
         ...style,
     };
 
     return <div
-        className={`Divider-${direction} ${className}`}
+        className={`Divider-${direction} ${className || ''}`}
         style={styles}
         {...rest}
     />;
