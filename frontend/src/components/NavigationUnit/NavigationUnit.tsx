@@ -3,82 +3,17 @@ import { DivFlexColumn, DivFlexRow, DivFlexRowSpaceBetweenCenter } from '../Layo
 import { TextTitleSmall } from '../TextBox/textBox'
 import TheInsightArcLogo from '../../assets/icon/Logo'
 import Divider from '../Divider/Divider'
-import { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import styles from './NavigationUnit.module.css'
 import { ButtonDefault } from '../Button/Button'
 
-export default function NavigationUnit() {
+const NavigationUnit: React.FC = () => {
 
     const [t] = useTranslation('common');
 
     const navRef = useRef<HTMLDivElement>(null);
-    // const [logoWidth, setLogoWidth] = useState(0);
-    // const [logoHeight, setLogoHeight] = useState(0);
-
-
-    // const calculateLogoContentSize = useCallback(() => {
-    //     let widthValue = document.getElementById('NavMenu')?.offsetWidth || 0
-    //     setLogoWidth(widthValue)
-
-    //     let heightValue = (document.querySelector('nav [class*="navLogoContainer"] > div') as HTMLElement)?.offsetHeight || 0
-    //     setLogoHeight(heightValue)
-    // }, []);
-
-    // useEffect(() => {
-    //     let observer: ResizeObserver | null = null;
-    //     if (navRef.current) {
-    //         observer = new ResizeObserver((entries) => {
-    //             // Only recalculate if navRef.current size changes
-    //             if (entries.length > 0 && entries[0].target === navRef.current) {
-    //                 calculateLogoContentSize();
-    //             }
-    //         });
-    //         observer.observe(navRef.current);
-
-    //         // Initial calculation on mount
-    //         calculateLogoContentSize();
-    //     }
-
-    //     // Cleanup function for ResizeObserver
-    //     return () => {
-    //         if (observer) {
-    //             observer.disconnect();
-    //         }
-    //     };
-    // }, [navRef, calculateLogoContentSize]);
-
-    // const [isNavVisible, setIsNavVisible] = useState(true);
-    // const lastScrollY = useRef(0);
-
-    // const handleScroll = useCallback(() => {
-    //     const currentScrollY = window.scrollY;
-
-    //     // Luôn hiển thị nav khi ở đầu trang
-    //     if (currentScrollY <= 20) {
-    //         setIsNavVisible(true);
-    //     }
-    //     // Ẩn nav khi cuộn xuống
-    //     else if (currentScrollY > lastScrollY.current) {
-    //         setIsNavVisible(false);
-    //     }
-    //     // Hiện nav khi cuộn lên
-    //     else if (currentScrollY < lastScrollY.current) {
-    //         setIsNavVisible(true);
-    //     }
-
-    //     // Cập nhật vị trí cuộn cuối cùng
-    //     lastScrollY.current = currentScrollY;
-    // }, []);
-
-    // useEffect(() => {
-    //     window.addEventListener('scroll', handleScroll);
-
-    //     return () => {
-    //         window.removeEventListener('scroll', handleScroll);
-    //     };
-    // }, [handleScroll]);
 
     const navItemsData = [
         { href: '/', key: 'nav-item-1', supText: null },
@@ -179,3 +114,5 @@ export default function NavigationUnit() {
         </>
     )
 }
+
+export default React.memo(NavigationUnit)

@@ -1,6 +1,6 @@
 import { ButtonDefault } from '../Button/Button'
 import { useTheme, type Theme } from '../../hooks/useTheme'
-import { TextBodySmall, TextHeadlineLarge } from '../TextBox/textBox'
+import { TextBodySmall, TextHeadlineLarge, TextHeadlineSmall } from '../TextBox/textBox'
 import { DivFlexColumn } from '../LayoutDiv/LayoutDiv'
 import i18n from '../../i18n'
 import { useTranslation } from 'react-i18next'
@@ -60,6 +60,9 @@ export default function Footer() {
 
             {/* change themes */}
 
+            <Divider />
+            <TextHeadlineSmall children='Theme' />
+
             <SegmentedButton
                 dataList={[
                     { label: 'English', value: 'en' },
@@ -70,7 +73,6 @@ export default function Footer() {
                 }}
                 preSelected={i18n.language}
             />
-            <Divider />
 
             <SegmentedButton
                 dataList={[

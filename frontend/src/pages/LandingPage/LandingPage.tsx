@@ -6,10 +6,32 @@ import { ButtonDefault } from '../../components/Button/Button'
 import { TextBodyMedium, TextDisplayMedium, TextHeadlineLarge, TextHeadlineSmall } from '../../components/TextBox/textBox'
 import Divider from '../../components/Divider/Divider'
 import { Trans, useTranslation } from 'react-i18next'
+import BlogItemSingle, { type BlogItemProps } from '../../components/Blog/BlogItemSingle'
 
 function LandingPage() {
 
     const { t } = useTranslation('landingPage')
+
+    const item111: BlogItemProps[] = [
+        {
+            title: 'Đây là một tiêu đề bài viết mẫu',
+            description: 'Blog Description 1',
+            image: 'placeholder',
+            link: '/test'
+        },
+        {
+            title: 'Blog Title 1',
+            description: 'Blog Description 1',
+            image: 'placeholder',
+            link: '/test'
+        },
+        {
+            title: 'Blog Title 1',
+            description: 'Blog Description 1',
+            image: 'placeholder',
+            link: '/test'
+        },
+    ]
 
     return (
 
@@ -128,9 +150,9 @@ function LandingPage() {
                     </DivFlexColumn>
                 </DivFlexRow>
                 {/* blog list */}
-                <DivFlexColumn style={{ gap: `var(--Gap-Gap-0, 24px)`, flex: 1 }}>
-                    <LazyImage errorMessage='Will update sooooon' onErrorIcon="🙆" src='placeholder' alt='' aspectRatio='21/9' />
-                </DivFlexColumn>
+                <DivFlexRow className='shiftVerticalSm' style={{ gap: `var(--Gap-Gap-0, 24px)`, flex: 1 }}>
+                    <BlogItemSingle dataList={item111} />
+                </DivFlexRow>
             </DivFlexColumn>
 
             {/* 6 Game */}
@@ -154,9 +176,15 @@ function LandingPage() {
                     </DivFlexColumn>
                 </DivFlexRow>
                 {/* blog list */}
-                <DivFlexColumn style={{ gap: `var(--Gap-Gap-0, 24px)`, flex: 1 }}>
-                    <LazyImage errorMessage='Will update sooooon' onErrorIcon="🙆" src='placeholder' alt='' aspectRatio='21/9' />
-                </DivFlexColumn>
+                <DivFlexRow className='shiftVerticalSm shiftVerticalMd' style={{ gap: `var(--Gap-Gap-0, 24px)`, flex: 1 }}>
+                    <DivFlexRow style={{ gap: `var(--Gap-Gap-0, 24px)`, flex: 1 }}>
+                        <TextHeadlineSmall children={t('section-6-subTitle-1')} />
+                        
+                    </DivFlexRow>
+                    <DivFlexRow style={{ gap: `var(--Gap-Gap-0, 24px)`, flex: 1 }}>
+                        <TextHeadlineSmall children={t('section-6-subTitle-2')} />
+                    </DivFlexRow>
+                </DivFlexRow>
             </DivFlexColumn>
 
         </div >

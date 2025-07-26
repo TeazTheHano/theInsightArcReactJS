@@ -8,6 +8,8 @@ const BLANK_IMAGE_SRC = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAA
 interface LazyImageProps extends React.HTMLAttributes<HTMLDivElement> {
     src: string;
     alt: string;
+    srcSet?: string; // For responsive images, e.g. "image-300.jpg 300w, image-600.jpg 600w"
+    sizes?: string; // For responsive images, e.g. "(max-width: 600px) 480px, 800px"
     width?: number | string; // Can be a number (px) or a string (e.g., "100%", "300px", "50vw")
     height?: number | string; // Can be a number (px) or a string (e.g., "auto", "200px", "30vh")
     aspectRatio?: string; // e.g., "16/9", "4/3", "1/1" for the CSS `aspect-ratio` property
@@ -22,6 +24,8 @@ interface LazyImageProps extends React.HTMLAttributes<HTMLDivElement> {
 const LazyImageComponent: React.FC<LazyImageProps> = ({
     src,
     alt,
+    srcSet,
+    sizes,
     width, // Mặc định là 100% chiều rộng
     height,
     aspectRatio,
@@ -77,10 +81,6 @@ const LazyImageComponent: React.FC<LazyImageProps> = ({
 
     // --- Logic for handling size and aspect ratio using modern CSS ---
     const wrapperStyles = useMemo((): React.CSSProperties => {
-        // This simplified approach relies on CSS's natural handling of aspect-ratio.
-        // If width and aspectRatio are provided, height will be calculated by the browser.
-        // If height and aspectRatio are provided, width will be calculated.
-        // This prevents layout shifts effectively with less complex logic.
         return {
             width: typeof width === 'number' ? `${width}px` : width,
             height: typeof height === 'number' ? `${height}px` : height,
@@ -111,11 +111,15 @@ const LazyImageComponent: React.FC<LazyImageProps> = ({
                     <img
                         ref={imgRef}
                         src={imageSrc}
+                        srcSet={srcSet}
+                        sizes={sizes}
                         alt={alt}
                         onLoad={handleImageLoad}
                         onError={handleImageError}
                         className={`${styles.image} ${isLoading ? styles.hidden : ''}`}
                         loading="lazy"
+                        width={'100%'}
+                        height={'100%'}
                     />
                 </>
             )}

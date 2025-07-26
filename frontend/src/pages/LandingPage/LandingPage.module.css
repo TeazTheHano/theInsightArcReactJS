@@ -14,6 +14,7 @@
 
 :global(body.size-and-spacing-sm) .wrapperLayout,
 :global(body.size-and-spacing-sm) .wrapperLayoutVer2_itemWrapper,
-:global(body.size-and-spacing-md) [class*='shiftVerticalMd'] {
+:global(body.size-and-spacing-md) [class*='shiftVerticalMd'],
+:global(body.size-and-spacing-sm) [class*='shiftVerticalSm'] {
     flex-direction: column !important;
 }

@@ -34,6 +34,7 @@ const SegmentedButton: React.FC<SegmentedButtonProps> = ({
 }) => {
 
     const [selectedValue, setSelectedValue] = React.useState(preSelected);
+    const containerRef = React.useRef<HTMLDivElement>(null);
 
     const buttonClass = useMemo(() => {
         return [
@@ -57,8 +58,29 @@ const SegmentedButton: React.FC<SegmentedButtonProps> = ({
     const borderRadiusClass = typeof borderRadius !== 'number' ? `CM-border-radius-mode-${borderRadius}` : '';
     const borderRadiusStyle = typeof borderRadius === 'number' ? { borderRadius: `${borderRadius}px` } : {};
 
+    // Effect to equalize button heights
+    React.useEffect(() => {
+        if (!containerRef.current) return;
+        const buttons = Array.from(containerRef.current.querySelectorAll('button'));
+        if (buttons.length === 0) return;
+
+        // Reset heights
+        buttons.forEach(btn => {
+            (btn as HTMLElement).style.height = 'auto';
+        });
+
+        // Find max height
+        const maxHeight = Math.max(...buttons.map(btn => (btn as HTMLElement).offsetHeight));
+
+        // Set all buttons to max height
+        buttons.forEach(btn => {
+            (btn as HTMLElement).style.height = `${maxHeight}px`;
+        });
+    }, [dataList, styleMode, colorMode, selectedValue]);
+
     return (
         <DivFlexRowCenter
+            ref={containerRef}
             className={[borderRadiusClass, className, segmentedButtonStyle.buttonWrapper].filter(Boolean).join(' ')}
             style={{ ...borderRadiusStyle }}
         >

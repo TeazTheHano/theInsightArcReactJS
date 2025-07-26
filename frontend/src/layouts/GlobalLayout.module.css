@@ -4,6 +4,8 @@
     width: 100%;
     background-color: var(--Schemes-Surface);
     min-height: 100dvh;
+    max-width: var(--PAGE-Prop-Page-Content-max-width);
+    margin: 0 auto;
 }
 
 .contentContainerLayout {
@@ -18,4 +20,5 @@
 
 main {
     min-height: 60dvh;
+    flex: 1;
 }
