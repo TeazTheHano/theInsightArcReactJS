@@ -19,7 +19,7 @@
   margin: 0;
   font-family: 'Inconsolata', 'Roboto', sans-serif;
 
-  @import './keyValue.css.scss';
+  @import './keyValue.scss';
   @extend %var-key-value;
   @import './ShadowEffect/shadow';
   @extend %variable-shadow;
