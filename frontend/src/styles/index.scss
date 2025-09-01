@@ -58,10 +58,10 @@
 @import "./_styleMode.css";
 
 // Size and Spacing:
-@import './SizeAndSpacing/value.css';
+@import './SizeAndSpacing/SizeAndSpacing.css';
 
 // Typography system:
-@import "./TypoResponsive/value.css";
+@import "./TypoResponsive/TypoResponsive.css";
 
 .typography-system-large {
   @import './TypographySystem/large';
