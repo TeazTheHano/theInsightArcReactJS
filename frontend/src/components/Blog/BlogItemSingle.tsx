@@ -27,10 +27,10 @@ const BlogItemSingle: React.FC<BlogItemSingleProps> = ({
     return (
         <>
             {
-                dataList.map((item) => {
+                dataList.map((item, index) => {
                     return (
                         <Link
-                            key={item.title}
+                            key={`${item.title}_${index}`}
                             to={item.link}
                             aria-label={item.title}
                             tabIndex={0}
@@ -46,7 +46,7 @@ const BlogItemSingle: React.FC<BlogItemSingleProps> = ({
                                 <DivFlexColumnSpaceBetween className={styles.overlay}>
                                     <DivFlexRow className={styles.iconRow}>
                                         <div className={styles.iconContainer}>
-                                            <IconGen svgName='arrow_outward' />
+                                            <IconGen svgName='arrow_outward' fillColor='var(--Schemes-On-Surface)' />
                                         </div>
                                     </DivFlexRow>
                                     <TextHeadlineMedium className={styles.title}>{item.title}</TextHeadlineMedium>

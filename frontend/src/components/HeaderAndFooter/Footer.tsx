@@ -1,4 +1,4 @@
-import { ButtonDefault } from '../Button/Button'
+import ButtonDefault from '../Button/Button'
 import { useTheme, type Theme } from '../../hooks/useTheme'
 import { TextBodySmall, TextHeadlineLarge, TextHeadlineSmall } from '../TextBox/textBox'
 import { DivFlexColumn } from '../LayoutDiv/LayoutDiv'
@@ -20,14 +20,14 @@ export default function Footer() {
         <footer
             style={{
                 display: 'flex',
-                padding: 'var(--Padding-and-Margin-PM-0, 24px) var(--Padding-and-Margin-PM-0, 24px) var(--Padding-and-Margin-PM-2, 48px) var(--Padding-and-Margin-PM-0, 24px)',
+                padding: 'var(--Spacing-Spaceing-M, 24px) var(--Spacing-Spaceing-M, 24px) var(--Spacing-Spaceing-XL, 48px) var(--Spacing-Spaceing-M, 24px)',
                 flexDirection: 'column',
                 alignItems: 'flex-start',
-                gap: 'var(--Gap-Gap-0, 24px)',
+                gap: 'var(--Spacing-Spaceing-M, 24px)',
                 alignSelf: 'stretch',
             }}>
             <DivFlexColumn
-                style={{ gap: 'var(--Gap-Gap-m2, 8px)', }}
+                style={{ gap: 'var(--Spacing-Spaceing-XXS, 8px)', }}
             >
                 <TextHeadlineLarge children='The insightArc' color='var(--Schemes-On-Surface-Variant, #434843)' />
                 <TextBodySmall>
@@ -72,6 +72,7 @@ export default function Footer() {
                     changeLanguage(value)
                 }}
                 preSelected={i18n.language}
+                iconOnSelected='check'
             />
 
             <SegmentedButton

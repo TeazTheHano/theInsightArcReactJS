@@ -1,4 +1,6 @@
-/* Scale factor */
+/* ===========================================
+   SCALE FACTORS
+   =========================================== */
 
 .scaleFactor0_75 {
     --scale-factor: 0.75;
@@ -17,85 +19,38 @@
 }
 
 
-/* COLOR MODE */
-.colorModePrimary {
-    --color1: var(--Schemes-On-Primary-Container, #0E2000);
-    --color2: var(--Schemes-Primary-Container, #A6FF47);
-    --color3: var(--Schemes-Primary);
-}
-
-.colorModeSecondary {
-    --color1: var(--Schemes-On-Secondary-Container, #FFFBFF);
-    --color2: var(--Schemes-Secondary-Container, #D24200);
-    --color3: var(--Schemes-Secondary);
-}
-
-.colorModeTertiary {
-    --color1: var(--Schemes-On-Tertiary-Container, #7A93C0);
-    --color2: var(--Schemes-Tertiary-Container, #0D2B52);
-    --color3: var(--Schemes-Tertiary);
-}
-
-/* END OF COLOR MODE */
-
-
-/* STYLE MODE */
-/* không áp dụng cho đối tượng state layer */
-
-.styleModeText {
-    background-color: transparent !important;
-    border: none !important;
-    color: var(--color3) !important;
-}
-
-.styleModeText:hover {
-    box-shadow: none !important;
-}
-
-.styleModeOutlined {
-    background-color: transparent !important;
-    border-width: var(--Stroke-Stroke-1, 1px);
-    border-style: solid;
-    color: var(--color3) !important;
-    border-color: var(--color3) !important;
-}
-
-.styleModeOutlined:hover {
-    box-shadow: none !important;
-}
-
-.styleModeFilled {
-    border: none !important;
-    color: var(--color1) !important;
-    background-color: var(--color2) !important;
-}
-
-.styleModeElevated {
-    border: none !important;
-    box-shadow: var(--shadow-1) !important;
-    background-color: var(--Schemes-Surface-Container-Low, #F4F3F2) !important;
-    color: var(--color3) !important;
-}
-
-.styleModeElevated:hover {
-    box-shadow: var(--shadow-3) !important;
-}
-
-.styleModeElevated:active {
-    box-shadow: var(--shadow-1) !important;
-}
-
-/* END OF STYLE MODE */
-
-/* LAYOUT */
+/* ===========================================
+   COLOR APPLICATION
+   =========================================== */
 
 .layoutLabel {
-    /* Title */
+    color: var(--Content);
+}
+
+.selected .layoutLabel {
+    color: var(--Content-Selected);
+}
+
+.layoutButtonWrapper {
+    border: var(--Stroke-Unselected) solid var(--Content-Outline);
+    background-color: var(--BG);
+    color: var(--Content);
+    box-shadow: var(--Shadow-Enabled);
+}
+
+.stateLayer {
+    background-color: var(--State-layer);
+}
+
+/* ===========================================
+   LAYOUT & TYPOGRAPHY
+   =========================================== */
+
+.layoutLabel {
     font-family: var(--Title-Family);
     font-size: calc(var(--Title-Font-Size, 16px) * var(--scale-factor, 1));
     font-weight: 500;
     line-height: calc(var(--Title-Line-height, 20px) * var(--scale-factor, 1));
-    /* 125% */
     letter-spacing: calc(var(--Title-Letter-spacing, 0.15px) * var(--scale-factor, 1));
     min-height: var(--Icon-BASE-Icon-size, 24px);
 }
@@ -119,26 +74,18 @@
     display: flex;
     height: fit-content;
     width: fit-content;
-    padding: calc(var(--Button-padding-Btn-Padding-V-0, 8px) * var(--scale-factor, 1)) calc(var(--Button-padding-Btn-Padding-H-0, 12px) * var(--scale-factor, 1));
+    padding: calc(var(--Spacing-Spaceing-XXS, 8px) * var(--scale-factor, 1)) calc(var(--Spacing-Spaceing-XS, 12px) * var(--scale-factor, 1));
     justify-content: center;
     align-items: center;
-    gap: calc(var(--Gap-Gap-m2, 4px) * var(--scale-factor, 1));
+    gap: calc(var(--Spacing-Spaceing-XXXS, 4px) * var(--scale-factor, 1));
     position: relative;
     cursor: pointer;
-}
-
-.layoutButtonWrapper,
-.layoutButtonWrapper * {
     transition: all 0.2s ease-in-out;
 }
 
-.layoutButtonWrapper:hover {
-    box-shadow: var(--shadow-1);
-    z-index: 1;
-}
-
-.layoutButtonWrapper:focus-visible {
-    z-index: 1;
+.layoutButtonWrapper * {
+    transition: all 0.2s ease-in-out;
+    z-index: inherit;
 }
 
 .stateLayer {
@@ -147,33 +94,62 @@
     left: 0%;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 0;
     opacity: 0;
-    background-color: var(--color3);
 }
 
-.stateLayer:hover {
-    opacity: var(--CM-state-layer-opacity-hover)
+
+/* ===========================================
+   INTERACTION STATES
+   =========================================== */
+
+/* Hover */
+.layoutButtonWrapper:hover {
+    box-shadow: var(--Shadow-Hovered);
+    z-index: 1;
 }
 
-.stateLayer:active {
-    opacity: var(--CM-state-layer-opacity-pressed-and-focused)
+.layoutButtonWrapper:hover .stateLayer {
+    opacity: var(--CM-state-layer-opacity-hovered);
 }
 
-.stateLayer:focus-visible {
-    opacity: var(--CM-state-layer-opacity-dragged)
+/* Focus */
+
+.layoutButtonWrapper:focus-visible {
+    box-shadow: var(--Shadow-Focused);
+    z-index: 1;
+}
+
+.layoutButtonWrapper:focus-visible .stateLayer {
+    opacity: var(--CM-state-layer-opacity-focused);
+}
+
+/* Active */
+
+.layoutButtonWrapper:active {
+    box-shadow: var(--Shadow-Pressed);
+    z-index: 1;
+}
+
+.layoutButtonWrapper[dragged] {
+    box-shadow: var(--Shadow-Dragged);
+    z-index: 2;
+}
+
+.layoutButtonWrapper:active .stateLayer {
+    opacity: var(--CM-state-layer-opacity-pressed-and-dragged);
 }
 
 .disabled {
     filter: saturate(0);
-    opacity: 0.5;
-    /* diable hover */
+    box-shadow: var(--Shadow-Disabled);
+    opacity: var(--Appearance-Disabled);
     pointer-events: none;
 }
 
-/* END OF LAYOUT */
-
-/* VARIANT MODE */
+/* ===========================================
+   VARIANT MODES
+   =========================================== */
 
 button[class*="variantModeIcon"]>span:not([class^="iconMain"]),
 button[class*="variantModeIconRatio1W"]>span:not([class^="iconMain"]),
@@ -182,7 +158,7 @@ button[class*="variantModeIconRatio1H"]>span:not([class^="iconMain"]) {
 }
 
 .variantModeIcon {
-    padding: var(--Button-padding-Btn-Padding-H-m2, 8px) !important;
+    padding: var(--Spacing-Spaceing-XXS, 8px) !important;
 }
 
 .variantModeIconRatio1W {
@@ -202,16 +178,13 @@ button[class*="variantModeIconRatio1H"]>span:not([class^="iconMain"]) {
 }
 
 .variantModeExtreme:hover .layoutLabel {
-    /* Headline */
     font-family: var(--Headline-Family, Epilogue);
     font-size: calc(var(--Headline-Font-Size, 20px) * var(--scale-factor, 1));
     font-style: normal;
     font-weight: 500;
     line-height: calc(var(--Headline-Line-height, 24px) * var(--scale-factor, 1));
     display: flex;
-    /* make the text center vertical */
     padding-top: 4%;
-    /* 120% */
     letter-spacing: calc(var(--Headline-Letter-spacing, 0px) * var(--scale-factor, 1));
 }
 

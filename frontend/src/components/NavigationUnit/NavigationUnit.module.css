@@ -14,15 +14,15 @@ nav {
 }
 
 .navLogo {
-    padding: var(--Padding-and-Margin-PM-0, 24px);
-    height: var(--Icon-Thumbnail-size-3);
+    padding: var(--Spacing-Spaceing-M, 24px);
+    height: var(--Icon-Thumb-XL);
     flex: 1;
 }
 
 .navMenu {
-    gap: var(--Gap-Gap-m2, 8px);
+    gap: var(--Spacing-Spaceing-XXS, 8px);
     width: fit-content;
-    padding: var(--Padding-and-Margin-PM-0, 24px) var(--Padding-and-Margin-PM-2, 48px) var(--Padding-and-Margin-PM-0, 24px) var(--Padding-and-Margin-PM-0, 24px);
+    padding: var(--Spacing-Spaceing-M, 24px) var(--Spacing-Spaceing-XL, 48px) var(--Spacing-Spaceing-M, 24px) var(--Spacing-Spaceing-M, 24px);
 }
 
 .linkObject {
@@ -56,22 +56,22 @@ nav {
 /* điều chỉnh size của logo */
 :global(body.size-and-spacing-md) .navLogo {
     width: auto !important;
-    padding: var(--Padding-and-Margin-PM-m2) var(--Padding-and-Margin-PM-0) !important;
+    padding: var(--Spacing-Spaceing-XS) var(--Spacing-Spaceing-M) !important;
 }
 
 :global(body.size-and-spacing-sm) .navLogo {
     width: auto !important;
-    padding: var(--Padding-and-Margin-PM-m1) var(--Padding-and-Margin-PM-0) !important;
+    padding: var(--Spacing-Spaceing-S) var(--Spacing-Spaceing-M) !important;
 }
 
 /* nav menu cho MD */
 :global(body.size-and-spacing-md) .navMenu {
     align-items: baseline;
     justify-content: space-between;
-    gap: var(--Gap-Gap-m1);
+    gap: var(--Spacing-Spaceing-XS);
     flex-wrap: wrap;
     width: 100%;
-    padding: var(--Padding-and-Margin-PM-m1) var(--Padding-and-Margin-PM-0, 24px) !important;
+    padding: var(--Spacing-Spaceing-S) var(--Spacing-Spaceing-M, 24px) !important;
     flex-direction: row !important;
 }
 

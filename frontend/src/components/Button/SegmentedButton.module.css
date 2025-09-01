@@ -47,7 +47,7 @@
 }
 
 .buttonWrapper:has(> .styleModeOutlined) {
-    border-width: var(--Stroke-Stroke-1, 0px) !important;
+    border-width: var(--Stroke-Stroke-1, 1px) !important;
     border-style: solid;
     border-color: var(--Schemes-Outline);
 }
@@ -64,17 +64,17 @@
 
 .styleModeElevated {
     border: none !important;
-    box-shadow: var(--shadow-1) !important;
+    box-shadow: var(--Shadow-Enabled) !important;
     background-color: var(--Schemes-Surface-Container-Low, #F4F3F2) !important;
     color: var(--color3) !important;
 }
 
 .styleModeElevated:hover {
-    box-shadow: var(--shadow-3) !important;
+    box-shadow: var(--Shadow-Hovered) !important;
 }
 
 .styleModeElevated:active {
-    box-shadow: var(--shadow-1) !important;
+    box-shadow: var(--Shadow-Pressed) !important;
 }
 
 /* END OF STYLE MODE */
@@ -118,9 +118,9 @@
     align-items: center; /* Make all items stretch to the same height */
     height: fit-content;
     width: fit-content;
-    padding: var(--Button-padding-Btn-Padding-V-0, 8px) var(--Button-padding-Btn-Padding-H-0, 12px);
+    padding: var(--Spacing-Spaceing-XXS, 8px) var(--Spacing-Spaceing-XS, 12px);
     justify-content: center;
-    gap: var(--Gap-Gap-m2, 4px);
+    gap: var(--Spacing-Spaceing-XXXS, 4px);
     position: relative;
     cursor: pointer;
 }
@@ -131,12 +131,23 @@
 }
 
 .itemWrapper:hover {
-    box-shadow: var(--shadow-1);
+    box-shadow: var(--Shadow-Hovered);
     z-index: 1;
 }
 
 .itemWrapper:focus-visible {
+    box-shadow: var(--Shadow-Focused);
     z-index: 1;
+}
+
+.itemWrapper:active {
+    box-shadow: var(--Shadow-Pressed);
+    z-index: 1;
+}
+
+.itemWrapper[dragged] {
+    box-shadow: var(--Shadow-Dragged);
+    z-index: 2;
 }
 
 .stateLayer {
@@ -147,25 +158,25 @@
     height: 100%;
     z-index: 1;
     opacity: 0;
-    background-color: var(--color3);
+    background-color: var(--State-layer);
 }
 
 .stateLayer:hover {
-    opacity: var(--CM-state-layer-opacity-hover)
+    opacity: var(--CM-state-layer-opacity-hovered);
 }
 
 .stateLayer:active {
-    opacity: var(--CM-state-layer-opacity-pressed-and-focused)
+    opacity: var(--CM-state-layer-opacity-pressed-and-dragged);
 }
 
 .stateLayer:focus-visible {
-    opacity: var(--CM-state-layer-opacity-dragged)
+    opacity: var(--CM-state-layer-opacity-focused);
 }
 
 .disabled {
     filter: saturate(0);
-    opacity: 0.5;
-    /* diable hover */
+    box-shadow: var(--Shadow-Disabled);
+    opacity: var(--Appearance-Disabled);
     pointer-events: none;
 }
 

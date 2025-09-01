@@ -7,7 +7,7 @@ import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import styles from './NavigationUnit.module.css'
-import { ButtonDefault } from '../Button/Button'
+import ButtonDefault from '../Button/Button'
 
 const NavigationUnit: React.FC = () => {
 
@@ -16,11 +16,11 @@ const NavigationUnit: React.FC = () => {
     const navRef = useRef<HTMLDivElement>(null);
 
     const navItemsData = [
-        { href: '/', key: 'nav-item-1', supText: null },
-        { href: '/', key: 'nav-item-2', supText: '01' },
-        { href: '/', key: 'nav-item-3', supText: '02' },
-        { href: '/', key: 'nav-item-4', supText: '03' },
-        { href: '/', key: 'nav-item-5', supText: '04' },
+        { href: '/#landingPage_direction', key: 'nav-item-1', supText: null },
+        { href: '/#landingPage_about', key: 'nav-item-2', supText: '01' },
+        { href: '/#landingPage_inspiration', key: 'nav-item-3', supText: '02' },
+        { href: '/#landingPage_blog', key: 'nav-item-4', supText: '03' },
+        { href: '/#landingPage_game', key: 'nav-item-5', supText: '04' },
     ];
 
     const navItems = navItemsData.map(({ href, key, supText }, index) => (
@@ -56,7 +56,7 @@ const NavigationUnit: React.FC = () => {
                     <DivFlexRow>
                         <Link to="/" aria-label={t('nav-item-6')} className={styles.linkObject}>
                             <DivFlexRow style={{
-                                padding: 'var(--Padding-and-Margin-PM-m1, 12px) var(--Padding-and-Margin-PM-0, 24px)',
+                                padding: 'var(--Spacing-Spaceing-S, 12px) var(--Spacing-Spaceing-M, 24px)',
                                 alignItems: 'center',
                             }}>
                                 <TextTitleSmall className={styles.linkText} color='var(--Schemes-On-Surface-Variant)' children={t('nav-item-6')} />

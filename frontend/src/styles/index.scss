@@ -21,7 +21,7 @@
 
   @import './keyValue.scss';
   @extend %var-key-value;
-  @import './ShadowEffect/shadows';
+  @import './ShadowEffect/shadow';
   @extend %variable-shadow;
 }
 
@@ -50,69 +50,19 @@
   @extend %var-color-m3-based;
 }
 
+// ColorMode imports (uncommented and properly ordered)
+@import "./ColorMode/_primary.css";
+@import "./ColorMode/_secondary.css";
+@import "./ColorMode/_tertiary.css";
+@import "./ColorMode/_default.css";
+@import "./_styleMode.css";
+
 // Size and Spacing:
-.size-and-spacing-sm {
-  @import './SizeAndSpacing/sm';
-  @import './SizeAndSpacing/varibale';
-  @extend %var-size-and-spacing;
-  @import './TypoResponsive/sm';
-  @import './TypoResponsive/variable';
-  @extend %var-typo-responsive;
-}
-
-.size-and-spacing-md {
-  @import './SizeAndSpacing/md';
-  @import './SizeAndSpacing/varibale';
-  @extend %var-size-and-spacing;
-  @import './TypoResponsive/md';
-  @import './TypoResponsive/variable';
-  @extend %var-typo-responsive;
-}
-
-.size-and-spacing-lg {
-  @import './SizeAndSpacing/lg';
-  @import './SizeAndSpacing/varibale';
-  @extend %var-size-and-spacing;
-  @import './TypoResponsive/lg';
-  @import './TypoResponsive/variable';
-  @extend %var-typo-responsive;
-}
-
-.size-and-spacing-xl {
-  @import './SizeAndSpacing/xl';
-  @import './SizeAndSpacing/varibale';
-  @extend %var-size-and-spacing;
-  @import './TypoResponsive/xl';
-  @import './TypoResponsive/variable';
-  @extend %var-typo-responsive;
-}
-
-// Typo Responsive:
-.typo-responsive-sm {
-  @import './TypoResponsive/sm';
-  @import './TypoResponsive/variable';
-  @extend %var-typo-responsive;
-}
-
-.typo-responsive-md {
-  @import './TypoResponsive/md';
-  @import './TypoResponsive/variable';
-  @extend %var-typo-responsive;
-}
-
-.typo-responsive-lg {
-  @import './TypoResponsive/lg';
-  @import './TypoResponsive/variable';
-  @extend %var-typo-responsive;
-}
-
-.typo-responsive-xl {
-  @import './TypoResponsive/xl';
-  @import './TypoResponsive/variable';
-  @extend %var-typo-responsive;
-}
+@import './SizeAndSpacing/value';
 
 // Typography system:
+@import "./TypoResponsive/value";
+
 .typography-system-large {
   @import './TypographySystem/large';
   @import './TypographySystem/variable';
@@ -133,8 +83,3 @@
 
 // Common css settings:
 @import './common';
-
-// Chip and Tag:
-@import './Chip/chipBorderStrokeMode';
-@import './Chip/chipColorMode';
-@import './Chip/chipSizeAndSpacing';

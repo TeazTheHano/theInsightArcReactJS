@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback, useEffect, forwardRef, memo } from 'react'
+import React, { useMemo, forwardRef } from 'react'
 import buttonStyle from './Button.module.css'
 import { IconGen } from '../../assets/icon/OtherIcon';
 
@@ -11,17 +11,20 @@ interface ButtonProps {
     disabled?: boolean;
     autoFocus?: boolean;
     type?: 'button' | 'submit' | 'reset';
-    styleMode?: 'Filled' | 'Outlined' | 'Text' | 'Elevated';
+    styleMode?: 'Filled' | 'FillFixed' | 'Outlined' | 'Text' | 'Elevated';
     variantMode?: 'Default' | 'Icon' | 'IconRatio1W' | 'IconRatio1H' | 'Extreme'; //IconRatio1 mean it 1:1 width and height
-    colorMode?: 'Primary' | 'Secondary' | 'Tertiary';
+    colorMode?: 'Primary' | 'Secondary' | 'Tertiary' | 'Default';
     scale?: `0_75` | `1` | `1_5` | `2`;
-    state?: 'default' | 'hover' | 'active' | 'pressed' | 'focus' | 'disabled';
     iconMain?: React.ReactNode | string;
     iconRight?: React.ReactNode | string;
     borderRadius?: 'none' | 'default' | 'rounded' | number;
+    mouseDownFnc?: () => void;
+    mouseUpFnc?: () => void;
+    mouseEnterFnc?: () => void;
+    mouseLeaveFnc?: () => void;
 }
 
-const ButtonWithRef = forwardRef<HTMLButtonElement, ButtonProps>(({
+const ButtonDefault = forwardRef<HTMLButtonElement, ButtonProps>(({
     onClick,
     children,
     label,
@@ -33,103 +36,42 @@ const ButtonWithRef = forwardRef<HTMLButtonElement, ButtonProps>(({
     variantMode = 'Default',
     styleMode = 'Filled',
     scale = '1',
-    state = 'default',
     iconMain,
     iconRight,
     borderRadius = 'rounded',
     autoFocus = false,
+    mouseDownFnc,
+    mouseUpFnc,
+    mouseEnterFnc,
+    mouseLeaveFnc,
 }, ref) => {
-    // Internal state to manage button state
-    const [internalState, setInternalState] = useState(state);
-
-    // Sync internalState with 'state' prop
-    useEffect(() => {
-        setInternalState(state);
-    }, [state]); // Reruns when 'state' prop changes
 
     // Memoize the button class to avoid recomputation on every render
     const buttonClass = useMemo(() => {
         return [
             buttonStyle.layoutButtonWrapper,
             buttonStyle[`variantMode${variantMode}`],
-            buttonStyle[`colorMode${colorMode}`],
-            buttonStyle[`styleMode${styleMode}`],
-            buttonStyle[`${internalState}`],
             buttonStyle[`scaleFactor${scale}`],
             typeof borderRadius !== 'number' ? `CM-border-radius-mode-${borderRadius}` : '',
             `typography-system-medium`,
+            disabled ? buttonStyle.disabled : '',
+            `colorMode${colorMode}`,
+            `styleMode${styleMode}`,
             className
         ].join(' ').trim();
-    }, [styleMode, variantMode, colorMode, internalState, scale, borderRadius, className]);
-
-    // handle click event
-    const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
-        if (disabled || internalState === 'disabled') {
-            event.preventDefault();
-            return;
-        }
-        // Toggle pressed state on click
-        setInternalState(prevState => (prevState === 'pressed' ? 'default' : 'pressed'));
-        if (onClick) {
-            onClick();
-        }
-    }, [disabled, internalState, onClick]);
-
-    // handle mouse down event to set active state
-    const handleMouseDown = useCallback(() => {
-        if (!disabled && internalState !== 'disabled' && internalState !== 'active') {
-            setInternalState('active');
-        }
-    }, [disabled, internalState]);
-
-    // handle mouse up event to revert active state
-    const handleMouseUp = useCallback(() => {
-        if (!disabled && internalState === 'active') {
-            setInternalState('default');
-        }
-    }, [disabled, internalState]);
-
-    // handle mouse enter event to set hover state
-    const handleMouseEnter = useCallback(() => {
-        if (!disabled && internalState !== 'disabled' && internalState !== 'hover') {
-            setInternalState('hover');
-        }
-    }, [disabled, internalState]);
-
-    // handle mouse leave event to revert hover state
-    const handleMouseLeave = useCallback(() => {
-        if (!disabled && internalState === 'hover') {
-            setInternalState('default');
-        }
-    }, [disabled, internalState]);
-
-    // handle focus event
-    const handleFocus = useCallback(() => {
-        if (!disabled && internalState !== 'disabled' && internalState !== 'focus') {
-            setInternalState('focus');
-        }
-    }, [disabled, internalState]);
-
-    // handle blur event
-    const handleBlur = useCallback(() => {
-        if (!disabled && internalState === 'focus') {
-            setInternalState('default');
-        }
-    }, [disabled, internalState]);
+    }, [styleMode, variantMode, colorMode, scale, borderRadius, className]);
 
     return (
         <button
             ref={ref}
             aria-label={label}
-            onClick={handleClick}
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
+            onClick={onClick}
+            onMouseDown={mouseDownFnc}
+            onMouseUp={mouseUpFnc}
+            onMouseEnter={mouseEnterFnc}
+            onMouseLeave={mouseLeaveFnc}
             className={buttonClass}
-            disabled={disabled || internalState === 'disabled'}
+            disabled={disabled}
             type={type}
             style={{
                 borderRadius: typeof borderRadius === 'number' ? `${borderRadius}px` : undefined,
@@ -140,7 +82,6 @@ const ButtonWithRef = forwardRef<HTMLButtonElement, ButtonProps>(({
             <div className={[
                 buttonStyle.stateLayer,
                 buttonStyle[`colorMode${colorMode}`],
-                internalState === 'disabled' ? buttonStyle.disabled : '',
                 typeof borderRadius !== 'number' ? `CM-border-radius-mode-${borderRadius}` : '',
             ].join(' ')}></div>
             {iconMain && (
@@ -166,6 +107,4 @@ const ButtonWithRef = forwardRef<HTMLButtonElement, ButtonProps>(({
     );
 })
 
-ButtonWithRef.displayName = 'ButtonDefault';
-
-export const ButtonDefault = memo(ButtonWithRef);
+export default React.memo(ButtonDefault);

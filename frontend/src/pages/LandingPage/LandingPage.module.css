@@ -1,15 +1,15 @@
 .wrapperLayout {
-    padding: var(--Padding-and-Margin-PM-0, 24px) var(--Padding-and-Margin-PM-0, 24px) var(--Padding-and-Margin-PM-2, 48px) var(--Padding-and-Margin-PM-0, 24px);
-    gap: var(--Gap-Gap-0, 24px);
+    padding: var(--Spacing-Spaceing-M, 24px) var(--Spacing-Spaceing-M, 24px) var(--Spacing-Spaceing-XL, 48px) var(--Spacing-Spaceing-M, 24px);
+    gap: var(--Spacing-Spaceing-M, 24px);
 }
 
 .wrapperLayoutVer2 {
-    padding: var(--Padding-and-Margin-PM-0, 24px) var(--Padding-and-Margin-PM-0, 24px) var(--Padding-and-Margin-PM-2, 48px) var(--Padding-and-Margin-PM-0, 24px);
-    gap: var(--Gap-Gap-2, 48px);
+    padding: var(--Spacing-Spaceing-M, 24px) var(--Spacing-Spaceing-M, 24px) var(--Spacing-Spaceing-XL, 48px) var(--Spacing-Spaceing-M, 24px);
+    gap: var(--Spacing-Spaceing-XL, 48px);
 }
 
 .wrapperLayoutVer2 .wrapperLayoutVer2_itemWrapper {
-    gap: var(--Gap-Gap-0, 24px);
+    gap: var(--Spacing-Spaceing-M, 24px);
 }
 
 :global(body.size-and-spacing-sm) .wrapperLayout,
