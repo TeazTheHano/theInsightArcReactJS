@@ -11,10 +11,5 @@
     "build:frontend": "npm run build --workspace=frontend",
     "start:backend": "npm run dev --workspace=backend",
     "install:all": "npm install"
-  },
-  "dependencies": {
-    "i18next": "^25.3.2",
-    "i18next-browser-languagedetector": "^8.2.0",
-    "react-i18next": "^15.6.0"
   }
 }
