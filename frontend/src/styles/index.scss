@@ -19,7 +19,7 @@
   margin: 0;
   font-family: 'Inconsolata', 'Roboto', sans-serif;
 
-  @import './keyValue.scss';
+  @import './keyValue.css.scss';
   @extend %var-key-value;
   @import './ShadowEffect/shadow';
   @extend %variable-shadow;
@@ -58,10 +58,10 @@
 @import "./_styleMode.css";
 
 // Size and Spacing:
-@import './SizeAndSpacing/value';
+@import './SizeAndSpacing/value.css';
 
 // Typography system:
-@import "./TypoResponsive/value";
+@import "./TypoResponsive/value.css";
 
 .typography-system-large {
   @import './TypographySystem/large';
