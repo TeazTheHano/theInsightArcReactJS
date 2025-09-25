@@ -3,6 +3,7 @@ import { useTheme } from '../hooks/useTheme';
 import NavigationUnit from '../components/NavigationUnit/NavigationUnit';
 import Footer from '../components/HeaderAndFooter/Footer';
 import Divider from '../components/Divider/Divider';
+import CircleFollowMouse from '../components/CircleFollowMouse/CircleFollowMouse';
 
 import styles from './GlobalLayout.module.css'
 
@@ -62,6 +63,12 @@ export default function GlobalLayout({ children }: { children: React.ReactNode }
         <Divider />
         <Footer />
       </div>
+
+      {/* Circle that follows the mouse */}
+      {
+        resolvedTheme == 'dark' ?
+          <CircleFollowMouse /> : null
+      }
     </div>
   )
 }
