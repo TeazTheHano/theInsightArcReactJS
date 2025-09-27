@@ -1,21 +1,66 @@
-import React, { useMemo, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import segmentedButtonStyle from './SegmentedButton.module.css'
 import { DivFlexRowCenter } from '../LayoutDiv/LayoutDiv';
-import { IconGen } from '../../assets/icon/OtherIcon';
+import Button from './Button';
 
+/**
+ * Props for the SegmentedButton component.
+ */
 interface SegmentedButtonProps {
-    dataList?: { label?: string, value: string, icon?: string | React.ReactNode }[];
+    /**
+     * Array of button options. Each item includes a label (optional), value (required), and icon (optional).
+     * Defaults to a sample list with three options.
+     */
+    dataList?: { label?: string; value: string; icon?: string | React.ReactNode }[];
+    /**
+     * Initially selected value. Defaults to null.
+     */
     preSelected?: string | null;
+    /**
+     * Callback function triggered when a button is selected. Receives the selected value.
+     */
     onChange?: (value: string) => void;
+    /**
+     * Additional CSS class names for the container. Defaults to empty string.
+     */
     className?: string;
-    style?: React.CSSProperties;
+    /**
+     * Inline styles for the container. Defaults to undefined.
+     */
+    containerStyle?: React.CSSProperties;
+    /**
+     * Inline styles applied to each button item. Defaults to undefined.
+     */
+    itemStyles?: React.CSSProperties;
+    /**
+     * Disables specific buttons by value (array of strings), all buttons ('all'), or none (null).
+     * Defaults to null.
+     */
     disabled?: string[] | 'all' | null;
-    iconOnSelected?: string | React.ReactNode;
-    styleMode?: 'Filled' | 'Outlined' | 'Text';
-    colorMode?: 'Primary' | 'Secondary' | 'Tertiary';
+    /**
+     * Icon to display when a button is selected. Can be string, 'check', or ReactNode.
+     * Defaults to null.
+     */
+    iconOnSelected?: string | 'check' | React.ReactNode | null;
+    /**
+     * Whether to add an inner border on the selected button. Defaults to false.
+     */
+    borderOnSelected?: boolean;
+    /**
+     * Border radius: 'none', 'default', 'rounded', or a number in pixels. Defaults to 'rounded'.
+     */
     borderRadius?: 'none' | 'default' | 'rounded' | number;
+    /**
+     * Enables compact mode with reduced padding. Defaults to false.
+     */
+    compactMode?: boolean;
 }
 
+/**
+ * A segmented button component that displays a row of selectable buttons.
+ * Supports icons, selection state, disabling, customizable styling, and compact mode.
+ * Uses Material Design-inspired modes for style and color.
+ */
 const SegmentedButton: React.FC<SegmentedButtonProps> = ({
     dataList = [
         { label: 'Option 1', value: 'option1', icon: 'arrow_outward' },
@@ -25,25 +70,17 @@ const SegmentedButton: React.FC<SegmentedButtonProps> = ({
     preSelected = null,
     onChange,
     className = '',
-    style,
+    containerStyle,
+    itemStyles,
     disabled = null,
-    iconOnSelected,
-    styleMode = 'Filled',
-    colorMode = 'Primary',
+    iconOnSelected = null,
+    borderOnSelected = false,
     borderRadius = 'rounded',
+    compactMode = false,
 }) => {
 
     const [selectedValue, setSelectedValue] = React.useState(preSelected);
     const containerRef = React.useRef<HTMLDivElement>(null);
-
-    const buttonClass = useMemo(() => {
-        return [
-            segmentedButtonStyle.itemWrapper,
-            segmentedButtonStyle[`colorMode${colorMode}`],
-            segmentedButtonStyle[`styleMode${styleMode}`],
-            'typography-system-medium',
-        ].join(' ');
-    }, [styleMode, colorMode]);
 
     const handleButtonClick = useCallback((value: string) => {
         if (onChange) {
@@ -58,53 +95,41 @@ const SegmentedButton: React.FC<SegmentedButtonProps> = ({
     const borderRadiusClass = typeof borderRadius !== 'number' ? `CM-border-radius-mode-${borderRadius}` : '';
     const borderRadiusStyle = typeof borderRadius === 'number' ? { borderRadius: `${borderRadius}px` } : {};
 
+    const renderButton = (item: { label?: string; value: string; icon?: string | React.ReactNode }, index: number) => {
+        const isSelected = selectedValue === item.value;
+        const isDisabled = disabled === 'all' || disabled?.includes(item.value);
+
+        const buttonStyle = {
+            ...(isSelected && borderOnSelected ? {
+                boxShadow: `inset 0 0 0 var(--Stroke-Stroke-2) var(--Fill-Fixed-Content)`
+            } : {}),
+            ...(compactMode ? { padding: 'var(--Spacing-Spaceing-XXXS, 4px) var(--Spacing-Spaceing-XS, 12px)' } : {}),
+            ...itemStyles,
+        };
+
+        return (
+            <Button
+                key={item.value}
+                label={item.label || item.value.replace(' ', '').toLowerCase() || index.toString()}
+                children={item.label}
+                iconMain={isSelected ? iconOnSelected : item.icon}
+                onClick={() => handleButtonClick(item.value)}
+                colorMode='Tertiary'
+                styleMode={isSelected ? "FillFixed" : "Text"}
+                style={buttonStyle}
+                disabled={isDisabled}
+                borderRadius={borderRadius}
+            />
+        );
+    };
+
     return (
         <DivFlexRowCenter
             ref={containerRef}
-            className={[borderRadiusClass, className, segmentedButtonStyle.buttonWrapper].filter(Boolean).join(' ')}
-            style={{ ...borderRadiusStyle }}
+            className={[borderRadiusClass, className, segmentedButtonStyle.buttonWrapper, 'colorModeTertiary'].filter(Boolean).join(' ')}
+            style={{ ...borderRadiusStyle, ...containerStyle }}
         >
-            {dataList.map((item, index) => {
-                const isDisabled = disabled === 'all' || (disabled?.includes(item.value) ?? false);
-                const isSelected = selectedValue === item.value;
-
-                const iconToRender = isSelected && iconOnSelected ? iconOnSelected : item.icon;
-
-                const iconElement = iconToRender ? (
-                    typeof iconToRender === 'string' ? (
-                        <IconGen className={['iconMain', segmentedButtonStyle.layoutIcon].join(' ')} svgName={iconToRender} />
-                    ) : (
-                        <span className={['iconMain', segmentedButtonStyle.layoutIcon].join(' ')}>{iconToRender}</span>
-                    )
-                ) : null;
-
-                return (
-                    <button
-                        key={`${item.value}__${index}`}
-                        onClick={() => handleButtonClick(item.value)}
-                        disabled={isDisabled}
-                        aria-label={item.label}
-                        className={`${buttonClass} ${isSelected ? segmentedButtonStyle.selected : ''} ${isDisabled ? segmentedButtonStyle.disabled : ''}`}
-                        style={{
-                            ...borderRadiusStyle,
-                            ...style,
-                        }}
-                    >
-                        <div
-                            className={[
-                                segmentedButtonStyle.stateLayer,
-                                segmentedButtonStyle[`colorMode${colorMode}`],
-                            ].filter(Boolean).join(' ')}
-                        />
-                        {iconElement}
-                        {item.label && (
-                            <span className={[segmentedButtonStyle.layoutLabel, 'typography-system-medium'].join(' ')}>
-                                {item.label}
-                            </span>
-                        )}
-                    </button>
-                );
-            })}
+            {dataList.map(renderButton)}
         </DivFlexRowCenter>
     );
 };

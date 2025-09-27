@@ -1,5 +1,6 @@
 import Button from '../components/Button/Button';
 import FAB from '../components/Button/FAB';
+import SegmentedButton from '../components/Button/SegmentedButton';
 import { DivFlexColumn, DivFlexRow } from '../components/LayoutDiv/LayoutDiv';
 
 export default function Test() {
@@ -208,7 +209,7 @@ export default function Test() {
                     <FAB
                         onClick={() => { }}
                         icon='edit'
-                        label='Edit'
+                        label='Label'
 
                         colorMode='Secondary'
                         styleMode='Filled'
@@ -217,7 +218,7 @@ export default function Test() {
                     <FAB
                         onClick={() => { }}
                         icon='edit'
-                        label='Edit'
+                        label='Label'
 
                         colorMode='Secondary'
                         styleMode='FillFixed'
@@ -249,6 +250,11 @@ export default function Test() {
                         colorMode='Primary'
                         styleMode='Filled'
                         variantMode='sFAB'
+                    />
+
+                    <SegmentedButton
+                        iconOnSelected='check'
+                        borderOnSelected
                     />
 
                 </DivFlexColumn>

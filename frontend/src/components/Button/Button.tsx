@@ -2,28 +2,97 @@ import React, { useMemo, forwardRef } from 'react'
 import buttonStyle from './Button.module.css'
 import { IconGen } from '../../assets/icon/OtherIcon';
 
+/**
+ * Props for the Button component.
+ */
 interface ButtonProps {
+    /**
+     * Click handler function.
+     */
     onClick?: () => void;
+    /**
+     * Content to display inside the button (usually text).
+     */
     children?: React.ReactNode;
+    /**
+     * Accessibility label for the button.
+     */
     label: string;
+    /**
+     * Additional CSS class names.
+     */
     className?: string;
+    /**
+     * Inline styles for the button.
+     */
     style?: React.CSSProperties;
+    /**
+     * Whether the button is disabled.
+     */
     disabled?: boolean;
+    /**
+     * Whether the button should autofocus on mount.
+     */
     autoFocus?: boolean;
+    /**
+     * Whether to show the title on hover.
+     */
+    showTitleWhileHover?: boolean;
+    /**
+     * Button type: 'button', 'submit', or 'reset'.
+     */
     type?: 'button' | 'submit' | 'reset';
+    /**
+     * Styling mode: 'Filled', 'FillFixed', 'Outlined', 'Text', or 'Elevated'.
+     */
     styleMode?: 'Filled' | 'FillFixed' | 'Outlined' | 'Text' | 'Elevated';
-    variantMode?: 'Default' | 'Icon' | 'IconRatio1W' | 'IconRatio1H' | 'Extreme'; //IconRatio1 mean it 1:1 width and height
+    /**
+     * Variant mode: 'Default', 'Icon', 'IconRatio1W', 'IconRatio1H', or 'Extreme'.
+     * IconRatio1 means 1:1 width and height.
+     */
+    variantMode?: 'Default' | 'Icon' | 'IconRatio1W' | 'IconRatio1H' | 'Extreme';
+    /**
+     * Color mode: 'Primary', 'Secondary', 'Tertiary', or 'Default'.
+     */
     colorMode?: 'Primary' | 'Secondary' | 'Tertiary' | 'Default';
+    /**
+     * Scale factor: '0_75', '1', '1_5', or '2'.
+     */
     scale?: `0_75` | `1` | `1_5` | `2`;
+    /**
+     * Main icon: string (icon name) or ReactNode.
+     */
     iconMain?: React.ReactNode | string;
+    /**
+     * Right icon: string (icon name) or ReactNode.
+     */
     iconRight?: React.ReactNode | string;
+    /**
+     * Border radius: 'none', 'default', 'rounded', or a number in pixels.
+     */
     borderRadius?: 'none' | 'default' | 'rounded' | number;
+    /**
+     * Mouse down event handler.
+     */
     mouseDownFnc?: () => void;
+    /**
+     * Mouse up event handler.
+     */
     mouseUpFnc?: () => void;
+    /**
+     * Mouse enter event handler.
+     */
     mouseEnterFnc?: () => void;
+    /**
+     * Mouse leave event handler.
+     */
     mouseLeaveFnc?: () => void;
 }
 
+/**
+ * A customizable button component with various styling modes, icons, and interaction handlers.
+ * Supports Material Design-inspired themes and scales.
+ */
 const ButtonDefault = forwardRef<HTMLButtonElement, ButtonProps>(({
     onClick,
     children,
@@ -40,6 +109,7 @@ const ButtonDefault = forwardRef<HTMLButtonElement, ButtonProps>(({
     iconRight,
     borderRadius = 'rounded',
     autoFocus = false,
+    showTitleWhileHover = false,
     mouseDownFnc,
     mouseUpFnc,
     mouseEnterFnc,
@@ -78,6 +148,7 @@ const ButtonDefault = forwardRef<HTMLButtonElement, ButtonProps>(({
                 ...style,
             }}
             autoFocus={autoFocus}
+            title={showTitleWhileHover && typeof children == 'string' ? children : undefined}
         >
             <div className={[
                 buttonStyle.stateLayer,
