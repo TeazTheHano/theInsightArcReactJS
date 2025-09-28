@@ -1,11 +1,12 @@
-import React, { useMemo, forwardRef } from 'react'
-import buttonStyle from './Button.module.css'
+import React, { useMemo, useCallback } from 'react'
+import chipStyle from './Chip.module.css'
 import { IconGen } from '../../assets/icon/OtherIcon';
+import { TextBodyMedium } from '../TextBox/textBox';
 
 /**
  * Props for the Button component.
  */
-interface ButtonProps {
+interface ChipProps {
     /**
      * Click handler function.
      */
@@ -31,34 +32,22 @@ interface ButtonProps {
      */
     disabled?: boolean;
     /**
-     * Whether the button should autofocus on mount.
-     */
-    autoFocus?: boolean;
-    /**
      * Whether to show the title on hover.
      */
     showTitleWhileHover?: boolean;
-    /**
-     * Button type: 'button', 'submit', or 'reset'.
-     */
-    type?: 'button' | 'submit' | 'reset';
+    toggle?: boolean;
+    isSelected?: boolean;
+
+    isShowBadgeOnSelect?: boolean;
     /**
      * Styling mode: 'Filled', 'FillFixed', 'Outlined', 'Text', or 'Elevated'.
      */
     styleMode?: 'Filled' | 'FillFixed' | 'Outlined' | 'Text' | 'Elevated';
-    /**
-     * Variant mode: 'Default', 'Icon', 'IconRatio1W', 'IconRatio1H', or 'Extreme'.
-     * IconRatio1 means 1:1 width and height.
-     */
-    variantMode?: 'Default' | 'Icon' | 'IconRatio1W' | 'IconRatio1H' | 'Extreme';
+
     /**
      * Color mode: 'Primary', 'Secondary', 'Tertiary', or 'Default'.
      */
     colorMode?: 'Primary' | 'Secondary' | 'Tertiary' | 'Default';
-    /**
-     * Scale factor: '0_75', '1', '1_5', or '2'.
-     */
-    scale?: `0_75` | `1` | `1_5` | `2`;
     /**
      * Main icon: string (icon name) or ReactNode.
      */
@@ -71,29 +60,13 @@ interface ButtonProps {
      * Border radius: 'none', 'default', 'rounded', or a number in pixels.
      */
     borderRadius?: 'none' | 'default' | 'rounded' | number;
-    /**
-     * Mouse down event handler.
-     */
-    mouseDownFnc?: () => void;
-    /**
-     * Mouse up event handler.
-     */
-    mouseUpFnc?: () => void;
-    /**
-     * Mouse enter event handler.
-     */
-    mouseEnterFnc?: () => void;
-    /**
-     * Mouse leave event handler.
-     */
-    mouseLeaveFnc?: () => void;
 }
 
 /**
  * A customizable button component with various styling modes, icons, and interaction handlers.
  * Supports Material Design-inspired themes and scales.
  */
-const ButtonDefault = forwardRef<HTMLButtonElement, ButtonProps>(({
+const Chip: React.FC<ChipProps> = ({
     onClick,
     children,
     label,
@@ -101,69 +74,65 @@ const ButtonDefault = forwardRef<HTMLButtonElement, ButtonProps>(({
     style = {},
     disabled = false,
     colorMode = 'Primary',
-    type = 'button',
-    variantMode = 'Default',
     styleMode = 'Filled',
-    scale = '1',
     iconMain,
     iconRight,
     borderRadius = 'rounded',
-    autoFocus = false,
     showTitleWhileHover = false,
-    mouseDownFnc,
-    mouseUpFnc,
-    mouseEnterFnc,
-    mouseLeaveFnc,
-}, ref) => {
+    toggle = false,
+    isSelected = false,
+    isShowBadgeOnSelect = false,
+}) => {
+
+    const [selectedState, setSelectedState] = React.useState(isSelected)
 
     // Memoize the button class to avoid recomputation on every render
     const buttonClass = useMemo(() => {
         return [
-            buttonStyle.layoutButtonWrapper,
-            buttonStyle[`variantMode${variantMode}`],
-            buttonStyle[`scaleFactor${scale}`],
+            chipStyle.layoutButtonWrapper,
             typeof borderRadius !== 'number' ? `CM-border-radius-mode-${borderRadius}` : '',
             `typography-system-medium`,
-            disabled ? buttonStyle.disabled : '',
+            disabled ? chipStyle.disabled : '',
             `colorMode${colorMode}`,
             `styleMode${styleMode}`,
+            selectedState ? chipStyle.selected : '',
             className
-        ].join(' ').trim();
-    }, [styleMode, variantMode, colorMode, scale, borderRadius, className]);
+        ].filter(Boolean).join(' ').trim()
+    }, [styleMode, colorMode, borderRadius, className, disabled, selectedState]);
+
+    const handleClick = useCallback(() => {
+        onClick && onClick()
+        if (toggle) setSelectedState(prev => !prev)
+    }, [onClick, toggle])
 
     return (
         <button
-            ref={ref}
             aria-label={label}
-            onClick={onClick}
-            onMouseDown={mouseDownFnc}
-            onMouseUp={mouseUpFnc}
-            onMouseEnter={mouseEnterFnc}
-            onMouseLeave={mouseLeaveFnc}
+            onClick={handleClick}
             className={buttonClass}
             disabled={disabled}
-            type={type}
             style={{
                 borderRadius: typeof borderRadius === 'number' ? `${borderRadius}px` : undefined,
                 ...style,
             }}
-            autoFocus={autoFocus}
             title={showTitleWhileHover && typeof children == 'string' ? children : undefined}
         >
             <div className={[
-                buttonStyle.stateLayer,
-                buttonStyle[`colorMode${colorMode}`],
+                chipStyle.stateLayer,
+                chipStyle[`colorMode${colorMode}`],
                 typeof borderRadius !== 'number' ? `CM-border-radius-mode-${borderRadius}` : '',
             ].join(' ')}></div>
-            {iconMain && typeof iconMain === 'string' ? <IconGen className={[`iconMain`, buttonStyle.layoutIcon].join(' ')} svgName={iconMain} /> : <span className={[`iconMain`, buttonStyle.layoutIcon].join(' ')}>{iconMain}</span>}
-            {children && (
-                <span className={[buttonStyle.layoutLabel, `typography-system-medium`].join(' ')}>
-                    {children}
-                </span>
-            )}
-            {iconRight && typeof iconRight === 'string' ? <IconGen className={buttonStyle.layoutIcon} svgName={iconRight} /> : <span className={buttonStyle.layoutIcon}>{iconRight}</span>}
+
+            {selectedState && isShowBadgeOnSelect ?
+                <div className={chipStyle.badge} />
+                : null
+            }
+
+            {iconMain && typeof iconMain === 'string' ? <IconGen className={[`iconMain`, chipStyle.layoutIcon].join(' ')} svgName={iconMain} /> : <span className={[`iconMain`, chipStyle.layoutIcon].join(' ')}>{iconMain}</span>}
+            {children && typeof children === 'string' ? <TextBodyMedium children={children} color='currentColor' className={chipStyle.layoutLabel} /> : children}
+            {iconRight && typeof iconRight === 'string' ? <IconGen className={chipStyle.layoutIcon} svgName={iconRight} /> : <span className={chipStyle.layoutIcon}>{iconRight}</span>}
         </button >
     );
-})
+};
 
-export default React.memo(ButtonDefault);
+export default React.memo(Chip);

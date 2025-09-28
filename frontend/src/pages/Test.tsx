@@ -1,7 +1,9 @@
 import Button from '../components/Button/Button';
 import FAB from '../components/Button/FAB';
 import SegmentedButton from '../components/Button/SegmentedButton';
+import Chip from '../components/Chip/Chip';
 import { DivFlexColumn, DivFlexRow } from '../components/LayoutDiv/LayoutDiv';
+import { TextDisplayLarge } from '../components/TextBox/textBox';
 
 export default function Test() {
 
@@ -255,6 +257,52 @@ export default function Test() {
                     <SegmentedButton
                         iconOnSelected='check'
                         borderOnSelected
+                    />
+
+                    <Chip
+                        label=''
+                        children='asb asdfasdf asd'
+                        toggle
+                        isShowBadgeOnSelect
+                        styleMode='FillFixed'
+                    />
+                    <Chip
+                        label=''
+                        children='asb asdfasdf asd'
+                        toggle
+                        isShowBadgeOnSelect
+                        styleMode='Filled'
+                    />
+                    <Chip
+                        label=''
+                        children='asb asdfasdf asd'
+                        toggle
+                        isShowBadgeOnSelect
+                        styleMode='Text'
+                    />
+                    <Chip
+                        label=''
+                        iconMain='edit'
+                        children='asb asdfasdf asd'
+                        toggle
+                        isShowBadgeOnSelect
+                        styleMode='Outlined'
+                    />
+                     <Chip
+                        label=''
+                        children={<TextDisplayLarge children='dsafasfasdf' color='currentColor'/>}
+                        toggle
+                        isShowBadgeOnSelect
+                        styleMode='Outlined'
+                    />
+                    <Chip
+                        label=''
+                        children='asb asdfasdf asd'
+                        toggle
+                        isShowBadgeOnSelect
+                        styleMode='Elevated'
+                        onClick={()=>{console.log('asdfasfd');
+                        }}
                     />
 
                 </DivFlexColumn>

@@ -74,13 +74,7 @@ const FAB: React.FC<FABProps> = ({
                 fabStyle[`colorMode${colorMode}`],
                 `CM-border-radius-mode-${borderRadius}`
             ].join(' ')}></div>
-            {icon && (
-                typeof icon === 'string' ? (
-                    <IconGen className={fabStyle.layoutIcon} svgName={icon} fillMode/>
-                ) : (
-                    <span className={fabStyle.layoutIcon}>{icon}</span>
-                )
-            )}
+            {icon && typeof icon === 'string' ? <IconGen className={fabStyle.layoutIcon} svgName={icon} fillMode/> : <span className={fabStyle.layoutIcon}>{icon}</span>}
             {variantMode === 'Full-FAB' && label && (
                 <TextHeadlineSmall className={fabStyle.layoutLabel} color="currentColor">{label}</TextHeadlineSmall>
             )}

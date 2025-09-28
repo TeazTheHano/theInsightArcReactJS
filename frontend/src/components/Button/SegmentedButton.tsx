@@ -87,9 +87,6 @@ const SegmentedButton: React.FC<SegmentedButtonProps> = ({
             onChange(value);
         }
         setSelectedValue(value);
-
-        console.log(`Button ${value} clicked`);
-
     }, [onChange]);
 
     const borderRadiusClass = typeof borderRadius !== 'number' ? `CM-border-radius-mode-${borderRadius}` : '';

@@ -87,7 +87,6 @@ export default function Footer() {
                     setTheme(value as Theme)
                 }}
                 preSelected={theme}
-                styleMode='Outlined'
             />
 
         </footer >
