@@ -109,7 +109,7 @@ const SegmentedButton: React.FC<SegmentedButtonProps> = ({
                 key={item.value}
                 label={item.label || item.value.replace(' ', '').toLowerCase() || index.toString()}
                 children={item.label}
-                iconMain={isSelected ? iconOnSelected : item.icon}
+                leadingIcon={isSelected ? iconOnSelected : item.icon}
                 onClick={() => handleButtonClick(item.value)}
                 colorMode='Tertiary'
                 styleMode={isSelected ? "FillFixed" : "Text"}

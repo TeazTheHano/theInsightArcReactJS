@@ -151,9 +151,9 @@
    VARIANT MODES
    =========================================== */
 
-button[class*="variantModeIcon"]>span:not([class^="iconMain"]),
-button[class*="variantModeIconRatio1W"]>span:not([class^="iconMain"]),
-button[class*="variantModeIconRatio1H"]>span:not([class^="iconMain"]) {
+button[class*="variantModeIcon"]>span:not([class^="leadingIcon"]),
+button[class*="variantModeIconRatio1W"]>span:not([class^="leadingIcon"]),
+button[class*="variantModeIconRatio1H"]>span:not([class^="leadingIcon"]) {
     display: none !important;
 }
 

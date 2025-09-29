@@ -54,7 +54,7 @@ interface ButtonProps {
     /**
      * Color mode: 'Primary', 'Secondary', 'Tertiary', or 'Default'.
      */
-    colorMode?: 'Primary' | 'Secondary' | 'Tertiary' | 'Default';
+    colorMode?: 'Primary' | 'Secondary' | 'Tertiary' | 'Default' | 'Error';
     /**
      * Scale factor: '0_75', '1', '1_5', or '2'.
      */
@@ -62,11 +62,11 @@ interface ButtonProps {
     /**
      * Main icon: string (icon name) or ReactNode.
      */
-    iconMain?: React.ReactNode | string;
+    leadingIcon?: React.ReactNode | string;
     /**
      * Right icon: string (icon name) or ReactNode.
      */
-    iconRight?: React.ReactNode | string;
+    trailingIcon?: React.ReactNode | string;
     /**
      * Border radius: 'none', 'default', 'rounded', or a number in pixels.
      */
@@ -105,8 +105,8 @@ const ButtonDefault = forwardRef<HTMLButtonElement, ButtonProps>(({
     variantMode = 'Default',
     styleMode = 'Filled',
     scale = '1',
-    iconMain,
-    iconRight,
+    leadingIcon,
+    trailingIcon,
     borderRadius = 'rounded',
     autoFocus = false,
     showTitleWhileHover = false,
@@ -152,16 +152,15 @@ const ButtonDefault = forwardRef<HTMLButtonElement, ButtonProps>(({
         >
             <div className={[
                 buttonStyle.stateLayer,
-                buttonStyle[`colorMode${colorMode}`],
                 typeof borderRadius !== 'number' ? `CM-border-radius-mode-${borderRadius}` : '',
             ].join(' ')}></div>
-            {iconMain && typeof iconMain === 'string' ? <IconGen className={[`iconMain`, buttonStyle.layoutIcon].join(' ')} svgName={iconMain} /> : <span className={[`iconMain`, buttonStyle.layoutIcon].join(' ')}>{iconMain}</span>}
+            {leadingIcon && typeof leadingIcon === 'string' ? <IconGen className={[`leadingIcon`, buttonStyle.layoutIcon].join(' ')} svgName={leadingIcon} /> : <span className={[`leadingIcon`, buttonStyle.layoutIcon].join(' ')}>{leadingIcon}</span>}
             {children && (
                 <span className={[buttonStyle.layoutLabel, `typography-system-medium`].join(' ')}>
                     {children}
                 </span>
             )}
-            {iconRight && typeof iconRight === 'string' ? <IconGen className={buttonStyle.layoutIcon} svgName={iconRight} /> : <span className={buttonStyle.layoutIcon}>{iconRight}</span>}
+            {trailingIcon && typeof trailingIcon === 'string' ? <IconGen className={buttonStyle.layoutIcon} svgName={trailingIcon} /> : <span className={buttonStyle.layoutIcon}>{trailingIcon}</span>}
         </button >
     );
 })

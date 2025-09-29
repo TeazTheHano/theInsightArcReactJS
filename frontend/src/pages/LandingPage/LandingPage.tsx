@@ -54,7 +54,7 @@ function LandingPage() {
                         children={t('section-1-button')}
                         label={t('section-1-button')}
                         onClick={() => { }}
-                        iconMain={'phone_filled'}
+                        leadingIcon={'phone_filled'}
                     />
                 </DivFlexColumn>
                 {/* right */}
@@ -125,7 +125,7 @@ function LandingPage() {
                             children={t('section-4-button')}
                             label={t('section-4-button')}
                             onClick={() => { }}
-                            iconMain={'arrow_outward'}
+                            leadingIcon={'arrow_outward'}
                         />
                     </DivFlexColumn>
                     {/* right */}
@@ -151,7 +151,7 @@ function LandingPage() {
                             children={t('section-5-button')}
                             label={t('section-5-button')}
                             onClick={() => { }}
-                            iconMain={'arrow_outward'}
+                            leadingIcon={'arrow_outward'}
                         />
                     </DivFlexColumn>
                     {/* right */}
@@ -179,7 +179,7 @@ function LandingPage() {
                             children={t('section-6-button')}
                             label={t('section-6-button')}
                             onClick={() => { }}
-                            iconMain={'arrow_outward'}
+                            leadingIcon={'arrow_outward'}
                         />
                     </DivFlexColumn>
                     {/* right */}

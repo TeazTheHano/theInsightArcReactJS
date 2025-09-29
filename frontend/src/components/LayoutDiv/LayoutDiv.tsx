@@ -186,6 +186,29 @@ export const DivFlexRowSpaceBetweenCenter: React.FC<LayoutDivProps> = ({
     )
 }
 
+export const DivFlexRowSpaceBetweenBaseline: React.FC<LayoutDivProps> = ({
+    children,
+    id,
+    className,
+    style = {},
+    onClick,
+    ...rest
+}) => {
+    return (
+        <div className={className} id={id}
+            style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'baseline',
+                ...style
+            }}
+            onClick={onClick} {...rest}>
+            {children}
+        </div>
+    )
+}
+
 export const DivFlexColumnSpaceBetweenCenter: React.FC<LayoutDivProps> = ({
     children,
     id,

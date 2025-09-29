@@ -41,7 +41,7 @@ export default function Footer() {
                     label='Contact us on instagram: @the_insightarc'
                     styleMode='Text'
                     colorMode='Primary'
-                    iconMain={'instagram'}
+                    leadingIcon={'instagram'}
                     onClick={() => {
                         window.open('https://www.instagram.com/the_insightarc/', '_blank')
                     }}
@@ -51,7 +51,7 @@ export default function Footer() {
                     label='Contact us via email: contact@theinsightarc.id.vn'
                     styleMode='Text'
                     colorMode='Primary'
-                    iconMain={'mail'}
+                    leadingIcon={'mail'}
                     onClick={() => {
                         window.open('mailto:contact@theinsightarc.id.vn', '_blank')
                     }}

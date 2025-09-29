@@ -51,11 +51,11 @@ interface ChipProps {
     /**
      * Main icon: string (icon name) or ReactNode.
      */
-    iconMain?: React.ReactNode | string;
+    leadingIcon?: React.ReactNode | string;
     /**
      * Right icon: string (icon name) or ReactNode.
      */
-    iconRight?: React.ReactNode | string;
+    trailingIcon?: React.ReactNode | string;
     /**
      * Border radius: 'none', 'default', 'rounded', or a number in pixels.
      */
@@ -75,8 +75,8 @@ const Chip: React.FC<ChipProps> = ({
     disabled = false,
     colorMode = 'Primary',
     styleMode = 'Filled',
-    iconMain,
-    iconRight,
+    leadingIcon,
+    trailingIcon,
     borderRadius = 'rounded',
     showTitleWhileHover = false,
     toggle = false,
@@ -119,7 +119,6 @@ const Chip: React.FC<ChipProps> = ({
         >
             <div className={[
                 chipStyle.stateLayer,
-                chipStyle[`colorMode${colorMode}`],
                 typeof borderRadius !== 'number' ? `CM-border-radius-mode-${borderRadius}` : '',
             ].join(' ')}></div>
 
@@ -128,9 +127,9 @@ const Chip: React.FC<ChipProps> = ({
                 : null
             }
 
-            {iconMain && typeof iconMain === 'string' ? <IconGen className={[`iconMain`, chipStyle.layoutIcon].join(' ')} svgName={iconMain} /> : <span className={[`iconMain`, chipStyle.layoutIcon].join(' ')}>{iconMain}</span>}
+            {leadingIcon && typeof leadingIcon === 'string' ? <IconGen className={[`leadingIcon`, chipStyle.layoutIcon].join(' ')} svgName={leadingIcon} /> : <span className={[`leadingIcon`, chipStyle.layoutIcon].join(' ')}>{leadingIcon}</span>}
             {children && typeof children === 'string' ? <TextBodyMedium children={children} color='currentColor' className={chipStyle.layoutLabel} /> : children}
-            {iconRight && typeof iconRight === 'string' ? <IconGen className={chipStyle.layoutIcon} svgName={iconRight} /> : <span className={chipStyle.layoutIcon}>{iconRight}</span>}
+            {trailingIcon && typeof trailingIcon === 'string' ? <IconGen className={chipStyle.layoutIcon} svgName={trailingIcon} /> : <span className={chipStyle.layoutIcon}>{trailingIcon}</span>}
         </button >
     );
 };
