@@ -25,7 +25,7 @@ export default function App() {
           {/* Các trang */}
           <Routes>
             <Route path="/" element={<Navigate to="/landingpage" replace />} />
-            <Route path="/ladingpage" element={<LandingPage />} />
+            <Route path="/landingpage" element={<LandingPage />} />
             <Route path="/blog" element={<BlogList />} />
             <Route path="/inspiration" element={<Inspiration />} />
             <Route path="/game" element={<Game />} />
