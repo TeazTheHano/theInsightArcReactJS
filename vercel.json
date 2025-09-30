@@ -10,12 +10,13 @@
       }
     }
   ],
-  "rewrites": [
+  "routes": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "/(.*)",
+      "dest": "/frontend/$1"
     }
   ],
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
   "git": {
     "deploymentEnabled": {
       "frontend": true,

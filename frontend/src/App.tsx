@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 // Import ThemeProvider từ file useTheme.ts (hoặc useTheme.tsx)
 import { ThemeProvider } from './hooks/useTheme'; // Import cả ThemeProvider và useTheme
@@ -21,7 +21,8 @@ export default function App() {
         <GlobalLayout>
           {/* Các trang */}
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={<Navigate to="/landingpage" replace />} />
+            <Route path="/ladingpage" element={<LandingPage />} />
             <Route path="/test" element={<Test />} />
 
             {/* 404 */}
