@@ -21,9 +21,7 @@ export default function App() {
         <GlobalLayout>
           {/* Các trang */}
           <Routes>
-            {/* <Route path="/" element={<Navigate to="/landingpage" replace />} /> */}
             <Route path="/" element={<LandingPage />} />
-            <Route path="/landingpage" element={<LandingPage />} />
             <Route path="/test" element={<Test />} />
 
             {/* 404 */}
