@@ -9,7 +9,7 @@
     color: var(--Schemes-On-Surface-Variant);
 }
 
-.inputFeild {
+.inputField {
     color: var(--Schemes-On-Surface);
 }
 
@@ -24,6 +24,7 @@
 .component {
     height: fit-content;
     position: relative;
+    width: 100%;
 }
 
 .main {
@@ -35,7 +36,6 @@
     width: var(--Icon-Icon-Base, 24px);
 }
 
-
 .icon {
     width: var(--Icon-Icon-Base, 24px);
 
@@ -44,17 +44,27 @@
 .inputRow {
     padding: var(--Spacing-Spaceing-0, 0) var(--Spacing-Spaceing-XS, 12px);
     position: relative;
+    flex: 1;
+    min-width: 10px;
+    max-width: none;
+}
+
+.label {
+    white-space: pre;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
 }
 
 .labelCompactMode {
     position: absolute;
     z-index: 0;
-    width: 100%;
+    /* width: 100%; */
     pointer-events: none;
     top: 10%;
 }
 
-.inputFeild {
+.inputField {
     font-family: var(--Body-Family, Inconsolata);
     font-size: var(--Body-Font-Size, 20px);
     font-style: normal;
@@ -76,7 +86,7 @@
 }
 
 .perfectLengthSizer {
-    height: 1px;
+    height: 0px;
     overflow: hidden;
     opacity: 0;
     pointer-events: none !important;
@@ -114,15 +124,15 @@
 }
 
 /* Focus */
-.component:has(.inputFeild:focus-visible) .leadingIcon,
-.inputFeild:focus-visible {
+.component:has(.inputField:focus-visible) .leadingIcon,
+.inputField:focus-visible {
     color: var(--Schemes-Primary);
     outline-width: 0;
 }
 
 .component.error .label,
 .component.error .leadingIcon,
-.component.error .inputFeild {
+.component.error .inputField {
     color: var(--Schemes-Error) !important;
 }
 
@@ -162,4 +172,14 @@
 
 .compactMode .main {
     padding: 0 var(--Spacing-Spaceing-XXXS, 4px) 0 0;
+}
+
+/* width mode */
+
+.widthMode-fix-perfect-length .textField {
+    width: 100%;
+}
+
+.widthMode-fix-perfect-length.component {
+    width: fit-content !important;
 }
