@@ -10,6 +10,9 @@ import Test from './pages/Test';
 
 import './i18n';
 import NotFoundPage from './pages/NotFoundPage';
+import Game from './pages/Game/Game';
+import Inspiration from './pages/Inspiration/Inspiration';
+import BlogList from './pages/Blog/BlogList';
 
 export default function App() {
 
@@ -23,6 +26,9 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Navigate to="/landingpage" replace />} />
             <Route path="/ladingpage" element={<LandingPage />} />
+            <Route path="/blog" element={<BlogList />} />
+            <Route path="/inspiration" element={<Inspiration />} />
+            <Route path="/game" element={<Game />} />
             <Route path="/test" element={<Test />} />
 
             {/* 404 */}
