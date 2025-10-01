@@ -19,6 +19,7 @@ interface LazyImageProps extends React.HTMLAttributes<HTMLDivElement> {
     onErrorIcon?: React.ReactNode;
     errorMessage?: string;
     rootMargin?: string;
+    borderRadius?: 'none' | 'default' | 'rounded' | number; // e.g., 'none', 'default', 'rounded', or a number in px
 }
 
 const LazyImageComponent: React.FC<LazyImageProps> = ({
@@ -35,6 +36,7 @@ const LazyImageComponent: React.FC<LazyImageProps> = ({
     onErrorIcon = '⚠️',
     errorMessage = 'Failed to load image',
     rootMargin = '0px 0px 100px 0px',
+    borderRadius = 'none',
     ...restProps
 }) => {
     const imgRef = useRef<HTMLImageElement>(null);
@@ -92,7 +94,7 @@ const LazyImageComponent: React.FC<LazyImageProps> = ({
 
     return (
         <div
-            className={`${styles.lazyImageWrapper} ${className}`}
+            className={`${styles.lazyImageWrapper} ${className} ${`CM-border-radius-mode-${borderRadius || 'none'}`}`}
             style={wrapperStyles} // Áp dụng styles đã tính toán
             {...restProps}
         >
@@ -129,4 +131,21 @@ const LazyImageComponent: React.FC<LazyImageProps> = ({
 
 LazyImageComponent.displayName = 'LazyImage';
 
+/**
+ * @param param0 Lazy load images with placeholder, error handling, and responsive support.
+ * @returns A React component that lazy loads images with a placeholder and error handling.
+ * @param src The image source URL.
+ * @param alt The alt text for the image.
+ * @param srcSet Optional srcSet for responsive images.
+ * @param sizes Optional sizes attribute for responsive images.
+ * @param width The width of the image (number in px or string like '100%').
+ * @param height The height of the image (number in px or string like 'auto').
+ * @param aspectRatio The aspect ratio of the image (e.g., '16/9', '4/3', '1/1').
+ * @param maxWidth The maximum width of the image (string like '100%', '300px').
+ * @param maxHeight The maximum height of the image (string like 'auto', '200px').
+ * @param className Additional CSS classes for the wrapper div.
+ * @param onErrorIcon Icon or element to display on error.
+ * @param errorMessage Message to display on error.
+ * @param rootMargin Margin around the root for IntersectionObserver.
+ */
 export default memo(LazyImageComponent);

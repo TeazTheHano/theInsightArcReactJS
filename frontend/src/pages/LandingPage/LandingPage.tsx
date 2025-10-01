@@ -6,7 +6,7 @@ import ButtonDefault from '../../components/Button/Button'
 import { TextBodyMedium, TextDisplayMedium, TextHeadlineLarge, TextHeadlineSmall } from '../../components/TextBox/textBox'
 import Divider from '../../components/Divider/Divider'
 import { Trans, useTranslation } from 'react-i18next'
-import BlogItemSingle, { type BlogItemProps } from '../../components/Blog/BlogItemSingle'
+import { BlogItem2RowGen, BlogItemSingleGener, type BlogItemProps } from '../../components/Blog/BlogItemSingle'
 
 function LandingPage() {
 
@@ -14,20 +14,53 @@ function LandingPage() {
 
     const item111: BlogItemProps[] = [
         {
-            title: 'Đây là một tiêu đề bài viết mẫu',
-            description: 'Blog Description 1',
+            title: 'Coming soon',
+            description: 'Coming soon',
             image: 'placeholder',
             link: '/test'
         },
         {
-            title: 'Blog Title 1',
-            description: 'Blog Description 1',
+            title: 'Coming soon',
+            description: 'Coming soon',
             image: 'placeholder',
             link: '/test'
         },
         {
-            title: 'Blog Title 2',
-            description: 'Blog Description 1',
+            title: 'Coming soon',
+            description: 'Coming soon',
+            image: 'placeholder',
+            link: '/test'
+        },
+    ]
+
+    const item112: BlogItemProps[] = [
+        {
+            title: 'Coming soon',
+            description: 'Coming soon',
+            image: 'placeholder',
+            link: '/test',
+            // timeStamp: new Date('2023-10-01 12:00:00 GMT+07:00'),
+            tags: [
+                {
+                    title: 'Coming soon',
+                    link: 'abc',
+                },
+                {
+                    title: 'Coming soon',
+                    link: 'abc',
+                }
+            ]
+        },
+        {
+            title: 'Coming soon',
+            description: 'Coming soon',
+            image: 'placeholder',
+            link: '/test',
+            // timeStamp: new Date('2023-09-15 08:30:00 GMT+07:00')
+        },
+        {
+            title: 'Coming soon',
+            description: 'Coming soon',
             image: 'placeholder',
             link: '/test'
         },
@@ -161,7 +194,7 @@ function LandingPage() {
                 </DivFlexRow>
                 {/* blog list */}
                 <DivFlexRow className='shiftVerticalSm' style={{ gap: `var(--Spacing-Spaceing-M, 24px)`, flex: 1 }}>
-                    <BlogItemSingle dataList={item111} />
+                    <BlogItemSingleGener dataList={item111} />
                 </DivFlexRow>
             </DivFlexColumn>
 
@@ -189,13 +222,25 @@ function LandingPage() {
                 </DivFlexRow>
                 {/* blog list */}
                 <DivFlexRow className='shiftVerticalSm shiftVerticalMd' style={{ gap: `var(--Spacing-Spaceing-M, 24px)`, flex: 1 }}>
-                    <DivFlexRow style={{ gap: `var(--Spacing-Spaceing-M, 24px)`, flex: 1 }}>
+                    <DivFlexColumn style={{ gap: `var(--Spacing-Spaceing-M, 24px)`, flex: 1 }}>
                         <TextHeadlineSmall children={t('section-6-subTitle-1')} />
+                        <BlogItemSingleGener
+                            maxHeight={500}
 
-                    </DivFlexRow>
-                    <DivFlexRow style={{ gap: `var(--Spacing-Spaceing-M, 24px)`, flex: 1 }}>
+                            dataList={[
+                                {
+                                    title: '',
+                                    description: '',
+                                    image: 'placeholder',
+                                    link: '/test',
+                                }
+                            ] as BlogItemProps[]}
+                        />
+                    </DivFlexColumn>
+                    <DivFlexColumn style={{ gap: `var(--Spacing-Spaceing-M, 24px)`, flex: 1 }}>
                         <TextHeadlineSmall children={t('section-6-subTitle-2')} />
-                    </DivFlexRow>
+                        <BlogItem2RowGen dataList={item112} compactMode />
+                    </DivFlexColumn>
                 </DivFlexRow>
             </DivFlexColumn>
 

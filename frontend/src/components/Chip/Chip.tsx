@@ -4,7 +4,7 @@ import { IconGen } from '../../assets/icon/OtherIcon';
 import { TextBodyMedium } from '../TextBox/textBox';
 
 /**
- * Props for the Button component.
+ * Props for the Chip component.
  */
 interface ChipProps {
     /**
@@ -12,11 +12,11 @@ interface ChipProps {
      */
     onClick?: () => void;
     /**
-     * Content to display inside the button (usually text).
+     * Content to display inside the chip (usually text).
      */
     children?: React.ReactNode;
     /**
-     * Accessibility label for the button.
+     * Accessibility label for the chip.
      */
     label: string;
     /**
@@ -24,36 +24,43 @@ interface ChipProps {
      */
     className?: string;
     /**
-     * Inline styles for the button.
+     * Inline styles for the chip.
      */
     style?: React.CSSProperties;
     /**
-     * Whether the button is disabled.
+     * Whether the chip is disabled.
      */
     disabled?: boolean;
     /**
      * Whether to show the title on hover.
      */
     showTitleWhileHover?: boolean;
+    /**
+     * Whether the chip acts as a toggle.
+     */
     toggle?: boolean;
+    /**
+     * Initial selected state.
+     */
     isSelected?: boolean;
-
+    /**
+     * Whether to show a badge when selected.
+     */
     isShowBadgeOnSelect?: boolean;
     /**
      * Styling mode: 'Filled', 'FillFixed', 'Outlined', 'Text', or 'Elevated'.
      */
     styleMode?: 'Filled' | 'FillFixed' | 'Outlined' | 'Text' | 'Elevated';
-
     /**
      * Color mode: 'Primary', 'Secondary', 'Tertiary', or 'Default'.
      */
     colorMode?: 'Primary' | 'Secondary' | 'Tertiary' | 'Default';
     /**
-     * Main icon: string (icon name) or ReactNode.
+     * Leading icon: string (icon name) or ReactNode.
      */
     leadingIcon?: React.ReactNode | string;
     /**
-     * Right icon: string (icon name) or ReactNode.
+     * Trailing icon: string (icon name) or ReactNode.
      */
     trailingIcon?: React.ReactNode | string;
     /**
@@ -63,7 +70,7 @@ interface ChipProps {
 }
 
 /**
- * A customizable button component with various styling modes, icons, and interaction handlers.
+ * A customizable chip component with various styling modes, icons, and interaction handlers.
  * Supports Material Design-inspired themes and scales.
  */
 const Chip: React.FC<ChipProps> = ({
@@ -134,4 +141,8 @@ const Chip: React.FC<ChipProps> = ({
     );
 };
 
+/**
+ * Chip component with memoization for performance.
+ * Works like a button but includes toggle mode for selection.
+ */
 export default React.memo(Chip);
