@@ -59,6 +59,13 @@
   gap: var(--Spacing-Spaceing-XXS, 8px);
 }
 
+/* COLUMN */
+.blog2RowContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--Spacing-Spaceing-S, 16px);
+}
+
 /* ROW */
 
 .blog2RowContainer.direction-row {
@@ -72,12 +79,6 @@
   max-width: 50%;
 }
 
-/* COLUMN */
-.blog2RowContainer.direction-column {
-  display: flex;
-  flex-direction: column;
-  gap: var(--Spacing-Spaceing-S, 16px);
-}
 
 /* WIDTH */
 .direction-column.thumbSize-100 {

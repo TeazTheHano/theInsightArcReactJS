@@ -77,7 +77,7 @@
     padding: calc(var(--Spacing-Spaceing-XXS, 8px) * var(--scale-factor, 1)) calc(var(--Spacing-Spaceing-XS, 12px) * var(--scale-factor, 1));
     justify-content: center;
     align-items: center;
-    gap: calc(var(--Spacing-Spaceing-XXXS, 4px) * var(--scale-factor, 1));
+    gap: calc(var(--Spacing-Spaceing-XS, 12px) * var(--scale-factor, 1));
     position: relative;
     cursor: pointer;
     transition: all 0.2s ease-in-out;

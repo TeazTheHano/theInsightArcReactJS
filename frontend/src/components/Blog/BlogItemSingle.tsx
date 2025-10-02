@@ -8,6 +8,7 @@ import styles from './BlogItemSingle.module.css'
 import { Link } from 'react-router-dom'
 import type { TagProps } from '../../styles/dataInterface'
 import Chip from '../Chip/Chip'
+import Button from '../Button/Button'
 
 export interface BlogItemProps {
     title?: string
@@ -16,6 +17,7 @@ export interface BlogItemProps {
     link: string
     timeStamp?: Date
     tags?: TagProps[]
+    ratio?: string
 }
 
 interface BlogItemSingleGenerProps {
@@ -33,7 +35,7 @@ const formatDate = (date: Date) => {
 
 const BlogBlockComponet: React.FC<BlogItemSingleGenerProps> = ({
     dataList,
-    openAsNewTab = false,
+    openAsNewTab,
     maxWidth,
     maxHeight,
     ratio = '1',
@@ -96,11 +98,11 @@ export interface Blog2RowComponetProps {
 
 const Blog2RowComponet: React.FC<Blog2RowComponetProps> = ({
     dataList,
-    openAsNewTab = false,
+    openAsNewTab,
     direction = 'row',
     thumbSize = 'full',
     ratio = '16/9',
-    compactMode = false,
+    compactMode,
 }) => {
 
     const containerClass = useMemo(() => [
@@ -199,3 +201,70 @@ const Blog2RowComponet: React.FC<Blog2RowComponetProps> = ({
 }
 
 export const BlogItem2RowGen = React.memo(Blog2RowComponet)
+
+export interface IdealBlockProps {
+    dataList: BlogItemProps[]
+    openAsNewTab?: boolean
+    squareRatio?: boolean
+    compactMode?: boolean
+}
+
+const IdealBlock: React.FC<IdealBlockProps> = ({
+    dataList,
+    openAsNewTab,
+    squareRatio,
+    compactMode,
+}) => {
+
+    const handleTagClick = useCallback((link: string) => {
+        window.open(link, '_blank');
+    }, []);
+
+    const renderedItems = useMemo(() => {
+        return dataList.map((item, index) => (
+            <Link
+                key={`${item.title}_${index}`}
+                to={item.link}
+                aria-label={item.title}
+                tabIndex={0}
+                style={{ width: '100%' }}
+                target={openAsNewTab ? '_blank' : '_self'}
+            >
+                <div className={
+                    // containerClass
+                    styles.blog2RowContainer
+                }>
+
+                    <LazyImage
+                        src={item.image}
+                        alt={item.title || ''}
+                        // aspectRatio={squareRatio ? '1' : item.ratio}
+                        aspectRatio={squareRatio ? '1' : item.ratio || '1'}
+                        className={styles.Blog2RowComponetImage}
+                        borderRadius='default'
+                    />
+                    <DivFlexRow style={{ flex: 1, gap: 'var(--Spacing-Spaceing-M, 24px)' }}>
+                        <DivFlexColumn className={styles.titleHolder} style={{ flex: 1 }}>
+                            <TextHeadlineSmall children={item.title} className={styles.title} maxLines={2} />
+                            {
+                                !compactMode &&
+                                <TextBodySmall
+                                    children={item.description}
+                                    className={styles.description}
+                                    maxLines={3}
+                                    color='var(--Schemes-On-Surface-Variant)'
+                                />
+                            }
+                        </DivFlexColumn>
+
+                        <Button variantMode='Icon' label='ex' leadingIcon='arrow_outward' onClick={() => handleTagClick(item.link)} />
+                    </DivFlexRow>
+                </div>
+            </Link>
+        ));
+    }, [dataList, openAsNewTab, compactMode, handleTagClick, squareRatio]);
+
+    return <>{renderedItems}</>;
+}
+
+export const IdealBlockGen = React.memo(IdealBlock)

@@ -1,12 +1,15 @@
 {
-  "nav-item-1": "Direction",
-  "nav-item-2": "About The InsightArc",
-  "nav-item-3": "Inspiration",
-  "nav-item-4": "Writing & Discussion",
-  "nav-item-5": "Fun with Country",
-  "nav-item-6": "Contact",
-  "nav-item-7": "TestSite",
-  "nav-item-8": "Navigation Menu",
+  "direction": "Direction",
+  "about-us": "About The InsightArc",
+  "inspiration": "Inspiration",
+  "blog-page": "Writing & Discussion",
+  "game-page": "Fun with Country",
+  "contact-page": "Contact",
+  "test-site": "TestSite",
+  "nav-menu": "Navigation Menu",
   "footer-item-1": "The insightArc project",
-  "footer-item-2": "Hanoi, Vietnam, May 2025"
+  "footer-item-2": "Hanoi, Vietnam, May 2025",
+  "search": "Search",
+  "inspiration-segment-freeform": "FreeForm",
+  "inspiration-segment-grid": "Grid"
 }

@@ -1,0 +1,28 @@
+:global(body.size-and-spacing-sm) {
+    --gridNumberTrue: 1;
+    --gridNumberFalse: 1;
+}
+
+:global(body.size-and-spacing-md) {
+    --gridNumberTrue: 2;
+    --gridNumberFalse: 2;
+}
+
+:global(body.size-and-spacing-lg),
+:global(body.size-and-spacing-xl) {
+    --gridNumberTrue: 3;
+    --gridNumberFalse: 2;
+}
+
+.inspirationContainer {
+    display: grid;
+    gap: var(--Spacing-Spaceing-M, 24px);
+}
+
+.inspirationContainer.gridView-true {
+    grid-template-columns: repeat(var(--gridNumberTrue), 1fr);
+}
+
+.inspirationContainer.gridView-false {
+    grid-template-columns: repeat(var(--gridNumberFalse), 1fr);
+}

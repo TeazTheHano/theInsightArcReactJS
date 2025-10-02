@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next'
 
 import styles from './NavigationUnit.module.css'
 import ButtonDefault from '../Button/Button'
+import TextField from '../TextInput/TextField'
 
 const NavigationUnit: React.FC = () => {
 
@@ -18,10 +19,10 @@ const NavigationUnit: React.FC = () => {
     const navRef = useRef<HTMLDivElement>(null);
 
     const navItemsData = [
-        { href: '/landingpage', key: 'nav-item-2', supText: '01' },
-        { href: '/inspiration', key: 'nav-item-3', supText: '02' },
-        { href: '/blog', key: 'nav-item-4', supText: '03' },
-        { href: '/game', key: 'nav-item-5', supText: '04' },
+        { href: '/landingpage', key: 'about-us', supText: '01' },
+        { href: '/inspiration', key: 'inspiration', supText: '02' },
+        { href: '/blog', key: 'blog-page', supText: '03' },
+        { href: '/game', key: 'game-page', supText: '04' },
     ];
 
     const navItems = navItemsData.map(({ href, key, supText }, index) => (
@@ -63,7 +64,7 @@ const NavigationUnit: React.FC = () => {
                         />
                         {/* Hamburger menu */}
                         <ButtonDefault
-                            label={t('nav-item-8')}
+                            label={t('nav-menu')}
                             onClick={() => {
                                 document.getElementsByClassName(styles.navMenuContainer)[0].classList.toggle(styles.hideSm)
                                 setLogoSubButtonIcon(logoSubButtonIcon === 'dehaze' ? 'cancel_filled' : 'dehaze')
@@ -98,6 +99,13 @@ const NavigationUnit: React.FC = () => {
                         color: 'var(--Schemes-On-Surface-Variant)'
                     }}>
                     {/* SLOT FOR SEARCH BAR */}
+                    <TextField
+                        leadingIcon='search'
+                        placeholder={t("search")}
+                        widthMode='fill'
+                        onChange={() => { }}
+                        compactMode
+                    />
                     {/* SLOT FOR TABLE OF CONTENT */}
                 </DivFlexColumn>
 
@@ -105,11 +113,11 @@ const NavigationUnit: React.FC = () => {
                 <Divider className={styles.hideMdSm} />
                 <DivFlexColumn
                     className={[styles.navMenuContainer, styles.hideMdSm].join(' ')}>
-                    <Link to="/test" aria-label={t('nav-item-7')} className={styles.navMenuItem}>
-                        <TextTitleSmall className={styles.navMenuItemText} color='var(--Schemes-On-Surface-Variant)' children={t('nav-item-7')} />
+                    <Link to="/test" aria-label={t('test-site')} className={styles.navMenuItem}>
+                        <TextTitleSmall className={styles.navMenuItemText} color='var(--Schemes-On-Surface-Variant)' children={t('test-site')} />
                     </Link>
-                    <Link to="/" aria-label={t('nav-item-6')} className={styles.navMenuItem}>
-                        <TextTitleSmall className={styles.navMenuItemText} color='var(--Schemes-On-Surface-Variant)' children={t('nav-item-6')} />
+                    <Link to="/" aria-label={t('contact-page')} className={styles.navMenuItem}>
+                        <TextTitleSmall className={styles.navMenuItemText} color='var(--Schemes-On-Surface-Variant)' children={t('contact-page')} />
                     </Link>
                 </DivFlexColumn>
             </nav >
