@@ -3,12 +3,19 @@ import { DivFlexColumn, DivFlexRow, DivFlexRowSpaceBetweenCenter } from '../Layo
 import { TextTitleSmall } from '../TextBox/textBox'
 import TheInsightArcLogo from '../../assets/icon/Logo'
 import Divider from '../Divider/Divider'
-import React, { useRef, useState } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import styles from './NavigationUnit.module.css'
 import ButtonDefault from '../Button/Button'
 import TextField from '../TextInput/TextField'
+
+const navItemsData = [
+    { href: '/landingpage', key: 'about-us', supText: '01' },
+    { href: '/inspiration', key: 'inspiration', supText: '02' },
+    { href: '/blog', key: 'blog-page', supText: '03' },
+    { href: '/game', key: 'game-page', supText: '04' },
+];
 
 const NavigationUnit: React.FC = () => {
 
@@ -16,25 +23,29 @@ const NavigationUnit: React.FC = () => {
 
     const location = useLocation();
 
-    const navRef = useRef<HTMLDivElement>(null);
+    const [logoSubButtonIcon, setLogoSubButtonIcon] = useState('dehaze');
 
-    const navItemsData = [
-        { href: '/landingpage', key: 'about-us', supText: '01' },
-        { href: '/inspiration', key: 'inspiration', supText: '02' },
-        { href: '/blog', key: 'blog-page', supText: '03' },
-        { href: '/game', key: 'game-page', supText: '04' },
-    ];
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const navItems = navItemsData.map(({ href, key, supText }, index) => (
-        <Link key={index} to={href} aria-label={t(key)} className={[styles.navMenuItem, location.pathname.startsWith(href) ? styles.active : null].join(' ')}>
+    const handleNavItemClick = useCallback(() => {
+        if (isMenuOpen) {
+            setIsMenuOpen(false);
+            setLogoSubButtonIcon('dehaze');
+        }
+    }, [isMenuOpen]);
+
+    const navItems = useMemo(() => navItemsData.map(({ href, key, supText }, index) => (
+        <Link key={index} to={href}
+            aria-label={t(key)}
+            className={[styles.navMenuItem, location.pathname.startsWith(href) ? styles.active : null].join(' ')}
+            onClick={handleNavItemClick}
+        >
             <p className={styles.navMenuItemText}>
                 {t(key)}
                 {supText && <sup><b className={styles.navMenuItemTextSup}>{supText}</b></sup>}
             </p>
         </Link>
-    ));
-
-    const [logoSubButtonIcon, setLogoSubButtonIcon] = useState('dehaze');
+    )), [location.pathname, handleNavItemClick, t]);
 
     return (
         <>
@@ -66,8 +77,9 @@ const NavigationUnit: React.FC = () => {
                         <ButtonDefault
                             label={t('nav-menu')}
                             onClick={() => {
-                                document.getElementsByClassName(styles.navMenuContainer)[0].classList.toggle(styles.hideSm)
-                                setLogoSubButtonIcon(logoSubButtonIcon === 'dehaze' ? 'cancel_filled' : 'dehaze')
+                                const newState = !isMenuOpen;
+                                setIsMenuOpen(newState);
+                                setLogoSubButtonIcon(newState ? 'cancel_filled' : 'dehaze');
                             }}
                             styleMode='Text'
                             variantMode='Icon'
@@ -83,9 +95,8 @@ const NavigationUnit: React.FC = () => {
                 {/* Nav Menu */}
                 <DivFlexColumn
                     id='NavMenuContainer'
-                    ref={navRef}
                     className={[
-                        styles.navMenuContainer, styles.hideSm,
+                        styles.navMenuContainer, isMenuOpen ? '' : styles.hideSm,
                     ].join(' ')}>
                     {navItems}
                 </DivFlexColumn>

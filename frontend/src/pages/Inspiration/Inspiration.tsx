@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import SegmentedButton from "../../components/Button/SegmentedButton";
 import { DivFlexColumn, DivFlexRow } from "../../components/LayoutDiv/LayoutDiv";
 import LazyImage from "../../components/LazyImage/lazyImage";
@@ -43,7 +43,7 @@ const item112: BlogItemProps[] = [
 
 export default function Inspiration() {
   const { t: t_landingPage } = useTranslation('landingPage')
-  const { t: t_common } = useTranslation('common')
+  const { t } = useTranslation('inspiration')
 
   const [gridView, setGridView] = useState<boolean>(() => localStorage.getItem('inspirationGridView') === 'true');
   const [showDescription, setShowDescription] = useState<boolean>(() => localStorage.getItem('inspirationShowDescription') === 'true');
@@ -51,35 +51,34 @@ export default function Inspiration() {
   useEffect(() => {
     localStorage.setItem('inspirationGridView', gridView.toString());
   }, [gridView]);
+  
   useEffect(() => {
     localStorage.setItem('inspirationShowDescription', showDescription.toString());
   }, [showDescription]);
+
+  const handleGridViewChange = useCallback((e: string) => setGridView(e === '1'), []);
+  const handleToggleDescription = useCallback(() => setShowDescription(prev => !prev), []);
 
   return (
     <div>
       <LazyImage alt="Inspiration Banner" src="/placeholder" height={'30dvh'} maxHeight='50dvw' />
 
-      <DivFlexColumn
-        style={{
-          padding: 'var(--Spacing-Spaceing-M, 24px) var(--Spacing-Spaceing-S, 16px)',
-          gap: ' var(--Spacing-Spaceing-M, 24px)'
-        }}
-      >
-        <DivFlexColumn style={{ gap: 'var(--Spacing-Spaceing-XS, 12px)' }}>
+      <DivFlexColumn className={styles.inspirationContainer}>
+        <DivFlexColumn className={styles.titleSectionStyle}>
           <TextHeadlineLarge children={t_landingPage('section-4-title')} />
-          <DivFlexRow style={{ gap: 'var(--Spacing-Spaceing-S, 16px)' }}>
+          <DivFlexRow className={styles.controlsStyle}>
             <SegmentedButton
               preSelected={gridView ? '1' : '0'}
               compactMode
-              onChange={(e) => setGridView(e === '1')}
+              onChange={handleGridViewChange}
               dataList={[
                 {
-                  label: t_common("inspiration-segment-freeform"),
+                  label: t("inspiration-segment-freeform"),
                   value: '0',
                   icon: 'dashboard_filled'
                 },
                 {
-                  label: t_common("inspiration-segment-grid"),
+                  label: t("inspiration-segment-grid"),
                   value: '1',
                   icon: 'grid_on_filled'
                 }
@@ -88,16 +87,18 @@ export default function Inspiration() {
             <Button
               variantMode="Icon"
               colorMode="Secondary"
-              label="Show description"
-              leadingIcon={showDescription ? 'comment_filled' : 'comment_disabled_filled'}
-              onClick={() => setShowDescription(!showDescription)}
+              label={showDescription ? t("hide-description") : t("show-description")}
+              leadingIcon={showDescription ? 'comment_disabled_filled' : 'comment_filled'}
+              onClick={handleToggleDescription}
+              children={showDescription ? t("hide-description") : t("show-description")}
+              showTitleWhileHover
             />
           </DivFlexRow>
         </DivFlexColumn>
         <TextBodyMedium children={t_landingPage('section-4-description')} />
       </DivFlexColumn>
 
-      <div className={[styles.inspirationContainer, styles[`gridView-${gridView}`]].join(' ')} style={{ padding: 'var(--Spacing-Spaceing-M, 24px) var(--Spacing-Spaceing-S, 16px)', }}>
+      <div className={[styles.inspirationContainer, styles[`gridView-${gridView}`]].join(' ')}>
         <IdealBlockGen dataList={item112} squareRatio={gridView} compactMode={!showDescription} />
       </div>
     </div>

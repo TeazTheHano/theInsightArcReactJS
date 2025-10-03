@@ -4,7 +4,7 @@ import { IconGen } from "../../assets/icon/OtherIcon";
 import { TextHeadlineSmall } from "../TextBox/textBox";
 
 interface FABProps {
-    icon?: string | React.ReactNode;
+    icon: string | React.ReactNode;
     label?: string;
     onClick?: () => void;
     className?: string;
@@ -73,7 +73,7 @@ const FAB: React.FC<FABProps> = ({
                 fabStyle.stateLayer,
                 `CM-border-radius-mode-${borderRadius}`
             ].join(' ')}></div>
-            {icon && typeof icon === 'string' ? <IconGen className={fabStyle.layoutIcon} svgName={icon} fillMode/> : <span className={fabStyle.layoutIcon}>{icon}</span>}
+            {typeof icon === 'string' ? <IconGen className={fabStyle.layoutIcon} svgName={icon} fillMode/> : <span className={fabStyle.layoutIcon}>{icon}</span>}
             {variantMode === 'Full-FAB' && label && (
                 <TextHeadlineSmall className={fabStyle.layoutLabel} color="currentColor">{label}</TextHeadlineSmall>
             )}

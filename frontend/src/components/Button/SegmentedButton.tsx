@@ -54,6 +54,7 @@ interface SegmentedButtonProps {
      * Enables compact mode with reduced padding. Defaults to false.
      */
     compactMode?: boolean;
+    showTitleWhileHover?: boolean;
 }
 
 /**
@@ -67,16 +68,17 @@ const SegmentedButton: React.FC<SegmentedButtonProps> = ({
         { label: 'Option 2', value: 'option2', icon: 'arrow_outward' },
         { label: 'Option 3', value: 'option3', icon: 'arrow_outward' },
     ],
-    preSelected = null,
+    preSelected,
     onChange,
-    className = '',
+    className,
     containerStyle,
     itemStyles,
-    disabled = null,
-    iconOnSelected = null,
-    borderOnSelected = false,
+    disabled,
+    iconOnSelected,
+    borderOnSelected,
     borderRadius = 'rounded',
-    compactMode = false,
+    compactMode,
+    showTitleWhileHover,
 }) => {
 
     const [selectedValue, setSelectedValue] = React.useState(preSelected);
@@ -116,6 +118,7 @@ const SegmentedButton: React.FC<SegmentedButtonProps> = ({
                 style={buttonStyle}
                 disabled={isDisabled}
                 borderRadius={borderRadius}
+                showTitleWhileHover={showTitleWhileHover}
             />
         );
     };

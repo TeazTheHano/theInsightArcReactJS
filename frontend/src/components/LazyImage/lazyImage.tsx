@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback, useMemo, memo } from 'react';
 import styles from './LazyImage.module.css';
+import { useTranslation } from 'react-i18next'
 
 // A tiny, transparent 1x1 pixel GIF
 const BLANK_IMAGE_SRC = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
@@ -34,7 +35,7 @@ const LazyImageComponent: React.FC<LazyImageProps> = ({
     maxHeight,
     className = '',
     onErrorIcon = '⚠️',
-    errorMessage = 'Failed to load image',
+    errorMessage,
     rootMargin = '0px 0px 100px 0px',
     borderRadius = 'none',
     ...restProps
@@ -43,6 +44,10 @@ const LazyImageComponent: React.FC<LazyImageProps> = ({
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<boolean>(false);
     const [imageSrc, setImageSrc] = useState<string>(BLANK_IMAGE_SRC);
+
+    const { t } = useTranslation("toast");
+
+    errorMessage = errorMessage || `${t('error.notFound')} / ${t('info.noData')}`; // "Error loading image"
 
     const handleImageLoad = useCallback(() => {
         setIsLoading(false);

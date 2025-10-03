@@ -134,9 +134,9 @@ const Chip: React.FC<ChipProps> = ({
                 : null
             }
 
-            {leadingIcon && typeof leadingIcon === 'string' ? <IconGen className={[`leadingIcon`, chipStyle.layoutIcon].join(' ')} svgName={leadingIcon} /> : <span className={[`leadingIcon`, chipStyle.layoutIcon].join(' ')}>{leadingIcon}</span>}
-            {children && typeof children === 'string' ? <TextBodyMedium children={children} color='currentColor' className={chipStyle.layoutLabel} /> : children}
-            {trailingIcon && typeof trailingIcon === 'string' ? <IconGen className={chipStyle.layoutIcon} svgName={trailingIcon} /> : <span className={chipStyle.layoutIcon}>{trailingIcon}</span>}
+            {leadingIcon ? typeof leadingIcon === 'string' ? <IconGen className={[`leadingIcon`, chipStyle.layoutIcon].join(' ')} svgName={leadingIcon} /> : <span className={[`leadingIcon`, chipStyle.layoutIcon].join(' ')}>{leadingIcon}</span> : null}
+            {children ? typeof children === 'string' ? <TextBodyMedium children={children} color='currentColor' className={chipStyle.layoutLabel} /> : children : null}
+            {trailingIcon ? typeof trailingIcon === 'string' ? <IconGen className={chipStyle.layoutIcon} svgName={trailingIcon} /> : <span className={chipStyle.layoutIcon}>{trailingIcon}</span> : null}
         </button >
     );
 };

@@ -87,6 +87,7 @@ export default function Footer() {
                     setTheme(value as Theme)
                 }}
                 preSelected={theme}
+                compactMode
             />
 
         </footer >

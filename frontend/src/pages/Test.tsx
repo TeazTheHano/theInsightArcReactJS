@@ -3,6 +3,7 @@ import { DivFlexColumn, DivFlexRow } from '../components/LayoutDiv/LayoutDiv';
 import TextField from '../components/TextInput/TextField';
 import { TextHeadlineLarge } from '../components/TextBox/textBox';
 import { IdealBlockGen, type BlogItemProps } from '../components/Blog/BlogItemSingle';
+import Chip from '../components/Chip/Chip';
 
 export default function Test() {
 
@@ -70,6 +71,8 @@ export default function Test() {
             <DivFlexRow style={{ gap: '1vw' }}>
                 <IdealBlockGen dataList={item112} />
             </DivFlexRow>
+
+            <Chip children='asdfasdfsa' label='chip1' onClick={() => alert('click chip 1')} showTitleWhileHover/>
 
         </DivFlexColumn>
     )

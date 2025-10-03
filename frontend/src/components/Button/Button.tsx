@@ -99,7 +99,7 @@ const ButtonDefault = forwardRef<HTMLButtonElement, ButtonProps>(({
     label,
     className = '',
     style = {},
-    disabled = false,
+    disabled,
     colorMode = 'Primary',
     type = 'button',
     variantMode = 'Default',
@@ -108,8 +108,8 @@ const ButtonDefault = forwardRef<HTMLButtonElement, ButtonProps>(({
     leadingIcon,
     trailingIcon,
     borderRadius = 'rounded',
-    autoFocus = false,
-    showTitleWhileHover = false,
+    autoFocus,
+    showTitleWhileHover,
     mouseDownFnc,
     mouseUpFnc,
     mouseEnterFnc,
@@ -154,13 +154,13 @@ const ButtonDefault = forwardRef<HTMLButtonElement, ButtonProps>(({
                 buttonStyle.stateLayer,
                 typeof borderRadius !== 'number' ? `CM-border-radius-mode-${borderRadius}` : '',
             ].join(' ')}></div>
-            {leadingIcon && typeof leadingIcon === 'string' ? <IconGen className={[`leadingIcon`, buttonStyle.layoutIcon].join(' ')} svgName={leadingIcon} /> : <span className={[`leadingIcon`, buttonStyle.layoutIcon].join(' ')}>{leadingIcon}</span>}
-            {children && (
+            {leadingIcon ? typeof leadingIcon === 'string' ? <IconGen className={[`leadingIcon`, buttonStyle.layoutIcon].join(' ')} svgName={leadingIcon} /> : <span className={[`leadingIcon`, buttonStyle.layoutIcon].join(' ')}>{leadingIcon}</span> : null}
+            {children ? (
                 <span className={[buttonStyle.layoutLabel, `typography-system-medium`].join(' ')}>
                     {children}
                 </span>
-            )}
-            {trailingIcon && typeof trailingIcon === 'string' ? <IconGen className={buttonStyle.layoutIcon} svgName={trailingIcon} /> : <span className={buttonStyle.layoutIcon}>{trailingIcon}</span>}
+            ) : null}
+            {trailingIcon ? typeof trailingIcon === 'string' ? <IconGen className={buttonStyle.layoutIcon} svgName={trailingIcon} /> : <span className={buttonStyle.layoutIcon}>{trailingIcon}</span> : null}
         </button >
     );
 })

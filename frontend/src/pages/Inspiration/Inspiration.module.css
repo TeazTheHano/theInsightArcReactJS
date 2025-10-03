@@ -17,6 +17,7 @@
 .inspirationContainer {
     display: grid;
     gap: var(--Spacing-Spaceing-M, 24px);
+    padding: var(--Spacing-Spaceing-M, 24px) var(--Spacing-Spaceing-S, 16px);
 }
 
 .inspirationContainer.gridView-true {
@@ -25,4 +26,15 @@
 
 .inspirationContainer.gridView-false {
     grid-template-columns: repeat(var(--gridNumberFalse), 1fr);
+}
+
+.titleSectionStyle {
+    gap: var(--Spacing-Spaceing-XS, 12px);
+}
+
+.controlsStyle {
+    gap: var(--Spacing-Spaceing-S, 16px);
+}
+
+.inspirationStyle {
 }

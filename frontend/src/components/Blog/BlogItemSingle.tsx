@@ -2,13 +2,14 @@ import React, { useMemo, useCallback } from 'react'
 import { DivFlexColumn, DivFlexColumnSpaceBetween, DivFlexRow } from '../LayoutDiv/LayoutDiv'
 import LazyImage from '../LazyImage/lazyImage'
 import { IconGen } from '../../assets/icon/OtherIcon'
-import { TextBodySmall, TextHeadlineMedium, TextHeadlineSmall, TextLabelSmall, TextTitleMedium } from '../TextBox/textBox'
+import { TextBodyLarge, TextBodySmall, TextHeadlineMedium, TextHeadlineSmall, TextLabelSmall, TextTitleMedium } from '../TextBox/textBox'
 
 import styles from './BlogItemSingle.module.css'
 import { Link } from 'react-router-dom'
 import type { TagProps } from '../../styles/dataInterface'
 import Chip from '../Chip/Chip'
 import Button from '../Button/Button'
+import { useTranslation } from 'react-i18next'
 
 export interface BlogItemProps {
     title?: string
@@ -216,11 +217,17 @@ const IdealBlock: React.FC<IdealBlockProps> = ({
     compactMode,
 }) => {
 
+    const { t } = useTranslation('toast')
+
     const handleTagClick = useCallback((link: string) => {
         window.open(link, '_blank');
     }, []);
 
     const renderedItems = useMemo(() => {
+        if (dataList.length === 0) {
+            return <TextBodyLarge children={t('info.noData')} color='var(--Schemes-On-Surface-Variant)' />
+        }
+
         return dataList.map((item, index) => (
             <Link
                 key={`${item.title}_${index}`}
@@ -257,7 +264,10 @@ const IdealBlock: React.FC<IdealBlockProps> = ({
                             }
                         </DivFlexColumn>
 
-                        <Button variantMode='Icon' label='ex' leadingIcon='arrow_outward' onClick={() => handleTagClick(item.link)} />
+                        <Button
+                            children={t('inspiration-outward_arrow')}
+                            showTitleWhileHover
+                            variantMode='Icon' label={t('inspiration-outward_arrow')} leadingIcon='arrow_outward' onClick={() => handleTagClick(item.link)} />
                     </DivFlexRow>
                 </div>
             </Link>
