@@ -10,6 +10,7 @@ export default function Test() {
 
     const item112: BlogItemProps[] = [
         {
+            id: '1',
             title: 'Coming soon',
             description: 'Coming soon',
             image: 'https://docs-assets.developer.apple.com/published/e39001cb17826d4c35aed0a5a8371d2a/components-text-view-intro~dark%402x.png',
@@ -28,6 +29,7 @@ export default function Test() {
             ]
         },
         {
+            id: '2',
             title: 'Coming soon',
             description: 'Coming soon',
             image: 'https://cdn.sanity.io/images/599r6htc/regionalized/19bc5a345fc9d23d9890a3188aa18a67f3c57550-2880x1440.png?q=75&fit=max&auto=format&dpr=0.75',
@@ -36,6 +38,7 @@ export default function Test() {
             // timeStamp: new Date('2023-09-15 08:30:00 GMT+07:00')
         },
         {
+            id: '3',
             title: 'Coming soon',
             description: 'Coming soon',
             image: 'https://cdn.sanity.io/images/599r6htc/regionalized/da4205446e7c425053653d58c5aed6fac556c659-2160x1440.png?q=75&fit=max&auto=format&dpr=2',
