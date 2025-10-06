@@ -2,8 +2,9 @@ import React from 'react';
 import { DivFlexColumn, DivFlexRow } from '../components/LayoutDiv/LayoutDiv';
 import TextField from '../components/TextInput/TextField';
 import { TextHeadlineLarge } from '../components/TextBox/textBox';
-import { IdealBlockGen, type BlogItemProps } from '../components/Blog/BlogItemSingle';
+import { IdealBlockGen } from '../components/Blog/BlogItemSingle';
 import Chip from '../components/Chip/Chip';
+import type { BlogItemProps } from '../data/type';
 
 export default function Test() {
 

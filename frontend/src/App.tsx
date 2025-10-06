@@ -12,7 +12,8 @@ import './i18n';
 import NotFoundPage from './pages/NotFoundPage';
 import Game from './pages/Game/Game';
 import Inspiration from './pages/Inspiration/Inspiration';
-import BlogList from './pages/Blog/BlogList';
+import BlogList from './pages/Blog/Blog';
+import Contact from './pages/Contact/Contact';
 
 export default function App() {
 
@@ -31,7 +32,8 @@ export default function App() {
             <Route path="/game" element={<Game />} />
             <Route path="/test" element={<Test />} />
 
-            {/* 404 */}
+            <Route path='/contact' element={<Contact />} />
+              {/* 404 */}
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </GlobalLayout>

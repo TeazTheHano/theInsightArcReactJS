@@ -8,7 +8,7 @@ const BLANK_IMAGE_SRC = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAA
 // Define the props for the LazyImage component
 interface LazyImageProps extends React.HTMLAttributes<HTMLDivElement> {
     src: string;
-    alt: string;
+    alt?: string;
     srcSet?: string; // For responsive images, e.g. "image-300.jpg 300w, image-600.jpg 600w"
     sizes?: string; // For responsive images, e.g. "(max-width: 600px) 480px, 800px"
     width?: number | string; // Can be a number (px) or a string (e.g., "100%", "300px", "50vw")
@@ -20,6 +20,7 @@ interface LazyImageProps extends React.HTMLAttributes<HTMLDivElement> {
     onErrorIcon?: React.ReactNode;
     errorMessage?: string;
     rootMargin?: string;
+    disableLazyLoad?: boolean; // If true, disables lazy loading and loads image immediately
     borderRadius?: 'none' | 'default' | 'rounded' | number; // e.g., 'none', 'default', 'rounded', or a number in px
 }
 
@@ -38,6 +39,7 @@ const LazyImageComponent: React.FC<LazyImageProps> = ({
     errorMessage,
     rootMargin = '0px 0px 100px 0px',
     borderRadius = 'none',
+    disableLazyLoad,
     ...restProps
 }) => {
     const imgRef = useRef<HTMLImageElement>(null);
@@ -124,7 +126,7 @@ const LazyImageComponent: React.FC<LazyImageProps> = ({
                         onLoad={handleImageLoad}
                         onError={handleImageError}
                         className={`${styles.image} ${isLoading ? styles.hidden : ''}`}
-                        loading="lazy"
+                        loading={disableLazyLoad ? 'eager' : 'lazy'}
                         width={'100%'}
                         height={'100%'}
                     />
@@ -152,5 +154,8 @@ LazyImageComponent.displayName = 'LazyImage';
  * @param onErrorIcon Icon or element to display on error.
  * @param errorMessage Message to display on error.
  * @param rootMargin Margin around the root for IntersectionObserver.
+ * @param disableLazyLoad If true, disables lazy loading and loads image immediately.
+ * @param borderRadius Border radius style: 'none', 'default', 'rounded', or a number in px.
+ * @param restProps Other HTML div attributes.
  */
 export default memo(LazyImageComponent);

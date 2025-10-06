@@ -6,70 +6,19 @@ import ButtonDefault from '../../components/Button/Button'
 import { TextBodyMedium, TextDisplayMedium, TextHeadlineLarge, TextHeadlineSmall } from '../../components/TextBox/textBox'
 import Divider from '../../components/Divider/Divider'
 import { Trans, useTranslation } from 'react-i18next'
-import { BlogItem2RowGen, BlogItemSingleGener, type BlogItemProps } from '../../components/Blog/BlogItemSingle'
+import { BlogItem2RowGen, BlogItemSingleGener } from '../../components/Blog/BlogItemSingle'
+import type { BlogItemProps } from '../../data/type'
+import { placeholderData } from '../../data/placeholderData'
 
 function LandingPage() {
 
     const { t } = useTranslation('landingPage')
 
-    const item111: BlogItemProps[] = [
-        {
-            title: 'Coming soon',
-            description: 'Coming soon',
-            image: 'placeholder',
-            link: '/test'
-        },
-        {
-            title: 'Coming soon',
-            description: 'Coming soon',
-            image: 'placeholder',
-            link: '/test'
-        },
-        {
-            title: 'Coming soon',
-            description: 'Coming soon',
-            image: 'placeholder',
-            link: '/test'
-        },
-    ]
-
-    const item112: BlogItemProps[] = [
-        {
-            title: 'Coming soon',
-            description: 'Coming soon',
-            image: 'placeholder',
-            link: '/test',
-            // timeStamp: new Date('2023-10-01 12:00:00 GMT+07:00'),
-            tags: [
-                {
-                    title: 'Coming soon',
-                    link: 'abc',
-                },
-                {
-                    title: 'Coming soon',
-                    link: 'abc',
-                }
-            ]
-        },
-        {
-            title: 'Coming soon',
-            description: 'Coming soon',
-            image: 'placeholder',
-            link: '/test',
-            // timeStamp: new Date('2023-09-15 08:30:00 GMT+07:00')
-        },
-        {
-            title: 'Coming soon',
-            description: 'Coming soon',
-            image: 'placeholder',
-            link: '/test'
-        },
-    ]
-
     return (
 
         <div>
             <LazyImage
+                disableLazyLoad
                 id='landingPage_banner'
                 src='/photos/home/theinsightArcbanner.jpg' alt='logo banner' height={'50dvh'} maxHeight='100dvw' />
             <br />
@@ -194,7 +143,7 @@ function LandingPage() {
                 </DivFlexRow>
                 {/* blog list */}
                 <DivFlexRow className='shiftVerticalSm' style={{ gap: `var(--Spacing-Spaceing-M, 24px)`, flex: 1 }}>
-                    <BlogItemSingleGener dataList={item111} />
+                    <BlogItemSingleGener dataList={placeholderData} />
                 </DivFlexRow>
             </DivFlexColumn>
 
@@ -239,7 +188,7 @@ function LandingPage() {
                     </DivFlexColumn>
                     <DivFlexColumn style={{ gap: `var(--Spacing-Spaceing-M, 24px)`, flex: 1 }}>
                         <TextHeadlineSmall children={t('section-6-subTitle-2')} />
-                        <BlogItem2RowGen dataList={item112} compactMode />
+                        <BlogItem2RowGen dataList={placeholderData} compactMode />
                     </DivFlexColumn>
                 </DivFlexRow>
             </DivFlexColumn>

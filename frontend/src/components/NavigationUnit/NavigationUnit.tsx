@@ -127,7 +127,7 @@ const NavigationUnit: React.FC = () => {
                     <Link to="/test" aria-label={t('test-site')} className={styles.navMenuItem}>
                         <TextTitleSmall className={styles.navMenuItemText} color='var(--Schemes-On-Surface-Variant)' children={t('test-site')} />
                     </Link>
-                    <Link to="/" aria-label={t('contact-page')} className={styles.navMenuItem}>
+                    <Link to="/contact" aria-label={t('contact-page')} className={styles.navMenuItem}>
                         <TextTitleSmall className={styles.navMenuItemText} color='var(--Schemes-On-Surface-Variant)' children={t('contact-page')} />
                     </Link>
                 </DivFlexColumn>

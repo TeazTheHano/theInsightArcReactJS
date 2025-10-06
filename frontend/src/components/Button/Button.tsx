@@ -87,6 +87,7 @@ interface ButtonProps {
      * Mouse leave event handler.
      */
     mouseLeaveFnc?: () => void;
+    alternativeText?: string;
 }
 
 /**

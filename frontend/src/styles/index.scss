@@ -1,16 +1,19 @@
 @font-face {
   font-family: 'Epilogue';
-  src: local('Epilogue'), url('../assets/fonts/Epilogue-VariableFont_wght.ttf') format('truetype');
+  src: url('../assets/fonts/Epilogue-VariableFont_wght.ttf') format('truetype');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Epilogue Italic';
-  src: local('Epilogue Italic'), url('../assets/fonts/Epilogue-Italic-VariableFont_wght.ttf') format('truetype');
+  src: url('../assets/fonts/Epilogue-Italic-VariableFont_wght.ttf') format('truetype');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Inconsolata';
-  src: local('Inconsolata'), url('../assets/fonts/Inconsolata-VariableFont_wdth,wght.ttf') format('truetype');
+  src: url('../assets/fonts/Inconsolata-VariableFont_wdth,wght.ttf') format('truetype');
+  font-display: swap;
 }
 
 // Key value:

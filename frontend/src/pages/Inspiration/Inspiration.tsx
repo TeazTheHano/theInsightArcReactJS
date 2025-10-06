@@ -4,42 +4,10 @@ import { DivFlexColumn, DivFlexRow } from "../../components/LayoutDiv/LayoutDiv"
 import LazyImage from "../../components/LazyImage/lazyImage";
 import { TextBodyMedium, TextHeadlineLarge } from "../../components/TextBox/textBox";
 import { useTranslation } from 'react-i18next'
-import { IdealBlockGen, type BlogItemProps } from "../../components/Blog/BlogItemSingle";
+import { IdealBlockGen } from "../../components/Blog/BlogItemSingle";
 import Button from "../../components/Button/Button";
 import styles from './Inspiration.module.css'
-
-const item112: BlogItemProps[] = [
-  {
-    title: 'Coming soon',
-    description: 'Coming soon',
-    image: 'placeholder',
-    link: '/test',
-    // timeStamp: new Date('2023-10-01 12:00:00 GMT+07:00'),
-    tags: [
-      {
-        title: 'Coming soon',
-        link: 'abc',
-      },
-      {
-        title: 'Coming soon',
-        link: 'abc',
-      }
-    ]
-  },
-  {
-    title: 'Coming soon',
-    description: 'Coming soon',
-    image: 'placeholder',
-    link: '/test',
-    // timeStamp: new Date('2023-09-15 08:30:00 GMT+07:00')
-  },
-  {
-    title: 'Coming soon',
-    description: 'Coming soon',
-    image: 'placeholder',
-    link: '/test'
-  },
-]
+import { placeholderData } from "../../data/placeholderData";
 
 export default function Inspiration() {
   const { t: t_landingPage } = useTranslation('landingPage')
@@ -99,7 +67,7 @@ export default function Inspiration() {
       </DivFlexColumn>
 
       <div className={[styles.inspirationContainer, styles[`gridView-${gridView}`]].join(' ')}>
-        <IdealBlockGen dataList={item112} squareRatio={gridView} compactMode={!showDescription} />
+        <IdealBlockGen dataList={placeholderData} squareRatio={gridView} compactMode={!showDescription} />
       </div>
     </div>
   )

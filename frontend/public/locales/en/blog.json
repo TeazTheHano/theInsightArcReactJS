@@ -1,4 +1,6 @@
 {
-    "newestPosts": "Newest Posts",
-    "noPosts": "No posts available."
+    "latestPost": "Latest Posts ✨",
+    "noPosts": "No posts available.",
+    "viewAll": "View All",
+    "trending": "Trending 🔥"
 }

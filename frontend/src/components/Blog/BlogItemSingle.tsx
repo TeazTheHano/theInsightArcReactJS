@@ -6,20 +6,10 @@ import { TextBodyLarge, TextBodySmall, TextHeadlineMedium, TextHeadlineSmall, Te
 
 import styles from './BlogItemSingle.module.css'
 import { Link } from 'react-router-dom'
-import type { TagProps } from '../../styles/dataInterface'
+import type { BlogItemProps } from '../../data/type'
 import Chip from '../Chip/Chip'
 import Button from '../Button/Button'
 import { useTranslation } from 'react-i18next'
-
-export interface BlogItemProps {
-    title?: string
-    description?: string
-    image: string
-    link: string
-    timeStamp?: Date
-    tags?: TagProps[]
-    ratio?: string
-}
 
 interface BlogItemSingleGenerProps {
     dataList: BlogItemProps[],
@@ -42,6 +32,8 @@ const BlogBlockComponet: React.FC<BlogItemSingleGenerProps> = ({
     ratio = '1',
 }) => {
 
+    const { t } = useTranslation('toast')
+
     const linkStyle = useMemo(() => ({
         width: '100%',
         maxWidth: maxWidth ? `${maxWidth}px` : undefined,
@@ -50,10 +42,14 @@ const BlogBlockComponet: React.FC<BlogItemSingleGenerProps> = ({
     }), [maxWidth, maxHeight, ratio]);
 
     const renderedItems = useMemo(() => {
+        if (dataList.length === 0) {
+            return <TextBodyLarge children={t('info.noData')} color='var(--Schemes-On-Surface-Variant)' />
+        }
+
         return dataList.map((item, index) => (
             <Link
                 key={`${item.title}_${index}`}
-                to={item.link}
+                to={item.link ? item.link : ''}
                 aria-label={item.title}
                 tabIndex={0}
                 style={linkStyle}
@@ -64,7 +60,6 @@ const BlogBlockComponet: React.FC<BlogItemSingleGenerProps> = ({
                 >
                     <LazyImage
                         src={item.image}
-                        alt={item.title || ''}
                         aspectRatio={ratio}
                         width={'100%'}
                         maxHeight={maxHeight ? `${maxHeight}px` : undefined}
@@ -95,6 +90,7 @@ export interface Blog2RowComponetProps {
     thumbSize?: 100 | 300 | 600 | 'full'
     ratio?: string
     compactMode?: boolean
+    hideDescription?: boolean
 }
 
 const Blog2RowComponet: React.FC<Blog2RowComponetProps> = ({
@@ -104,7 +100,10 @@ const Blog2RowComponet: React.FC<Blog2RowComponetProps> = ({
     thumbSize = 'full',
     ratio = '16/9',
     compactMode,
+    hideDescription,
 }) => {
+
+    const { t } = useTranslation('toast')
 
     const containerClass = useMemo(() => [
         styles.blog2RowContainer,
@@ -117,10 +116,14 @@ const Blog2RowComponet: React.FC<Blog2RowComponetProps> = ({
     }, []);
 
     const renderedItems = useMemo(() => {
+        if (dataList.length === 0) {
+            return <TextBodyLarge children={t('info.noData')} color='var(--Schemes-On-Surface-Variant)' />
+        }
+
         return dataList.map((item, index) => (
             <Link
                 key={`${item.title}_${index}`}
-                to={item.link}
+                to={item.link ? item.link : ''}
                 aria-label={item.title}
                 tabIndex={0}
                 style={{ width: '100%' }}
@@ -131,7 +134,6 @@ const Blog2RowComponet: React.FC<Blog2RowComponetProps> = ({
                         <>
                             <LazyImage
                                 src={item.image}
-                                alt={item.title || ''}
                                 aspectRatio={ratio}
                                 width={200}
                                 className={styles.Blog2RowComponetImage}
@@ -150,7 +152,6 @@ const Blog2RowComponet: React.FC<Blog2RowComponetProps> = ({
                         <>
                             <LazyImage
                                 src={item.image}
-                                alt={item.title || ''}
                                 borderRadius='default'
                                 className={styles.Blog2RowComponetImage}
                                 width={direction === 'column' ? '100%' : '50%'}
@@ -161,12 +162,14 @@ const Blog2RowComponet: React.FC<Blog2RowComponetProps> = ({
                             <DivFlexColumnSpaceBetween style={{ flex: 1 }} className={styles.titleHolder}>
                                 <DivFlexColumn className={styles.titleHolder}>
                                     <TextHeadlineSmall children={item.title} className={styles.title} maxLines={3} />
-                                    <TextBodySmall
-                                        children={item.description}
-                                        className={styles.description}
-                                        maxLines={3}
-                                        color='var(--Schemes-On-Surface-Variant)'
-                                    />
+                                    {!hideDescription &&
+                                        <TextBodySmall
+                                            children={item.description}
+                                            className={styles.description}
+                                            maxLines={3}
+                                            color='var(--Schemes-On-Surface-Variant)'
+                                        />
+                                    }
                                 </DivFlexColumn>
 
                                 <DivFlexColumn className={styles.support}>
@@ -231,7 +234,7 @@ const IdealBlock: React.FC<IdealBlockProps> = ({
         return dataList.map((item, index) => (
             <Link
                 key={`${item.title}_${index}`}
-                to={item.link}
+                to={item.link ? item.link : ''}
                 aria-label={item.title}
                 tabIndex={0}
                 style={{ width: '100%' }}
@@ -244,7 +247,6 @@ const IdealBlock: React.FC<IdealBlockProps> = ({
 
                     <LazyImage
                         src={item.image}
-                        alt={item.title || ''}
                         // aspectRatio={squareRatio ? '1' : item.ratio}
                         aspectRatio={squareRatio ? '1' : item.ratio || '1'}
                         className={styles.Blog2RowComponetImage}
@@ -267,7 +269,7 @@ const IdealBlock: React.FC<IdealBlockProps> = ({
                         <Button
                             children={t('inspiration-outward_arrow')}
                             showTitleWhileHover
-                            variantMode='Icon' label={t('inspiration-outward_arrow')} leadingIcon='arrow_outward' onClick={() => handleTagClick(item.link)} />
+                            variantMode='Icon' label={t('inspiration-outward_arrow')} leadingIcon='arrow_outward' onClick={() => handleTagClick(item.link || '')} />
                     </DivFlexRow>
                 </div>
             </Link>

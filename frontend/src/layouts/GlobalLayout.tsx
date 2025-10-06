@@ -35,18 +35,14 @@ export default function GlobalLayout({ children }: { children: React.ReactNode }
   useEffect(() => {
     document.body.classList.remove('size-and-spacing-sm', 'size-and-spacing-md', 'size-and-spacing-lg', 'size-and-spacing-xl');
     document.body.classList.add(`size-and-spacing-${sizeAndSpacing}`);
-    localStorage.setItem('sizeAndSpacing', sizeAndSpacing);
   }, [sizeAndSpacing]);
 
   useEffect(() => {
-    setTimeout(() => {
-      const labelElement = document.querySelector(`.App`);
-      if (labelElement) {
-        const computedStyle = getComputedStyle(labelElement);
-        document.body.style.setProperty('background-color', computedStyle.backgroundColor);
-        console.log(computedStyle.backgroundColor);
-      }
-    }, 1000)
+    const labelElement = document.querySelector(`.App`);
+    if (labelElement) {
+      const computedStyle = getComputedStyle(labelElement);
+      document.body.style.setProperty('background-color', computedStyle.backgroundColor);
+    }
   }, [resolvedTheme]);
 
   return (
@@ -66,7 +62,7 @@ export default function GlobalLayout({ children }: { children: React.ReactNode }
 
       {/* Circle that follows the mouse */}
       {
-        resolvedTheme == 'dark' ?
+        resolvedTheme === 'dark' ?
           <CircleFollowMouse /> : null
       }
     </div>
