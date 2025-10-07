@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import styles from './BlogList.module.css';
 import LazyImage from '../../components/LazyImage/lazyImage';
 import { DivFlexColumn } from '../../components/LayoutDiv/LayoutDiv';
-import { BlogItem2RowGen } from '../../components/Blog/BlogItemSingle';
+import { BlogItem2RowGen } from '../../components/Blog/BlogListVariant';
 import { TextHeadlineLarge } from '../../components/TextBox/textBox';
 import Button from '../../components/Button/Button';
 import { placeholderData } from '../../data/placeholderData';

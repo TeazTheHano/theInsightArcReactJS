@@ -6,9 +6,10 @@ import ButtonDefault from '../../components/Button/Button'
 import { TextBodyMedium, TextDisplayMedium, TextHeadlineLarge, TextHeadlineSmall } from '../../components/TextBox/textBox'
 import Divider from '../../components/Divider/Divider'
 import { Trans, useTranslation } from 'react-i18next'
-import { BlogItem2RowGen, BlogItemSingleGener } from '../../components/Blog/BlogItemSingle'
+import { BlogItem2RowGen } from '../../components/Blog/BlogListVariant'
 import type { BlogItemProps } from '../../data/type'
 import { placeholderData } from '../../data/placeholderData'
+import { BlogSquareItemGen } from '../../components/Blog/SquareItem'
 
 function LandingPage() {
 
@@ -143,7 +144,7 @@ function LandingPage() {
                 </DivFlexRow>
                 {/* blog list */}
                 <DivFlexRow className='shiftVerticalSm' style={{ gap: `var(--Spacing-Spaceing-M, 24px)`, flex: 1 }}>
-                    <BlogItemSingleGener dataList={placeholderData} />
+                    <BlogSquareItemGen dataList={placeholderData} />
                 </DivFlexRow>
             </DivFlexColumn>
 
@@ -173,14 +174,14 @@ function LandingPage() {
                 <DivFlexRow className='shiftVerticalSm shiftVerticalMd' style={{ gap: `var(--Spacing-Spaceing-M, 24px)`, flex: 1 }}>
                     <DivFlexColumn style={{ gap: `var(--Spacing-Spaceing-M, 24px)`, flex: 1 }}>
                         <TextHeadlineSmall children={t('section-6-subTitle-1')} />
-                        <BlogItemSingleGener
+                        <BlogSquareItemGen
                             maxHeight={500}
 
                             dataList={[
                                 {
                                     title: '',
                                     description: '',
-                                    image: 'placeholder',
+                                    coverImage: 'placeholder',
                                     link: '/test',
                                 }
                             ] as BlogItemProps[]}

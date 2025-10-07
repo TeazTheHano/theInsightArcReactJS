@@ -4,10 +4,11 @@ import { DivFlexColumn, DivFlexRow } from "../../components/LayoutDiv/LayoutDiv"
 import LazyImage from "../../components/LazyImage/lazyImage";
 import { TextBodyMedium, TextHeadlineLarge } from "../../components/TextBox/textBox";
 import { useTranslation } from 'react-i18next'
-import { IdealBlockGen } from "../../components/Blog/BlogItemSingle";
+
 import Button from "../../components/Button/Button";
 import styles from './Inspiration.module.css'
 import { placeholderData } from "../../data/placeholderData";
+import { IdealItemGen } from "../../components/Blog/IdealItem";
 
 export default function Inspiration() {
   const { t: t_landingPage } = useTranslation('landingPage')
@@ -67,7 +68,7 @@ export default function Inspiration() {
       </DivFlexColumn>
 
       <div className={[styles.inspirationContainer, styles[`gridView-${gridView}`]].join(' ')}>
-        <IdealBlockGen dataList={placeholderData} squareRatio={gridView} compactMode={!showDescription} />
+        <IdealItemGen dataList={placeholderData} squareRatio={gridView} compactMode={!showDescription} />
       </div>
     </div>
   )
