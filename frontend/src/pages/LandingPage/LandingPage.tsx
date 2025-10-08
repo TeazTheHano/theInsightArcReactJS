@@ -19,8 +19,11 @@ function LandingPage() {
 
         <div>
             <LazyImage
-                disableLazyLoad
                 id='landingPage_banner'
+                disableLazyLoad
+                imgRestProps={{
+                    fetchPriority: 'high',
+                }}
                 src='/photos/home/theinsightArcbanner.jpg' alt='logo banner' height={'50dvh'} maxHeight='100dvw' />
             <br />
             {/* content */}

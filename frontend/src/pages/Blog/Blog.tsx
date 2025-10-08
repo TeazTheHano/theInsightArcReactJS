@@ -7,22 +7,64 @@ import { TextHeadlineLarge } from '../../components/TextBox/textBox';
 import Button from '../../components/Button/Button';
 import { placeholderData } from '../../data/placeholderData';
 import Divider from '../../components/Divider/Divider';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
+import type { BlogItemProps } from '../../data/type';
+import { fetchBlogList } from '../../utils/fetchContent';
 
 export default function BlogList() {
   const { t } = useTranslation('blog')
-  // check if screen is .sm 
   const [isInSM, setIsInSM] = useState<boolean>(false);
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const observer = new MutationObserver(() => {
       setIsInSM(document.body.classList.contains('size-and-spacing-sm'));
     });
     observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-    // Initial check
     setIsInSM(document.body.classList.contains('size-and-spacing-sm'));
     return () => observer.disconnect();
   }, []);
+
+  const [LATEST_POSTS, set_LATEST_POSTS] = useState<BlogItemProps[]>([]);
+  const [TRENDING_POSTS, set_TRENDING_POSTS] = useState<BlogItemProps[]>([]);
+  const [CATE_1_POSTS, set_CATE_1_POSTS] = useState<BlogItemProps[]>([]);
+  const [CATE_2_POSTS, set_CATE_2_POSTS] = useState<BlogItemProps[]>([]);
+
+  const sortData = useCallback((data: BlogItemProps[]) => {
+    const sortedByTime = [...data].sort((a, b) => {
+      const dateA = a.timeStamp ? new Date(a.timeStamp).getTime() : 0;
+      const dateB = b.timeStamp ? new Date(b.timeStamp).getTime() : 0;
+      return dateB - dateA;
+    });
+
+    set_LATEST_POSTS(sortedByTime.slice(0, 4) || placeholderData);
+    set_TRENDING_POSTS(sortedByTime.slice(0, 4));
+    const category1 = data.filter(item => item.category === 'Category 1');
+    set_CATE_1_POSTS(category1.slice(0, 4) || placeholderData);
+    const category2 = data.filter(item => item.category === 'Category 2');
+    set_CATE_2_POSTS(category2.slice(0, 4) || placeholderData);
+  }, []);
+
+  useEffect(() => {
+    setLoading(true);
+    fetchBlogList()
+      .then((data) => {
+        sortData(data);
+        setLoading(false);
+      })
+      .catch((err) => { setError(err.message); setLoading(false); });
+  }, [sortData]);
+
+  const direction = useMemo(() => isInSM ? "column" : "row", [isInSM]);
+  const trendingThumbSize = useMemo(() => isInSM ? 100 : 300, [isInSM]);
+  const trendingRatio = useMemo(() => isInSM ? '1' : undefined, [isInSM]);
+  // TODO: handle view all
+  const handleViewAll = useCallback(() => { }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div>
@@ -37,30 +79,30 @@ export default function BlogList() {
             children={t('viewAll')}
             leadingIcon='arrow_outward'
             colorMode='Primary'
-            onClick={() => { }} />
+            onClick={handleViewAll} />
         </DivFlexColumn>
-        <BlogItem2RowGen dataList={placeholderData} thumbSize={600} direction={isInSM ? "column" : "row"} />
+        <BlogItem2RowGen dataList={LATEST_POSTS} thumbSize={600} direction={direction} />
       </DivFlexColumn>
 
       <Divider />
       {/* CATEGORY 1 */}
       <DivFlexColumn className={styles.inspirationContainer}>
         <LazyImage alt="Category 1 Banner" src="/placeholder" height={'20dvh'} maxHeight='50dvw' />
-        <BlogItem2RowGen dataList={placeholderData} thumbSize={600} direction={isInSM ? "column" : "row"} />
+        <BlogItem2RowGen dataList={CATE_1_POSTS} thumbSize={600} direction={direction} />
       </DivFlexColumn>
 
       <Divider />
       {/* CATEGORY 2 */}
       <DivFlexColumn className={styles.inspirationContainer}>
         <LazyImage alt="Category 2 Banner" src="/placeholder" height={'20dvh'} maxHeight='50dvw' />
-        <BlogItem2RowGen dataList={placeholderData} thumbSize={600} direction={isInSM ? "column" : "row"} />
+        <BlogItem2RowGen dataList={CATE_2_POSTS} thumbSize={600} direction={direction} />
       </DivFlexColumn>
 
       <Divider />
-      {/* CATEGORY 3 */}
+      {/* TRENDING */}
       <DivFlexColumn className={styles.inspirationContainer}>
         <TextHeadlineLarge children={t('trending')} />
-        <BlogItem2RowGen dataList={placeholderData} thumbSize={isInSM ? 100 : 300} ratio={isInSM ? '1' : undefined} hideDescription />
+        <BlogItem2RowGen dataList={TRENDING_POSTS} thumbSize={trendingThumbSize} ratio={trendingRatio} hideDescription />
       </DivFlexColumn>
     </div>
   )

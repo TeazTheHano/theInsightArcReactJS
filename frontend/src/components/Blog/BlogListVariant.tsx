@@ -3,7 +3,7 @@ import { DivFlexColumn, DivFlexColumnSpaceBetween, DivFlexRow } from '../LayoutD
 import LazyImage from '../LazyImage/lazyImage'
 import { TextBodyLarge, TextBodySmall, TextHeadlineSmall, TextLabelSmall, TextTitleMedium } from '../TextBox/textBox'
 
-import styles from './BlogListVariant.module.css'
+import styles from './BlogComponent.module.css'
 import { Link } from 'react-router-dom'
 import type { BlogItemProps } from '../../data/type'
 import Chip from '../Chip/Chip'

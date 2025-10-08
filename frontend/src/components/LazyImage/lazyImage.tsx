@@ -22,6 +22,7 @@ interface LazyImageProps extends React.HTMLAttributes<HTMLDivElement> {
     rootMargin?: string;
     disableLazyLoad?: boolean; // If true, disables lazy loading and loads image immediately
     borderRadius?: 'none' | 'default' | 'rounded' | number; // e.g., 'none', 'default', 'rounded', or a number in px
+    imgRestProps?: React.ImgHTMLAttributes<HTMLImageElement>; // Other img attributes
 }
 
 const LazyImageComponent: React.FC<LazyImageProps> = ({
@@ -40,6 +41,7 @@ const LazyImageComponent: React.FC<LazyImageProps> = ({
     rootMargin = '0px 0px 100px 0px',
     borderRadius = 'none',
     disableLazyLoad,
+    imgRestProps, // Other img attributes
     ...restProps
 }) => {
     const imgRef = useRef<HTMLImageElement>(null);
@@ -129,6 +131,7 @@ const LazyImageComponent: React.FC<LazyImageProps> = ({
                         loading={disableLazyLoad ? 'eager' : 'lazy'}
                         width={'100%'}
                         height={'100%'}
+                        {...imgRestProps} // Truyền các thuộc tính img còn lại
                     />
                 </>
             )}
