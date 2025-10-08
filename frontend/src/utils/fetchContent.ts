@@ -1,105 +1,115 @@
 import { CONFIG } from "./config";
+import { getCache, saveCache } from "./cacheUtils";
+import type { BlogItemProps } from "../data/type";
+
+// Kiểm tra xem token GitHub có sẵn không để xác thực API
+console.log("GitHub token available:", !!CONFIG.GITHUB.TOKEN);
 
 /**
- * Kiểm tra cache còn hạn không
+ * Lấy danh sách các file Markdown từ thư mục blogs/ trên GitHub
+ * Sử dụng cache để tránh gọi API nhiều lần không cần thiết
  */
-const isCacheValid = (key: string, expireHours: number): boolean => {
-  const cache = localStorage.getItem(key);
-  if (!cache) return false;
-
-  try {
-    const { timestamp } = JSON.parse(cache);
-    return Date.now() - timestamp < expireHours * 60 * 60 * 1000;
-  } catch {
-    return false;
-  }
-};
 
 /**
- * Lưu dữ liệu vào cache localStorage
+ * Fetch danh sách blog từ metadata.json (tự động tạo trong repo content)
  */
-const saveCache = (key: string, data: any) => {
-  localStorage.setItem(key, JSON.stringify({ timestamp: Date.now(), data }));
-};
+export const fetchBlogList = async (useCache: boolean = false): Promise<BlogItemProps[]> => {
+    const cacheKey = "blog-list-cache";
 
-/**
- * Fetch danh sách file Markdown trong thư mục blogs/
- */
-export const fetchBlogList = async () => {
-  const cacheKey = "blog-list-cache";
+    // Kiểm tra cache
+    if (useCache) {
+        const cached = getCache(cacheKey, CONFIG.BLOG.CACHE_EXPIRE_HOURS);
+        if (cached) return cached;
+    }
 
-  if (isCacheValid(cacheKey, CONFIG.BLOG.CACHE_EXPIRE_HOURS)) {
-    const cache = localStorage.getItem(cacheKey);
-    if (cache) return JSON.parse(cache).data;
-  }
+    // URL tới metadata.json
+    const url = `https://api.github.com/repos/${CONFIG.GITHUB.CONTENT_REPO}/contents/${CONFIG.BLOG.BASE_PATH}/metadata.json?ref=${CONFIG.GITHUB.BRANCH}`;
 
-  const url = `https://api.github.com/repos/${CONFIG.GITHUB.CONTENT_REPO}/contents/${CONFIG.BLOG.BASE_PATH}?ref=${CONFIG.GITHUB.BRANCH}`;
-
-  const res = await fetch(url, {
-    headers: {
-      Accept: "application/vnd.github.v3+json",
-      ...(CONFIG.GITHUB.TOKEN && { Authorization: `token ${CONFIG.GITHUB.TOKEN}` }),
-    },
-  });
-
-  if (!res.ok) throw new Error(`Failed to fetch blog list: ${res.statusText}`);
-
-  const data = await res.json();
-
-  const markdownFiles = data
-    .filter((item: any) => item.name.endsWith(".md"))
-    .map((item: any) => ({
-      id: item.sha,
-      title: item.name.replace(".md", ""),
-      slug: item.name.replace(".md", ""),
-      path: item.path,
-      downloadUrl: item.download_url,
-    }));
-
-  saveCache(cacheKey, markdownFiles);
-  return markdownFiles;
-};
-
-/**
- * Fetch nội dung chi tiết của 1 bài Markdown
- */
-export const fetchBlogContent = async (slug: string) => {
-  const cacheKey = `blog-content-${slug}`;
-
-  if (isCacheValid(cacheKey, CONFIG.BLOG.CACHE_EXPIRE_HOURS)) {
-    const cache = localStorage.getItem(cacheKey);
-    if (cache) return JSON.parse(cache).data;
-  }
-
-  const url = `https://api.github.com/repos/${CONFIG.GITHUB.CONTENT_REPO}/contents/${CONFIG.BLOG.BASE_PATH}/${slug}.md?ref=${CONFIG.GITHUB.BRANCH}`;
-
-  const res = await fetch(url, {
-    headers: {
-      Accept: "application/vnd.github.v3+json",
-      ...(CONFIG.GITHUB.TOKEN && { Authorization: `token ${CONFIG.GITHUB.TOKEN}` }),
-    },
-  });
-
-  if (!res.ok) throw new Error(`Failed to fetch blog content: ${res.statusText}`);
-
-  const data = await res.json();
-  const content = atob(data.content); // decode base64 content
-
-  // Parse frontmatter nếu có
-  const match = /^---\n([\s\S]+?)\n---\n([\s\S]*)$/m.exec(content);
-  let meta: Record<string, any> = {};
-  let body = content;
-
-  if (match) {
-    const yaml = match[1];
-    body = match[2];
-    yaml.split("\n").forEach((line) => {
-      const [key, ...rest] = line.split(":");
-      meta[key.trim()] = rest.join(":").trim();
+    const res = await fetch(url, {
+        headers: {
+            Accept: "application/vnd.github.v3.raw+json", // để GitHub trả về raw content
+            ...(CONFIG.GITHUB.TOKEN && { Authorization: `token ${CONFIG.GITHUB.TOKEN}` }),
+        },
     });
-  }
 
-  const result = { meta, content: body };
-  saveCache(cacheKey, result);
-  return result;
+    if (!res.ok) throw new Error(`Lỗi khi lấy metadata.json: ${res.statusText}`);
+
+    // Decode nội dung JSON
+    const data = await res.json();
+    let metadata: BlogItemProps[];
+
+    if (Array.isArray(data)) {
+        // GitHub có thể trả raw JSON nếu header đúng
+        metadata = data;
+    } else if (data.content) {
+        // Nếu GitHub trả về dạng content base64
+        const decoded = atob(data.content);
+        metadata = JSON.parse(decoded);
+    } else {
+        throw new Error("Định dạng metadata.json không hợp lệ");
+    }
+
+    // Lưu cache
+    if (useCache) saveCache(cacheKey, metadata);
+
+    return metadata;
+};
+
+/**
+ * Lấy nội dung chi tiết của một bài blog Markdown dựa trên slug
+ * Bao gồm việc parse frontmatter (metadata) nếu có
+ */
+export const fetchBlogContent = async (slug: string, useCache: boolean = true) => {
+    const cacheKey = `blog-content-${slug}`;
+
+    // Kiểm tra cache nếu bật cache
+    if (useCache) {
+        const cachedData = getCache(cacheKey, CONFIG.BLOG.CACHE_EXPIRE_HOURS);
+        if (cachedData) {
+            return cachedData;
+        }
+    }
+
+    // Tạo URL API để lấy nội dung file cụ thể
+    const url = `https://api.github.com/repos/${CONFIG.GITHUB.CONTENT_REPO}/contents/${CONFIG.BLOG.BASE_PATH}/${slug}.md?ref=${CONFIG.GITHUB.BRANCH}`;
+
+    const res = await fetch(url, {
+        headers: {
+            Accept: "application/vnd.github.v3+json",
+            ...(CONFIG.GITHUB.TOKEN && { Authorization: `token ${CONFIG.GITHUB.TOKEN}` }),
+        },
+    });
+
+    if (!res.ok) throw new Error(`Lỗi khi lấy nội dung blog: ${res.statusText}`);
+
+    const data = await res.json();
+
+    // Giải mã nội dung base64 từ GitHub API
+    const content = atob(data.content);
+
+    // Phân tích frontmatter (metadata) nếu có ở đầu file
+    // Frontmatter thường có dạng --- key: value --- ở đầu file
+    const match = /^---\n([\s\S]+?)\n---\n([\s\S]*)$/m.exec(content);
+    let meta: Record<string, any> = {};
+    let body = content;
+
+    if (match) {
+        // Nếu có frontmatter, tách phần meta và body
+        const yaml = match[1];
+        body = match[2];
+        // Parse YAML đơn giản (không dùng thư viện)
+        yaml.split("\n").forEach((line) => {
+            const [key, ...rest] = line.split(":");
+            if (key) {
+                meta[key.trim()] = rest.join(":").trim();
+            }
+        });
+    }
+
+    const result = { meta, content: body };
+    // Lưu kết quả vào cache nếu bật cache
+    if (useCache) {
+        saveCache(cacheKey, result);
+    }
+    return result;
 };

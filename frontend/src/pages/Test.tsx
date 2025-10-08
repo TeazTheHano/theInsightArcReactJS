@@ -35,7 +35,6 @@ export default function Test() {
             coverImage: 'https://cdn.sanity.io/images/599r6htc/regionalized/19bc5a345fc9d23d9890a3188aa18a67f3c57550-2880x1440.png?q=75&fit=max&auto=format&dpr=0.75',
             link: '/landingpage',
             ratio: '3',
-            timeStamp: new Date('2023-09-15 08:30:00 GMT+07:00')
         },
         {
             id: '3',

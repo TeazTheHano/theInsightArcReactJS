@@ -1,10 +1,14 @@
-# TODO: Implement Circle Follow Mouse Feature
+# Migration from Vite to Next.js
 
-## Steps to Complete:
-- [x] Create CircleFollowMouse component (frontend/src/components/CircleFollowMouse/CircleFollowMouse.tsx)
-- [x] Add CSS styles for the circle (frontend/src/components/CircleFollowMouse/CircleFollowMouse.module.css)
-- [x] Update GlobalLayout.tsx to import and use CircleFollowMouse
-- [x] Optimize for lowest latency by removing CSS transitions
-- [x] Add invert color filter for better visibility
-- [x] Optimize performance using useRef to avoid re-renders
-- [x] Test the feature by running the app and verifying the circle follows the mouse
+## Steps to Complete
+
+- [ ] Update package.json: Remove Vite dependencies, add Next.js dependencies, update scripts
+- [ ] Create next.config.js with basic configuration
+- [ ] Restructure project: Move src/ contents to root (pages/, components/, etc.)
+- [ ] Create pages/_app.tsx to wrap with GlobalLayout and i18n provider
+- [ ] Create pages/index.tsx as the home page (currently App.tsx)
+- [ ] Update routing: Convert React Router routes to Next.js file-based routing
+- [ ] Handle static assets and public folder
+- [ ] Update imports to use Next.js Link instead of react-router-dom Link
+- [ ] Test the build and fix any issues
+- [ ] Update vercel.json if needed for deployment

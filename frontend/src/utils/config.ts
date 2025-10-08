@@ -14,7 +14,7 @@ export const CONFIG = {
   // --- Blog structure ---
   BLOG: {
     BASE_PATH: "blogs",  // thư mục trong repo B chứa .md
-    CACHE_EXPIRE_HOURS: 1,
+    CACHE_EXPIRE_HOURS: 0,
   },
 
   // --- API endpoints (sau này nếu mở rộng) ---

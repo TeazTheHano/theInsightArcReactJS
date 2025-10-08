@@ -13,6 +13,8 @@ import { fetchBlogList } from '../../utils/fetchContent';
 
 export default function BlogList() {
   const { t } = useTranslation('blog')
+  const { t: t_toast } = useTranslation('toast')
+
   const [isInSM, setIsInSM] = useState<boolean>(false);
 
   const [loading, setLoading] = useState(true);
@@ -39,12 +41,12 @@ export default function BlogList() {
       return dateB - dateA;
     });
 
-    set_LATEST_POSTS(sortedByTime.slice(0, 4) || placeholderData);
-    set_TRENDING_POSTS(sortedByTime.slice(0, 4));
+    set_LATEST_POSTS(sortedByTime.slice(0, 5) || placeholderData);
+    set_TRENDING_POSTS(sortedByTime.slice(0, 5));
     const category1 = data.filter(item => item.category === 'Category 1');
-    set_CATE_1_POSTS(category1.slice(0, 4) || placeholderData);
+    set_CATE_1_POSTS(category1.slice(0, 5) || placeholderData);
     const category2 = data.filter(item => item.category === 'Category 2');
-    set_CATE_2_POSTS(category2.slice(0, 4) || placeholderData);
+    set_CATE_2_POSTS(category2.slice(0, 5) || placeholderData);
   }, []);
 
   useEffect(() => {
@@ -63,8 +65,9 @@ export default function BlogList() {
   // TODO: handle view all
   const handleViewAll = useCallback(() => { }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  // TODO: modal needed
+  if (loading) return <div>{t_toast('info.loading')}</div>;
+  if (error) return <div>{t_toast('error.loadFailed')} - {error}</div>
 
   return (
     <div>

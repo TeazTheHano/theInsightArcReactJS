@@ -10,15 +10,45 @@ import Chip from '../Chip/Chip'
 import { useTranslation } from 'react-i18next'
 
 
-const formatDate = (date: Date, language: string) =>
-    new Intl.DateTimeFormat(language === 'vi' ? 'vi-VN' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' }).format(date);
+// Memoized date formatter to avoid recreating Intl.DateTimeFormat instances
+const getDateFormatter = (() => {
+    const cache = new Map<string, Intl.DateTimeFormat>();
+    return (language: string) => {
+        const key = language;
+        if (!cache.has(key)) {
+            cache.set(key, new Intl.DateTimeFormat(language === 'vi' ? 'vi-VN' : 'en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            }));
+        }
+        return cache.get(key)!;
+    };
+})();
 
-const isValidDate = (date: any) => date instanceof Date && !isNaN(date.getTime());
+// Optimized date parsing and validation
+const parseAndValidateDate = (date: Date | string | undefined): Date | null => {
+    if (!date) return null;
 
-const DateDisplay: React.FC<{ date?: Date }> = ({ date }) => {
+    let dateObj: Date;
+    if (typeof date === 'string') {
+        dateObj = new Date(date);
+    } else {
+        dateObj = date;
+    }
+
+    // Check if valid date
+    return dateObj instanceof Date && !isNaN(dateObj.getTime()) ? dateObj : null;
+};
+
+const DateDisplay: React.FC<{ date?: Date | string }> = ({ date }) => {
     const { i18n } = useTranslation();
-    const formatted = useMemo(() => date && isValidDate(date) ? formatDate(date, i18n.language) : '', [date, i18n.language]);
-    
+
+    const formatted = useMemo(() => {
+        const validDate = parseAndValidateDate(date);
+        return validDate ? getDateFormatter(i18n.language).format(validDate) : '';
+    }, [date, i18n.language]);
+
     return <TextLabelSmall children={formatted} maxLines={1} color='var(--Schemes-Outline)' />;
 };
 
