@@ -33,6 +33,8 @@ function LandingPage() {
                 setBlogData(sortedByTime.slice(0, 3) || placeholderData);
 
                 setLoading(false);
+                console.log(loading, error);
+                
             })
             .catch((err) => { setError(err.message); setLoading(false); });
     }, []);
