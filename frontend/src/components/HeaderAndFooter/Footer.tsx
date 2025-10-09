@@ -6,6 +6,7 @@ import i18n from '../../i18n'
 import { useTranslation } from 'react-i18next'
 import SegmentedButton from '../Button/SegmentedButton'
 import Divider from '../Divider/Divider'
+import Button from '../Button/Button'
 
 export default function Footer() {
 
@@ -61,7 +62,7 @@ export default function Footer() {
             {/* change themes */}
 
             <Divider />
-            <TextHeadlineSmall children='Theme' />
+            <TextHeadlineSmall children='DEV Mode' />
 
             <SegmentedButton
                 dataList={[
@@ -88,6 +89,17 @@ export default function Footer() {
                 }}
                 preSelected={theme}
                 compactMode
+            />
+
+            <Button 
+                label="clear cache"
+                children="Clear Cache"
+                styleMode='Outlined'
+                colorMode='Error'
+                onClick={() => {
+                    localStorage.clear();
+                    window.location.reload();
+                }}
             />
 
         </footer >

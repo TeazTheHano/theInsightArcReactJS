@@ -59,7 +59,7 @@ export const fetchBlogList = async (useCache: boolean = false): Promise<BlogItem
  * Lấy nội dung chi tiết của một bài blog Markdown dựa trên slug
  * Bao gồm việc parse frontmatter (metadata) nếu có
  */
-export const fetchBlogContent = async (slug: string, useCache: boolean = true) => {
+export const fetchBlogContent = async (slug: string, useCache: boolean = false) => {
     const cacheKey = `blog-content-${slug}`;
 
     // Kiểm tra cache nếu bật cache
@@ -80,7 +80,7 @@ export const fetchBlogContent = async (slug: string, useCache: boolean = true) =
         },
     });
 
-    if (!res.ok) throw new Error(`Lỗi khi lấy nội dung blog: ${res.statusText}`);
+if (!res.ok) throw new Error(`Lỗi khi lấy nội dung blog: ${res.statusText}`);
 
     const data = await res.json();
 

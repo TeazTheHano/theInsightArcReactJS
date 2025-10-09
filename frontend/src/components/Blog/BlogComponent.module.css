@@ -113,3 +113,33 @@
 .blog2RowContainer:hover .description {
   color: var(--Schemes-On-Surface);
 }
+
+/* BlogDetail */
+.readingContainer {
+  display: flex;
+  padding: var(--Spacing-Spaceing-L, 36px) var(--Spacing-Spaceing-XXL, 56px);
+  flex-direction: column;
+  gap: var(--Spacing-Spaceing-M, 24px);
+  align-self: stretch;
+}
+
+:global(body.size-and-spacing-sm) .readingContainer {
+  padding: var(--Spacing-Spaceing-L, 36px) var(--Spacing-Spaceing-S, 16px);
+}
+
+.readingHeader {
+  display: flex;
+  flex-direction: row;
+  gap: var(--Spacing-Spaceing-XS, 12px);
+}
+
+:global(body.size-and-spacing-sm) .readingHeader {
+  flex-direction: column;
+}
+
+.authorRow {
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  gap: 16px var(--Spacing-Spaceing-S, 16px);
+}

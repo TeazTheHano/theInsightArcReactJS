@@ -14,6 +14,7 @@ import Game from './pages/Game/Game';
 import Inspiration from './pages/Inspiration/Inspiration';
 import BlogList from './pages/Blog/Blog';
 import Contact from './pages/Contact/Contact';
+import BlogDetailPage from './pages/Blog/BlogDetailPage';
 
 export default function App() {
 
@@ -32,8 +33,10 @@ export default function App() {
             <Route path="/game" element={<Game />} />
             <Route path="/test" element={<Test />} />
 
+            {/* Blog */}
+            <Route path="/blog/:id" element={<BlogDetailPage />} />
             <Route path='/contact' element={<Contact />} />
-              {/* 404 */}
+            {/* 404 */}
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </GlobalLayout>

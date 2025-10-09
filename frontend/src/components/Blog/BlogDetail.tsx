@@ -1,0 +1,108 @@
+import React, { useEffect, useState } from "react";
+import { marked } from "marked";
+import type { BlogItemProps } from "../../data/type";
+import DateDisplay from "../TimeDisplay/TimeDisplay";
+import LazyImage from "../LazyImage/lazyImage";
+import { useTranslation } from "react-i18next";
+import { TextBodyMedium, TextHeadlineLarge, TextLabelSmall, TextTitleSmall } from "../TextBox/textBox";
+import { DivFlexColumn, DivFlexRow } from "../LayoutDiv/LayoutDiv";
+
+import styles from './BlogComponent.module.css';
+import Button from "../Button/Button";
+
+marked.setOptions({ async: false });
+
+// Custom hook to detect small/medium screen sizes based on body classes
+const useIsSmallScreen = () => {
+    const [isInSM, setIsInSM] = useState<boolean>(() =>
+        document.body.classList.contains('size-and-spacing-sm') ||
+        document.body.classList.contains('size-and-spacing-md')
+    );
+
+    useEffect(() => {
+        const checkScreenSize = () => {
+            setIsInSM(
+                document.body.classList.contains('size-and-spacing-sm') ||
+                document.body.classList.contains('size-and-spacing-md')
+            );
+        };
+
+        const observer = new MutationObserver(checkScreenSize);
+        observer.observe(document.body, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+
+        // Initial check
+        checkScreenSize();
+
+        return () => observer.disconnect();
+    }, []);
+
+    return isInSM;
+};
+
+interface BlogDetailProps {
+    metadata: BlogItemProps;
+    markdownUrl: string;
+}
+
+const BlogDetail: React.FC<BlogDetailProps> = ({ metadata, markdownUrl }) => {
+    const [html, setHtml] = useState("");
+    const { t } = useTranslation('blog');
+    const { t: t_common } = useTranslation('common');
+    const isInSM = useIsSmallScreen();
+
+    useEffect(() => {
+        const fetchMarkdown = async () => {
+            const res = await fetch(markdownUrl, {
+                headers: { Accept: "application/vnd.github.v3.raw" },
+            });
+            const text = await res.text();
+            setHtml(marked.parse(text) as string);
+        };
+        fetchMarkdown();
+    }, [markdownUrl]);
+
+    return (
+        <div>
+            <div style={{
+                backgroundColor: 'var(--Schemes-Surface-Tint)',
+                padding: 'var(--Spacing-Spaceing-M, 24px) var(--Spacing-Spaceing-S, 16px)',
+            }}>
+                <TextTitleSmall color="var(--Schemes-On-Primary)" children='Viết và Bàn luận > Category 1 > Giới hạn của công nghệ, du lịch tại chỗ và du lịch từ xa' />
+            </div>
+            <section className={styles.readingContainer}>
+                <div className={styles.readingHeader}>
+                    <DivFlexColumn style={{ gap: `var(--Spacing-Spaceing-XS, 12px)`, flex: 1 }}>
+                        <TextHeadlineLarge children={metadata.title} headline="h1" className={styles.title} />
+                        <TextBodyMedium children={metadata.description} color="var(--Schemes-On-Surface-Variant)" className={styles.description} />
+                        <DivFlexRow className={styles.authorRow}>
+                            <TextLabelSmall>{t_common('author')}: {metadata.author}</TextLabelSmall>
+                            <TextLabelSmall children={<DateDisplay date={metadata.timeStamp} />} />
+                        </DivFlexRow>
+                    </DivFlexColumn>
+                    <Button
+                        label={t_common('share')}
+                        children={t_common('share')}
+                        leadingIcon="share_filled"
+                        variantMode={isInSM ? 'Default' : 'Icon'}
+                    />
+                </div>
+                {metadata.coverImage && (
+                    <LazyImage
+                        src={metadata.coverImage}
+                        alt={t('coverImageAlt') + metadata.title}
+                        aspectRatio='21/9'
+                    />
+                )}
+                <p
+                    dangerouslySetInnerHTML={{ __html: html }}
+                    className={styles.markdownContent}
+                />
+            </section>
+        </div>
+    );
+};
+
+export default BlogDetail;

@@ -9,6 +9,7 @@ interface TextBoxProps extends React.HTMLAttributes<HTMLDivElement> {
     style?: React.CSSProperties;
     onClick?: React.MouseEventHandler<HTMLDivElement>;
     maxLines?: number; // Limit number of lines, if exceeded will show "..."
+    headline?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }
 
 const clampStyle = (maxLines?: number): React.CSSProperties => {
@@ -146,11 +147,23 @@ export const Text: React.FC<TextBoxProps & { variant: keyof typeof textVariants 
     style = {},
     onClick,
     maxLines,
+    headline,
     ...rest
 }) => {
     const variantStyles = textVariants[variant] || {};
     const size = variant.split('-')[1]; // small, medium, large
-
+    const headlineStyle = {
+        margin: 0,
+        padding: 0,
+        font: 'inherit',
+        color: 'inherit',
+        lineHeight: 'inherit',
+        letterSpacing: 'inherit',
+        fontWeight: 'inherit',
+        fontSize: 'inherit',
+        fontFamily: 'inherit',
+        textAlign: 'inherit' as const,
+    }
     return (
         <div className={`typography-system-${size}`}>
             <div
@@ -164,7 +177,7 @@ export const Text: React.FC<TextBoxProps & { variant: keyof typeof textVariants 
                 onClick={onClick}
                 {...rest}
             >
-                {children}
+                {headline ? React.createElement(headline, {style: headlineStyle}, children) : children}
             </div>
         </div>
     );

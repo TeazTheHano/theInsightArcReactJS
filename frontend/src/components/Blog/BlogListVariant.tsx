@@ -8,50 +8,7 @@ import { Link } from 'react-router-dom'
 import type { BlogItemProps } from '../../data/type'
 import Chip from '../Chip/Chip'
 import { useTranslation } from 'react-i18next'
-
-
-// Memoized date formatter to avoid recreating Intl.DateTimeFormat instances
-const getDateFormatter = (() => {
-    const cache = new Map<string, Intl.DateTimeFormat>();
-    return (language: string) => {
-        const key = language;
-        if (!cache.has(key)) {
-            cache.set(key, new Intl.DateTimeFormat(language === 'vi' ? 'vi-VN' : 'en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
-            }));
-        }
-        return cache.get(key)!;
-    };
-})();
-
-// Optimized date parsing and validation
-const parseAndValidateDate = (date: Date | string | undefined): Date | null => {
-    if (!date) return null;
-
-    let dateObj: Date;
-    if (typeof date === 'string') {
-        dateObj = new Date(date);
-    } else {
-        dateObj = date;
-    }
-
-    // Check if valid date
-    return dateObj instanceof Date && !isNaN(dateObj.getTime()) ? dateObj : null;
-};
-
-const DateDisplay: React.FC<{ date?: Date | string }> = ({ date }) => {
-    const { i18n } = useTranslation();
-
-    const formatted = useMemo(() => {
-        const validDate = parseAndValidateDate(date);
-        return validDate ? getDateFormatter(i18n.language).format(validDate) : '';
-    }, [date, i18n.language]);
-
-    return <TextLabelSmall children={formatted} maxLines={1} color='var(--Schemes-Outline)' />;
-};
-
+import DateDisplay from '../TimeDisplay/TimeDisplay'
 
 export interface Blog2RowComponentProps {
     dataList: BlogItemProps[]
@@ -93,7 +50,7 @@ const Blog2RowComponent: React.FC<Blog2RowComponentProps> = ({
         return dataList.map((item, index) => (
             <Link
                 key={`${item.title}_${index}`}
-                to={item.link ? item.link : ''}
+                to={item.link ? item.link : item.id ? `/blog/${item.id}` : '#'}
                 aria-label={item.title}
                 tabIndex={0}
                 style={{ width: '100%' }}
@@ -111,7 +68,7 @@ const Blog2RowComponent: React.FC<Blog2RowComponentProps> = ({
                             />
                             <DivFlexColumnSpaceBetween style={{ flex: 1 }}>
                                 <TextTitleMedium children={item.title} className={styles.title} maxLines={3} />
-                                <DateDisplay date={item.timeStamp} />
+                                <TextLabelSmall children={<DateDisplay date={item.timeStamp} />} color='var(--Schemes-Outline)' />
                             </DivFlexColumnSpaceBetween>
                         </>
                     ) : (
@@ -153,7 +110,7 @@ const Blog2RowComponent: React.FC<Blog2RowComponentProps> = ({
                                             ))}
                                         </DivFlexRow>
                                     )}
-                                    <DateDisplay date={item.timeStamp} />
+                                    <TextLabelSmall children={<DateDisplay date={item.timeStamp} />} color='var(--Schemes-Outline)' />
                                 </DivFlexColumn>
                             </DivFlexColumnSpaceBetween>
                         </>

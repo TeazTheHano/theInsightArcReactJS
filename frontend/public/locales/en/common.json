@@ -9,5 +9,9 @@
   "nav-menu": "Navigation Menu",
   "footer-item-1": "The insightArc project",
   "footer-item-2": "Hanoi, Vietnam, May 2025",
-  "search": "Search"
+  "search": "Search",
+  "author": "Author",
+  "read-time": "Read Time",
+  "tags": "Tags",
+  "share": "Share"
 }
