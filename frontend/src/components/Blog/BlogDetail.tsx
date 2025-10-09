@@ -9,6 +9,7 @@ import { DivFlexColumn, DivFlexRow } from "../LayoutDiv/LayoutDiv";
 
 import styles from './BlogComponent.module.css';
 import Button from "../Button/Button";
+import mermaid from "mermaid";
 
 marked.setOptions({ async: false });
 
@@ -59,10 +60,40 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ metadata, markdownUrl }) => {
                 headers: { Accept: "application/vnd.github.v3.raw" },
             });
             const text = await res.text();
-            setHtml(marked.parse(text) as string);
+
+            // Bỏ YAML metadata
+            const content = text.replace(/^---[\s\S]*?---/, "").trim();
+
+            // Cấu hình parser
+            marked.setOptions({ async: false });
+            const parsedHtml = marked.parse(content) as string;
+            setHtml(parsedHtml);
         };
+
         fetchMarkdown();
     }, [markdownUrl]);
+
+    // Sau khi HTML được set => render Mermaid
+    useEffect(() => {
+        // Khởi tạo Mermaid
+        mermaid.initialize({ startOnLoad: false, theme: "neutral" });
+
+        // Dò tất cả code block có class "language-mermaid"
+        const mermaidBlocks = document.querySelectorAll("code.language-mermaid");
+        mermaidBlocks.forEach((block, i) => {
+            const code = block.textContent || "";
+            const container = document.createElement("div");
+            container.classList.add("mermaid");
+            container.textContent = code;
+
+            block.parentElement?.replaceWith(container);
+
+            // Render từng sơ đồ
+            mermaid.render(`mermaid-${i}`, code).then(({ svg }) => {
+                container.innerHTML = svg;
+            });
+        });
+    }, [html]);
 
     return (
         <div>
@@ -96,9 +127,9 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ metadata, markdownUrl }) => {
                         aspectRatio='21/9'
                     />
                 )}
-                <p
-                    dangerouslySetInnerHTML={{ __html: html }}
+                <div
                     className={styles.markdownContent}
+                    dangerouslySetInnerHTML={{ __html: html }}
                 />
             </section>
         </div>

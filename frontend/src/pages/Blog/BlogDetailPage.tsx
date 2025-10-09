@@ -24,8 +24,6 @@ export default function BlogDetailPage() {
   if (!metadata) return <p className="text-center p-10">Đang tải...</p>;
 
   const markdownUrl = `https://raw.githubusercontent.com/${CONFIG.GITHUB.CONTENT_REPO}/${CONFIG.GITHUB.BRANCH}/${CONFIG.BLOG.BASE_PATH}/${metadata.id}.md`;
-  console.log(markdownUrl);
-  
 
   return <BlogDetail metadata={metadata} markdownUrl={markdownUrl} />;
 }

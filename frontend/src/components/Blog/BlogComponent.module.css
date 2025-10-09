@@ -143,3 +143,61 @@
   align-content: center;
   gap: 16px var(--Spacing-Spaceing-S, 16px);
 }
+
+.markdownContent * {
+  text-align: justify;
+}
+
+.markdownContent p,
+.markdownContent li,
+.markdownContent blockquote,
+.markdownContent td,
+.markdownContent th {
+  color: var(--Schemes-On-Surface, #1A1C1B) !important;
+  text-align: justify;
+
+  /* Body */
+  font-family: var(--Body-Family, Inconsolata);
+  font-size: var(--Body-Font-Size, 20px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--Body-Line-height, 28px);
+  /* 140% */
+  letter-spacing: var(--Body-Letter-spacing, 0.5px);
+}
+
+.markdownContent h2,
+.markdownContent h3,
+.markdownContent h4,
+.markdownContent h5,
+.markdownContent h6 {
+  color: var(--Schemes-On-Surface, #1A1C1B);
+
+  /* Headline */
+  font-family: var(--Headline-Family, Epilogue);
+  font-style: normal;
+  line-height: 125%;
+  letter-spacing: var(--Headline-Letter-spacing, 0);
+
+  margin-top: var(--Spacing-Spaceing-L);
+}
+
+rect,
+circle,
+ellipse,
+polygon {
+  fill: var(--Schemes-Surface-Container, #FFFFFF) !important;
+  stroke: var(--Schemes-On-Surface, #1A1C1B) !important;
+}
+
+text,
+tspan {
+  fill: var(--Schemes-On-Surface, #1A1C1B) !important;
+  color: var(--Schemes-On-Surface, #1A1C1B) !important;
+}
+
+line,
+path,
+polyline {
+  stroke: var(--Schemes-On-Surface, #1A1C1B) !important;
+}
