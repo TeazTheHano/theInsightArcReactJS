@@ -10,10 +10,32 @@ import { BlogItem2RowGen } from '../../components/Blog/BlogListVariant'
 import type { BlogItemProps } from '../../data/type'
 import { placeholderData } from '../../data/placeholderData'
 import { BlogSquareItemGen } from '../../components/Blog/SquareItem'
+import { useEffect, useState } from 'react'
+import { fetchBlogList } from '../../utils/fetchContent'
 
 function LandingPage() {
 
     const { t } = useTranslation('landingPage')
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [blogData, setBlogData] = useState<BlogItemProps[]>([]);
+
+    useEffect(() => {
+        setLoading(true);
+        fetchBlogList()
+            .then((data) => {
+                const sortedByTime = [...data].sort((a, b) => {
+                    const dateA = a.timeStamp ? new Date(a.timeStamp).getTime() : 0;
+                    const dateB = b.timeStamp ? new Date(b.timeStamp).getTime() : 0;
+                    return dateB - dateA;
+                });
+
+                setBlogData(sortedByTime.slice(0, 3) || placeholderData);
+
+                setLoading(false);
+            })
+            .catch((err) => { setError(err.message); setLoading(false); });
+    }, []);
 
     return (
 
@@ -110,7 +132,7 @@ function LandingPage() {
                         <ButtonDefault
                             children={t('section-4-button')}
                             label={t('section-4-button')}
-                            onClick={() => { }}
+                            onClick={() => { window.location.href = '/inspiration' }}
                             leadingIcon={'arrow_outward'}
                         />
                     </DivFlexColumn>
@@ -136,7 +158,7 @@ function LandingPage() {
                         <ButtonDefault
                             children={t('section-5-button')}
                             label={t('section-5-button')}
-                            onClick={() => { }}
+                            onClick={() => { window.location.href = '/blog' }}
                             leadingIcon={'arrow_outward'}
                         />
                     </DivFlexColumn>
@@ -147,7 +169,7 @@ function LandingPage() {
                 </DivFlexRow>
                 {/* blog list */}
                 <DivFlexRow className='shiftVerticalSm' style={{ gap: `var(--Spacing-Spaceing-M, 24px)`, flex: 1 }}>
-                    <BlogSquareItemGen dataList={placeholderData} />
+                    <BlogSquareItemGen dataList={blogData} />
                 </DivFlexRow>
             </DivFlexColumn>
 
@@ -164,7 +186,7 @@ function LandingPage() {
                         <ButtonDefault
                             children={t('section-6-button')}
                             label={t('section-6-button')}
-                            onClick={() => { }}
+                            onClick={() => { window.location.href = '/game' }}
                             leadingIcon={'arrow_outward'}
                         />
                     </DivFlexColumn>

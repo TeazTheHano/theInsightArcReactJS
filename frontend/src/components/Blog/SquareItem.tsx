@@ -42,7 +42,7 @@ const BlogSquareItemComponent: React.FC<BlogSquareItemProps> = ({
         return dataList.map((item, index) => (
             <Link
                 key={`${item.title}_${index}`}
-                to={item.link ? item.link : ''}
+                to={item.link || `/blog/${item.id}`}
                 aria-label={item.title}
                 tabIndex={0}
                 style={linkStyle}
@@ -61,10 +61,10 @@ const BlogSquareItemComponent: React.FC<BlogSquareItemProps> = ({
                     <DivFlexColumnSpaceBetween className={styles.overlay}>
                         <DivFlexRow className={styles.iconRow}>
                             <div className={styles.iconContainer}>
-                                <IconGen svgName='arrow_outward' fillColor='var(--Schemes-On-Surface)' />
+                                <IconGen svgName='arrow_outward' fillColor='var(--Schemes-Primary)' />
                             </div>
                         </DivFlexRow>
-                        <TextHeadlineMedium className={styles.title} maxLines={4}>{item.title}</TextHeadlineMedium>
+                        {item.title ? <TextHeadlineMedium className={styles.title} maxLines={4} color=''>{item.title}</TextHeadlineMedium> : null}
                     </DivFlexColumnSpaceBetween>
                 </DivFlexColumnSpaceBetween>
             </Link>

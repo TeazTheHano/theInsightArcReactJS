@@ -17,7 +17,6 @@
 }
 
 .overlay {
-  padding: var(--Spacing-Spaceing-S);
   position: absolute;
   top: 0;
   left: 0;
@@ -28,14 +27,27 @@
   justify-content: space-between;
 }
 
+.overlay .title {
+  padding: var(--Spacing-Spaceing-S);
+  padding-top: var(--Spacing-Spaceing-XL);
+  background: linear-gradient(to top, var(--Schemes-On-Surface), transparent);
+  color: var(--Schemes-Surface);
+}
+
 .iconRow {
   display: flex;
   flex-direction: row-reverse !important;
+  padding: var(--Spacing-Spaceing-S);
 }
 
 .iconContainer {
   height: var(--Icon-BASE-Icon-size, 24px);
   width: var(--Icon-BASE-Icon-size, 24px);
+  filter: drop-shadow(0 0 1px var(--Schemes-On-Primary));
+}
+
+.blogItemContainer:hover .iconContainer {
+  filter: drop-shadow(0 0 2px var(--Schemes-On-Primary));
 }
 
 .titleHolder {
@@ -144,6 +156,11 @@
   gap: 16px var(--Spacing-Spaceing-S, 16px);
 }
 
+.markdownContent {
+  max-width: 1920px;
+  margin: auto;
+}
+
 .markdownContent * {
   text-align: justify;
 }
@@ -182,22 +199,22 @@
   margin-top: var(--Spacing-Spaceing-L);
 }
 
-rect,
-circle,
-ellipse,
-polygon {
+.markdownContent rect,
+.markdownContent circle,
+.markdownContent ellipse,
+.markdownContent polygon {
   fill: var(--Schemes-Surface-Container, #FFFFFF) !important;
   stroke: var(--Schemes-On-Surface, #1A1C1B) !important;
 }
 
-text,
-tspan {
+.markdownContent text,
+.markdownContent tspan {
   fill: var(--Schemes-On-Surface, #1A1C1B) !important;
   color: var(--Schemes-On-Surface, #1A1C1B) !important;
 }
 
-line,
-path,
-polyline {
+.markdownContent line,
+.markdownContent path,
+.markdownContent polyline {
   stroke: var(--Schemes-On-Surface, #1A1C1B) !important;
 }
