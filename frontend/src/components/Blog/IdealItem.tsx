@@ -51,7 +51,7 @@ const IdealItem: React.FC<IdealItemProps> = ({
                         className={styles.Blog2RowComponentImage}
                         borderRadius='default'
                     />
-                    <DivFlexRow style={{ flex: 1, gap: 'var(--Spacing-Spaceing-M, 24px)' }}>
+                    <DivFlexRow style={{ flex: 1, gap: 'var(--Spacing-Spaceing-S, 16px)' }}>
                         <DivFlexColumn className={styles.titleHolder} style={{ flex: 1 }}>
                             <TextHeadlineSmall children={item.title} className={styles.title} maxLines={2} />
                             {

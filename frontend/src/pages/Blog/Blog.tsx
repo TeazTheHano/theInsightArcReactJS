@@ -57,7 +57,7 @@ export default function BlogList() {
         setLoading(false);
       })
       .catch((err) => { setError(err.message); setLoading(false); });
-  }, [sortData]);
+  }, []);
 
   const direction = useMemo(() => isInSM ? "column" : "row", [isInSM]);
   const trendingThumbSize = useMemo(() => isInSM ? 100 : 300, [isInSM]);

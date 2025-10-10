@@ -164,10 +164,10 @@ export const fetchBlogContent = async (fileName: string, useCache: boolean = fal
         // Fetch file with JSON accept header to get metadata and base64 content
         const data = await fetchGitHubData(`${CONFIG.BLOG.BASE_PATH}/${fileName}.md`, "application/vnd.github.v3+json");
         // Fetch again with raw accept header (potentially redundant, as raw content is already in data.content)
-        const nonEncyptedData = await fetchGitHubData(`${CONFIG.BLOG.BASE_PATH}/${fileName}.md`, "application/vnd.github.v3.raw");
-        if (nonEncyptedData.content) {
-            console.log(nonEncyptedData.text); // Debug log (note: nonEncyptedData may not have .text property)
-        }
+        // const nonEncyptedData = await fetchGitHubData(`${CONFIG.BLOG.BASE_PATH}/${fileName}.md`, "application/vnd.github.v3.raw");
+        // if (nonEncyptedData.content) {
+        //     console.log(nonEncyptedData.content); // Debug log (note: nonEncyptedData may not have .text property)
+        // }
         const content = decodeBase64(data.content); // Decode base64 content from first fetch
         const { meta, body } = parseFrontmatter(content); // Parse frontmatter and body
         const result = { meta, content: body }; // Prepare result object
@@ -179,5 +179,35 @@ export const fetchBlogContent = async (fileName: string, useCache: boolean = fal
 
     } catch (error) {
         throw new Error(`Error fetching blog content for ${fileName}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+};
+
+export const fetchInspirationList = async (useCache: boolean = false): Promise<BlogItemProps[]> => {
+    const cacheKey = "blog-list-cache";
+
+    if (useCache) {
+        const cached = getCache(cacheKey, CONFIG.INSPIRATION.CACHE_EXPIRE_HOURS); // Check for valid cached data
+        if (cached) return cached; // Return cached data if available
+    }
+
+    try {
+        // Fetch metadata.json with raw JSON accept header
+        const data = await fetchGitHubData(`${CONFIG.INSPIRATION.BASE_PATH}/metadata.json`, "application/vnd.github.v3.raw+json");
+        let metadata: BlogItemProps[];
+
+        if (Array.isArray(data)) {
+            metadata = data; // Direct array response
+        } else if (data.content) {
+            const decoded = decodeBase64(data.content); // Decode base64 content
+            metadata = JSON.parse(decoded); // Parse JSON string to array
+        } else {
+            throw new Error("Invalid metadata.json format"); // Unexpected format
+        }
+
+        if (useCache) saveCache(cacheKey, metadata); // Save to cache if enabled
+
+        return metadata;
+    } catch (error) {
+        throw new Error(`Error fetching blog list: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
 };

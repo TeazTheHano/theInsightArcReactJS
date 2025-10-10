@@ -11,6 +11,7 @@ import styles from './BlogComponent.module.css';
 import Button from "../Button/Button";
 import mermaid from "mermaid";
 import { fetchBlogContent } from "../../utils/fetchContent";
+import { BlogHeader } from "./BlogHeader";
 
 marked.setOptions({ async: false });
 
@@ -49,12 +50,14 @@ interface BlogDetailProps {
 }
 
 const BlogDetail: React.FC<BlogDetailProps> = ({ metadata }) => {
-    const [html, setHtml] = useState("");
     const { t } = useTranslation('blog');
     const { t: t_common } = useTranslation('common');
     const { t: t_toast } = useTranslation('toast');
     const isInSM = useIsSmallScreen();
     const [isLoading, setIsLoading] = useState(true);
+
+    const [html, setHtml] = useState("");
+    const [meta, setMeta] = useState<any>(null);
 
     // Sau khi HTML được set => render Mermaid
     useEffect(() => {
@@ -85,6 +88,7 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ metadata }) => {
                 const parsedHtml = marked.parse(res.content) as string;
                 setHtml(parsedHtml);
                 setIsLoading(false);
+                setMeta(res.meta);
             } catch (error) {
                 console.error("Error fetching or rendering markdown:", error);
                 // TODO: Modal báo lỗi
@@ -96,6 +100,7 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ metadata }) => {
 
     return (
         <div>
+            <BlogHeader meta={meta} />
             <div style={{
                 backgroundColor: 'var(--Schemes-Surface-Tint)',
                 padding: 'var(--Spacing-Spaceing-M, 24px) var(--Spacing-Spaceing-S, 16px)',
