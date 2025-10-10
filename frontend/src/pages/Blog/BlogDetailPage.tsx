@@ -1,13 +1,15 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { CONFIG } from "../../utils/config";
 import { fetchBlogList } from "../../utils/fetchContent";
 import BlogDetail from "../../components/Blog/BlogDetail";
+import { TextBodyLarge } from "../../components/TextBox/textBox";
+import { useTranslation } from "react-i18next";
 
 export default function BlogDetailPage() {
   const { id } = useParams();
   const [metadata, setMetadata] = useState<any>(null);
   const [notFound, setNotFound] = useState(false);
+  const { t: t_toast } = useTranslation('toast');
 
   useEffect(() => {
     if (!id) return;
@@ -20,10 +22,8 @@ export default function BlogDetailPage() {
     load();
   }, [id]);
 
-  if (notFound) return <p className="text-center p-10">❌ Bài viết không tồn tại.</p>;
-  if (!metadata) return <p className="text-center p-10">Đang tải...</p>;
+  if (notFound) return <TextBodyLarge children={t_toast('error.notFound')} />;
+  if (!metadata) return <TextBodyLarge children={t_toast('info.loading')} />;
 
-  const markdownUrl = `https://raw.githubusercontent.com/${CONFIG.GITHUB.CONTENT_REPO}/${CONFIG.GITHUB.BRANCH}/${CONFIG.BLOG.BASE_PATH}/${metadata.id}.md`;
-
-  return <BlogDetail metadata={metadata} markdownUrl={markdownUrl} />;
+  return <BlogDetail metadata={metadata} />;
 }

@@ -11,7 +11,8 @@
 export const isCacheValid = (key: string, expireHours: number): boolean => {
     const cache = localStorage.getItem(key);
     if (!cache) return false;
-
+    if (!expireHours || expireHours <= 0) return true; // Không hết hạn nếu expireHours <= 0
+    
     try {
         const { timestamp } = JSON.parse(cache);
         // Tính thời gian đã trôi qua kể từ khi lưu cache

@@ -10,6 +10,7 @@ import { DivFlexColumn, DivFlexRow } from "../LayoutDiv/LayoutDiv";
 import styles from './BlogComponent.module.css';
 import Button from "../Button/Button";
 import mermaid from "mermaid";
+import { fetchBlogContent } from "../../utils/fetchContent";
 
 marked.setOptions({ async: false });
 
@@ -45,33 +46,15 @@ const useIsSmallScreen = () => {
 
 interface BlogDetailProps {
     metadata: BlogItemProps;
-    markdownUrl: string;
 }
 
-const BlogDetail: React.FC<BlogDetailProps> = ({ metadata, markdownUrl }) => {
+const BlogDetail: React.FC<BlogDetailProps> = ({ metadata }) => {
     const [html, setHtml] = useState("");
     const { t } = useTranslation('blog');
     const { t: t_common } = useTranslation('common');
+    const { t: t_toast } = useTranslation('toast');
     const isInSM = useIsSmallScreen();
-
-    useEffect(() => {
-        const fetchMarkdown = async () => {
-            const res = await fetch(markdownUrl, {
-                headers: { Accept: "application/vnd.github.v3.raw" },
-            });
-            const text = await res.text();
-
-            // Bỏ YAML metadata
-            const content = text.replace(/^---[\s\S]*?---/, "").trim();
-
-            // Cấu hình parser
-            marked.setOptions({ async: false });
-            const parsedHtml = marked.parse(content) as string;
-            setHtml(parsedHtml);
-        };
-
-        fetchMarkdown();
-    }, [markdownUrl]);
+    const [isLoading, setIsLoading] = useState(true);
 
     // Sau khi HTML được set => render Mermaid
     useEffect(() => {
@@ -93,7 +76,23 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ metadata, markdownUrl }) => {
                 container.innerHTML = svg;
             });
         });
-    }, [html]);
+    }, [html, isInSM]);
+
+    useEffect(() => {
+        const fetchMarkdown = async () => {
+            try {
+                const res = await fetchBlogContent(metadata.id);
+                const parsedHtml = marked.parse(res.content) as string;
+                setHtml(parsedHtml);
+                setIsLoading(false);
+            } catch (error) {
+                console.error("Error fetching or rendering markdown:", error);
+                // TODO: Modal báo lỗi
+                setHtml(`<TextBodyMedium children={t_toast('error.loadFailed')}/>`);
+            }
+        };
+        fetchMarkdown();
+    }, [metadata.id]);
 
     return (
         <div>
@@ -127,10 +126,15 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ metadata, markdownUrl }) => {
                         aspectRatio='21/9'
                     />
                 )}
-                <div
-                    className={styles.markdownContent}
-                    dangerouslySetInnerHTML={{ __html: html }}
-                />
+                {
+                    isLoading ? (
+                        <TextBodyMedium children={t_toast('info.loading')} />
+                    ) : (
+                        <div
+                            className={styles.markdownContent}
+                            dangerouslySetInnerHTML={{ __html: html }}
+                        />)
+                }
             </section>
         </div>
     );

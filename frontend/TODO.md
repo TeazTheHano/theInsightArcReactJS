@@ -12,3 +12,9 @@
 - [ ] Update imports to use Next.js Link instead of react-router-dom Link
 - [ ] Test the build and fix any issues
 - [ ] Update vercel.json if needed for deployment
+
+## Todo UI:
+- [x] Update re-render for mermaid diagrams
+- [x] Fix dark mode for mermaid diagrams
+- [ ] Try auto generating table of contents from markdown
+- [ ] Search engine

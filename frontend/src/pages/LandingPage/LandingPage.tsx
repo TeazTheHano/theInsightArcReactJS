@@ -34,7 +34,7 @@ function LandingPage() {
 
                 setLoading(false);
                 console.log(loading, error);
-                
+
             })
             .catch((err) => { setError(err.message); setLoading(false); });
     }, []);
@@ -171,7 +171,7 @@ function LandingPage() {
                 </DivFlexRow>
                 {/* blog list */}
                 <DivFlexRow className='shiftVerticalSm' style={{ gap: `var(--Spacing-Spaceing-M, 24px)`, flex: 1 }}>
-                    <BlogSquareItemGen dataList={blogData} />
+                    <BlogSquareItemGen dataList={blogData} openAsNewTab />
                 </DivFlexRow>
             </DivFlexColumn>
 
@@ -203,7 +203,7 @@ function LandingPage() {
                         <TextHeadlineSmall children={t('section-6-subTitle-1')} />
                         <BlogSquareItemGen
                             maxHeight={500}
-
+                            openAsNewTab
                             dataList={[
                                 {
                                     title: '',

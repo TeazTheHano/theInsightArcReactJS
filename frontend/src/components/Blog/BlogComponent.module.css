@@ -159,6 +159,8 @@
 .markdownContent {
   max-width: 1920px;
   margin: auto;
+  flex: 1;
+  width: 100%;
 }
 
 .markdownContent * {
@@ -181,6 +183,8 @@
   line-height: var(--Body-Line-height, 28px);
   /* 140% */
   letter-spacing: var(--Body-Letter-spacing, 0.5px);
+  width: inherit;
+  text-wrap: pretty;
 }
 
 .markdownContent h2,
