@@ -30,7 +30,7 @@
     column-count: var(--gridNumberFalse);
 }
 
-.inspirationContainer.gridView-false>a>div {
+.inspirationContainer.gridView-false>div>div {
     break-inside: avoid;
     -webkit-column-break-inside: avoid;
     page-break-inside: avoid;
@@ -44,5 +44,3 @@
 .controlsStyle {
     gap: var(--Spacing-Spaceing-S, 16px);
 }
-
-.inspirationStyle {}

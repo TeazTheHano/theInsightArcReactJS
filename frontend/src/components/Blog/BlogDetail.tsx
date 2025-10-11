@@ -11,7 +11,7 @@ import styles from './BlogComponent.module.css';
 import Button from "../Button/Button";
 import mermaid from "mermaid";
 import { fetchBlogContent } from "../../utils/fetchContent";
-import { BlogHeader } from "./BlogHeader";
+import { SEOhead } from "./SEOhead";
 
 marked.setOptions({ async: false });
 
@@ -91,8 +91,6 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ metadata }) => {
                 setMeta(res.meta);
             } catch (error) {
                 console.error("Error fetching or rendering markdown:", error);
-                // TODO: Modal báo lỗi
-                setHtml(`<TextBodyMedium children={t_toast('error.loadFailed')}/>`);
             }
         };
         fetchMarkdown();
@@ -100,7 +98,7 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ metadata }) => {
 
     return (
         <div>
-            <BlogHeader meta={meta} />
+            <SEOhead meta={meta} />
             <div style={{
                 backgroundColor: 'var(--Schemes-Surface-Tint)',
                 padding: 'var(--Spacing-Spaceing-M, 24px) var(--Spacing-Spaceing-S, 16px)',

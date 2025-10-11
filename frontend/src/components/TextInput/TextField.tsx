@@ -6,6 +6,8 @@ import { IconGen } from '../../assets/icon/OtherIcon';
 import { TextBodyMedium, TextBodySmall } from '../TextBox/textBox';
 import Divider from '../Divider/Divider';
 import Button from '../Button/Button';
+import { useTranslation } from 'react-i18next';
+import Dialog from '../Dialog/Dialog';
 
 const Perfect_Typo_length_Sized_Paragraph_Min_4char = 4;
 const Perfect_Typo_length_Sized_Paragraph_Short_20_char = 20;
@@ -172,6 +174,8 @@ const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({
     trailingIconAction,
     leadingIcon,
 }, ref) => {
+    const { t } = useTranslation('common')
+    const { t: t_toast } = useTranslation('toast')
     const [currentValue, setCurrentValue] = useState<string>(preValue || '');
     const [focused, setFocused] = useState<boolean>(false);
 
@@ -352,8 +356,7 @@ const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({
                 <DivFlexRowCenter>
                     {showClearButton && (
                         <Button
-                            label='clear'
-                            // TODO: language
+                            label={t('clear')}
                             variantMode='Icon'
                             leadingIcon='cancel'
                             styleMode='Text'
@@ -380,9 +383,10 @@ const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({
                             leadingIcon='error_filled'
                             onClick={() => {
                                 if (errorMessage) {
-                                    alert(errorMessage);
+                                    <Dialog open={true} title={t_toast('error.formInvalid')} />
                                 }
-                            }}
+                            }
+                            }
                         />
                     }
 
@@ -431,6 +435,10 @@ const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({
     )
 })
 
+/**
+ * @returns a input field
+ * @param label: 
+ */
 export default React.memo(TextField);
 
 // TODO: 

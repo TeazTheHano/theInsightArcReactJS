@@ -13,5 +13,8 @@
   "author": "Tác giả",
   "read-time": "Thời gian đọc",
   "tags": "Thẻ",
-  "share": "Chia sẻ"
+  "share": "Chia sẻ",
+  "clear": "Xoá",
+  "open": "Mở",
+  "close": "Đóng"
 }

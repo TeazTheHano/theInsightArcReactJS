@@ -6,6 +6,7 @@ import Chip from '../components/Chip/Chip';
 import type { BlogItemProps } from '../data/type';
 import { IdealItemGen } from '../components/Blog/IdealItem';
 
+
 export default function Test() {
 
     const item112: BlogItemProps[] = [
@@ -69,14 +70,14 @@ export default function Test() {
                 widthMode='fix-perfect-length'
                 widthModeNumber={200}
                 perfectLengthSizedParagraph='Long'
+                errorMessage='adsfasd'
             // compactMode
             />
             <DivFlexRow style={{ gap: '1vw' }}>
                 <IdealItemGen dataList={item112} />
             </DivFlexRow>
 
-            <Chip children='asdfasdfsa' label='chip1' onClick={() => alert('click chip 1')} showTitleWhileHover/>
-
+            <Chip children='asdfasdfsa' label='chip1' onClick={() => alert('click chip 1')} showTitleWhileHover />
         </DivFlexColumn>
     )
 }

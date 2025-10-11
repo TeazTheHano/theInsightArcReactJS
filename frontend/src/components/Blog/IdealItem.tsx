@@ -4,7 +4,6 @@ import LazyImage from '../LazyImage/lazyImage'
 import { TextBodyLarge, TextBodySmall, TextHeadlineSmall } from '../TextBox/textBox'
 
 import styles from './BlogComponent.module.css'
-import { Link } from 'react-router-dom'
 import type { BlogItemProps } from '../../data/type'
 import Button from '../Button/Button'
 import { useTranslation } from 'react-i18next'
@@ -36,13 +35,12 @@ const IdealItem: React.FC<IdealItemProps> = ({
         }
 
         return dataList.map((item, index) => (
-            <Link
+            <div
                 key={`${item.title}_${index}`}
-                to={item.link ? item.link : ''}
                 aria-label={item.title}
                 tabIndex={0}
                 style={{ width: '100%' }}
-                target={openAsNewTab ? '_blank' : '_self'}
+            // add onclick to show in extend mode
             >
                 <div className={styles.blog2RowContainer}>
                     <LazyImage
@@ -51,7 +49,7 @@ const IdealItem: React.FC<IdealItemProps> = ({
                         className={styles.Blog2RowComponentImage}
                         borderRadius='default'
                     />
-                    <DivFlexRow style={{ flex: 1, gap: 'var(--Spacing-Spaceing-S, 16px)' }}>
+                    <DivFlexRow style={{ flex: 1, gap: 'var(--Spacing-Spaceing-S, 16ideapx)' }}>
                         <DivFlexColumn className={styles.titleHolder} style={{ flex: 1 }}>
                             <TextHeadlineSmall children={item.title} className={styles.title} maxLines={2} />
                             {
@@ -71,7 +69,7 @@ const IdealItem: React.FC<IdealItemProps> = ({
                             variantMode='Icon' label={t('inspiration-outward_arrow')} leadingIcon='arrow_outward' onClick={() => handleTagClick(item.link || '')} />
                     </DivFlexRow>
                 </div>
-            </Link>
+            </div>
         ));
     }, [dataList, openAsNewTab, compactMode, handleTagClick, squareRatio, t]);
 

@@ -13,5 +13,8 @@
   "author": "Author",
   "read-time": "Read Time",
   "tags": "Tags",
-  "share": "Share"
+  "share": "Share",
+  "clear": "Clear",
+  "open": "Open",
+  "close": "Close"
 }

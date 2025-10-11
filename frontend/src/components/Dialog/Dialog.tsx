@@ -2,7 +2,6 @@ import React from "react";
 
 export interface DialogProps {
     open: boolean;
-    onClose: () => void;
     title?: string;
     img?: string;
     children?: React.ReactNode;
