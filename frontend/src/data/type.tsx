@@ -17,7 +17,3 @@ export interface BlogItemProps {
     ratio?: string
 }
 
-export interface BlogDetailProps {
-    metaData: BlogItemProps
-    content?: string
-}

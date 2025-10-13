@@ -45,11 +45,7 @@ const useIsSmallScreen = () => {
     return isInSM;
 };
 
-interface BlogDetailProps {
-    metadata: BlogItemProps;
-}
-
-const BlogDetail: React.FC<BlogDetailProps> = ({ metadata }) => {
+const BlogDetail: React.FC<{ metadata: BlogItemProps }> = ({ metadata }) => {
     const { t } = useTranslation('blog');
     const { t: t_common } = useTranslation('common');
     const { t: t_toast } = useTranslation('toast');

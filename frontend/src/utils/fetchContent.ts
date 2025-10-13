@@ -183,7 +183,7 @@ export const fetchBlogContent = async (fileName: string, useCache: boolean = fal
 };
 
 export const fetchInspirationList = async (useCache: boolean = false): Promise<BlogItemProps[]> => {
-    const cacheKey = "blog-list-cache";
+    const cacheKey = "inspiration-list-cache";
 
     if (useCache) {
         const cached = getCache(cacheKey, CONFIG.INSPIRATION.CACHE_EXPIRE_HOURS); // Check for valid cached data

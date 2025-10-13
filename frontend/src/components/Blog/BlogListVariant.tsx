@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback } from 'react'
 import { DivFlexColumn, DivFlexColumnSpaceBetween, DivFlexRow } from '../LayoutDiv/LayoutDiv'
 import LazyImage from '../LazyImage/lazyImage'
-import { TextBodyLarge, TextBodySmall, TextHeadlineSmall, TextLabelSmall, TextTitleMedium } from '../TextBox/textBox'
+import { TextBodyLarge, TextBodyMedium, TextBodySmall, TextHeadlineSmall, TextLabelSmall, TextTitleMedium } from '../TextBox/textBox'
 
 import styles from './BlogComponent.module.css'
 import { Link } from 'react-router-dom'
@@ -18,6 +18,8 @@ export interface Blog2RowComponentProps {
     ratio?: string
     compactMode?: boolean
     hideDescription?: boolean
+    hideTag?: boolean
+    smallTitle?: boolean
 }
 
 const Blog2RowComponent: React.FC<Blog2RowComponentProps> = ({
@@ -28,6 +30,8 @@ const Blog2RowComponent: React.FC<Blog2RowComponentProps> = ({
     ratio = '16/9',
     compactMode,
     hideDescription,
+    hideTag,
+    smallTitle,
 }) => {
 
     const { t } = useTranslation('toast')
@@ -84,7 +88,11 @@ const Blog2RowComponent: React.FC<Blog2RowComponentProps> = ({
                             />
                             <DivFlexColumnSpaceBetween style={{ flex: 1 }} className={styles.titleHolder}>
                                 <DivFlexColumn className={styles.titleHolder}>
-                                    <TextHeadlineSmall children={item.title} className={styles.title} maxLines={3} />
+                                    {
+                                        smallTitle ?
+                                            <TextBodyMedium children={item.title} className={styles.title} maxLines={3} />
+                                            : <TextHeadlineSmall children={item.title} className={styles.title} maxLines={3} />
+                                    }
                                     {!hideDescription &&
                                         <TextBodySmall
                                             children={item.description}
@@ -96,7 +104,7 @@ const Blog2RowComponent: React.FC<Blog2RowComponentProps> = ({
                                 </DivFlexColumn>
 
                                 <DivFlexColumn className={styles.support}>
-                                    {item.tags?.length && (
+                                    {item.tags?.length && !hideTag && (
                                         <DivFlexRow className={styles.tags}>
                                             {item.tags.map((e, tagIndex) => (
                                                 <Chip

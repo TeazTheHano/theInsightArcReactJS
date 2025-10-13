@@ -5,6 +5,7 @@ import { TextHeadlineLarge } from '../components/TextBox/textBox';
 import Chip from '../components/Chip/Chip';
 import type { BlogItemProps } from '../data/type';
 import { IdealItemGen } from '../components/Blog/IdealItem';
+import { searchEngine } from '../utils/searchEngine';
 
 
 export default function Test() {
@@ -46,19 +47,18 @@ export default function Test() {
         },
     ]
 
-    const [data, setData] = React.useState<string>('');
-    const [data1, setData1] = React.useState<string>('');
     return (
         <DivFlexColumn style={{ margin: 'var(--PAGE-Prop-Body-margin)', gap: 'var(--Spacing-Spaceing-M)' }}>
-            <TextHeadlineLarge>{data}</TextHeadlineLarge>
-            <TextHeadlineLarge>{data1}</TextHeadlineLarge>
-
             <TextField
                 label='fill fill'
                 // onChange={() => {
                 //     setData('');
                 // }}
-                onChange={e => { setData(e.target.value); setData1(e.target.id) }}
+                // onChange={e => { setData(e.target.value); setData1(e.target.id) }}
+                onChange={async (e) => {
+                    let res = await searchEngine(e.target.value)
+                    console.log(res);
+                }}
                 variant='Filled'
                 leadingIcon='search'
                 placeholder='placeholder'
@@ -70,7 +70,7 @@ export default function Test() {
                 widthMode='fix-perfect-length'
                 widthModeNumber={200}
                 perfectLengthSizedParagraph='Long'
-                errorMessage='adsfasd'
+            // errorMessage='adsfasd'
             // compactMode
             />
             <DivFlexRow style={{ gap: '1vw' }}>
