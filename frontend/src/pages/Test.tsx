@@ -1,7 +1,5 @@
-import React from 'react';
 import { DivFlexColumn, DivFlexRow } from '../components/LayoutDiv/LayoutDiv';
 import TextField from '../components/TextInput/TextField';
-import { TextHeadlineLarge } from '../components/TextBox/textBox';
 import Chip from '../components/Chip/Chip';
 import type { BlogItemProps } from '../data/type';
 import { IdealItemGen } from '../components/Blog/IdealItem';
