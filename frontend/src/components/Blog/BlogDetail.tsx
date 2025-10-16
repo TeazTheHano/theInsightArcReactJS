@@ -12,44 +12,15 @@ import Button from "../Button/Button";
 import mermaid from "mermaid";
 import { fetchBlogContent } from "../../utils/fetchContent";
 import { SEOhead } from "./SEOhead";
+import useCheckScreenSize from "../../hooks/useCheckScreenSize";
 
 marked.setOptions({ async: false });
-
-// Custom hook to detect small/medium screen sizes based on body classes
-const useIsSmallScreen = () => {
-    const [isInSM, setIsInSM] = useState<boolean>(() =>
-        document.body.classList.contains('size-and-spacing-sm') ||
-        document.body.classList.contains('size-and-spacing-md')
-    );
-
-    useEffect(() => {
-        const checkScreenSize = () => {
-            setIsInSM(
-                document.body.classList.contains('size-and-spacing-sm') ||
-                document.body.classList.contains('size-and-spacing-md')
-            );
-        };
-
-        const observer = new MutationObserver(checkScreenSize);
-        observer.observe(document.body, {
-            attributes: true,
-            attributeFilter: ['class']
-        });
-
-        // Initial check
-        checkScreenSize();
-
-        return () => observer.disconnect();
-    }, []);
-
-    return isInSM;
-};
 
 const BlogDetail: React.FC<{ metadata: BlogItemProps }> = ({ metadata }) => {
     const { t } = useTranslation('blog');
     const { t: t_common } = useTranslation('common');
     const { t: t_toast } = useTranslation('toast');
-    const isInSM = useIsSmallScreen();
+    const isInSM = useCheckScreenSize(['md', 'sm']);
     const [isLoading, setIsLoading] = useState(true);
 
     const [html, setHtml] = useState("");
@@ -97,13 +68,13 @@ const BlogDetail: React.FC<{ metadata: BlogItemProps }> = ({ metadata }) => {
             <SEOhead meta={meta} />
             <div style={{
                 backgroundColor: 'var(--Schemes-Surface-Tint)',
-                padding: 'var(--Spacing-Spaceing-M, 24px) var(--Spacing-Spaceing-S, 16px)',
+                padding: 'var(--Spacing-Spacing-M, 24px) var(--Spacing-Spacing-S, 16px)',
             }}>
                 <TextTitleSmall color="var(--Schemes-On-Primary)" children='Viết và Bàn luận > Category 1 > Giới hạn của công nghệ, du lịch tại chỗ và du lịch từ xa' />
             </div>
             <section className={styles.readingContainer}>
                 <div className={styles.readingHeader}>
-                    <DivFlexColumn style={{ gap: `var(--Spacing-Spaceing-XS, 12px)`, flex: 1 }}>
+                    <DivFlexColumn style={{ gap: `var(--Spacing-Spacing-XS, 12px)`, flex: 1 }}>
                         <TextHeadlineLarge children={metadata.title} headline="h1" className={styles.title} />
                         <TextBodyMedium children={metadata.description} color="var(--Schemes-On-Surface-Variant)" className={styles.description} />
                         <DivFlexRow className={styles.authorRow}>

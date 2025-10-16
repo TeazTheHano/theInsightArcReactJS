@@ -6,6 +6,7 @@ import Divider from '../components/Divider/Divider';
 import CircleFollowMouse from '../components/CircleFollowMouse/CircleFollowMouse';
 
 import styles from './GlobalLayout.module.css'
+import Dialog from '../components/Dialog/Dialog';
 
 export default function GlobalLayout({ children }: { children: React.ReactNode }) {
 
@@ -35,6 +36,7 @@ export default function GlobalLayout({ children }: { children: React.ReactNode }
   useEffect(() => {
     document.body.classList.remove('size-and-spacing-sm', 'size-and-spacing-md', 'size-and-spacing-lg', 'size-and-spacing-xl');
     document.body.classList.add(`size-and-spacing-${sizeAndSpacing}`);
+    localStorage.setItem('size-and-spacing', `size-and-spacing-${sizeAndSpacing}`)
   }, [sizeAndSpacing]);
 
   useEffect(() => {
@@ -59,6 +61,9 @@ export default function GlobalLayout({ children }: { children: React.ReactNode }
         <Divider />
         <Footer />
       </div>
+
+      {/* Dialog */}
+      <Dialog />
 
       {/* Circle that follows the mouse */}
       {

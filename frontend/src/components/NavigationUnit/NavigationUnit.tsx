@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import { DivFlexColumn, DivFlexRow, DivFlexRowSpaceBetweenCenter } from '../LayoutDiv/LayoutDiv'
-import { TextTitleLarge, TextTitleMedium, TextTitleSmall } from '../TextBox/textBox'
+import { TextBodyMedium, TextTitleLarge, TextTitleMedium, TextTitleSmall } from '../TextBox/textBox'
 import TheInsightArcLogo from '../../assets/icon/Logo'
 import Divider from '../Divider/Divider'
 import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react'
@@ -12,6 +12,8 @@ import TextField from '../TextInput/TextField'
 import { type searchEngineOutputProps } from '../../utils/searchEngine'
 import { BlogItem2RowGen } from '../Blog/BlogListVariant'
 import type { BlogItemProps } from '../../data/type'
+import { useSearch } from '../../hooks/useSearch'
+import LoadingIndicators from '../Loading Indicators/LoadingIndicators'
 
 const navItemsData = [
     { href: '/landingpage', key: 'about-us', supText: '01' },
@@ -24,7 +26,7 @@ const BasicSearchResult: React.FC<{
     data: { dataBaseName: string; result: searchEngineOutputProps }[] | undefined;
 }> = ({ data }) => {
     if (!data || data.length === 0) {
-        return null;
+        return <TextBodyMedium children='No database' />
     }
 
     const { t } = useTranslation('common');
@@ -53,8 +55,8 @@ const BasicSearchResult: React.FC<{
         <DivFlexColumn style={{
             overflowY: 'scroll',
             flex: 1,
-            gap: 'var(--Spacing-Spaceing-XXS)',
-            padding: 'var(--Spacing-Spaceing-XXS) 0',
+            gap: 'var(--Spacing-Spacing-XXS)',
+            padding: 'var(--Spacing-Spacing-XXS) 0',
             scrollbarWidth: 'none',
             height: 'inherit'
         }}>
@@ -81,49 +83,7 @@ const BasicSearchResult: React.FC<{
     );
 };
 
-const useSearch = () => {
-    const [searchInput, setSearchInput] = useState<string>('')
-    const [searchResult, setSearchResult] = useState<{ dataBaseName: string; result: searchEngineOutputProps }[] | undefined>()
-    const [isSearchFocus, setSearchFocus] = useState<boolean>(false)
-    const { t } = useTranslation('common')
 
-    const performSearch = useCallback(async (input: string) => {
-        const { searchEngine } = await import('../../utils/searchEngine')
-        const { fetchInspirationList } = await import('../../utils/fetchContent')
-
-        const trimmedInput = input.trim()
-        if (!trimmedInput) {
-            setSearchResult(undefined)
-            setSearchFocus(false)
-            return
-        }
-
-        const blogRes = await searchEngine(trimmedInput)
-        const inspireRes = await searchEngine(trimmedInput, await fetchInspirationList())
-        setSearchFocus(true)
-        const res = [
-            {
-                dataBaseName: t('blog'),
-                result: blogRes
-            },
-            {
-                dataBaseName: t('inspiration'),
-                result: inspireRes
-            }
-        ]
-
-        setSearchInput(trimmedInput)
-        setSearchResult(res)
-    }, [])
-
-    return {
-        searchInput,
-        searchResult,
-        isSearchFocus,
-        setSearchFocus,
-        performSearch
-    }
-}
 
 const NavigationUnit: React.FC = () => {
 
@@ -135,7 +95,7 @@ const NavigationUnit: React.FC = () => {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const { searchInput, searchResult, isSearchFocus, setSearchFocus, performSearch } = useSearch()
+    const { searchInput, searchResult, isSearchFocus, setSearchFocus, performSearch, isLoading } = useSearch()
     const searchContainerRef = useRef<HTMLDivElement>(null)
 
     const handleNavItemClick = useCallback(() => {
@@ -242,9 +202,11 @@ const NavigationUnit: React.FC = () => {
                         compactMode
                     />
                     {
-                        searchInput && isSearchFocus ?
-                            <BasicSearchResult data={searchResult} />
-                            : null
+                        isLoading ?
+                            <LoadingIndicators isLoading={isLoading} />
+                            : searchInput && isSearchFocus ?
+                                <BasicSearchResult data={searchResult} />
+                                : null
                     }
 
 

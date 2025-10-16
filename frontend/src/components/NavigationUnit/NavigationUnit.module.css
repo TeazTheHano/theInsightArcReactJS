@@ -17,7 +17,7 @@ nav {
 }
 
 .navLogoContainer {
-    padding: var(--Spacing-Spaceing-S, 16px) var(--Spacing-Spaceing-M, 24px);
+    padding: var(--Spacing-Spacing-S, 16px) var(--Spacing-Spacing-M, 24px);
 }
 
 .navLogoContainer > div {
@@ -28,9 +28,9 @@ nav {
 
 /* Menu Container Styles */
 .navMenuContainer {
-    gap: var(--Spacing-Spaceing-XXS, 8px);
+    gap: var(--Spacing-Spacing-XXS, 8px);
     width: fit-content;
-    padding: var(--Spacing-Spaceing-M, 24px);
+    padding: var(--Spacing-Spacing-M, 24px);
 }
 
 /* Menu Item Styles */
@@ -102,7 +102,7 @@ nav {
 }
 
 :global(body.size-and-spacing-md) .navLogoContainer {
-    padding: var(--Spacing-Spaceing-XXXS, 4px) var(--Spacing-Spaceing-M, 24px);
+    padding: var(--Spacing-Spacing-XXXS, 4px) var(--Spacing-Spacing-M, 24px);
 }
 
 :global(body.size-and-spacing-md) .navLogoContainer > div,
@@ -113,10 +113,10 @@ nav {
 :global(body.size-and-spacing-md) .navMenuContainer {
     align-items: baseline;
     justify-content: space-between;
-    gap: var(--Spacing-Spaceing-XS);
+    gap: var(--Spacing-Spacing-XS);
     flex-wrap: wrap;
     width: 100%;
-    padding: var(--Spacing-Spaceing-S) var(--Spacing-Spaceing-M, 24px) !important;
+    padding: var(--Spacing-Spacing-S) var(--Spacing-Spacing-M, 24px) !important;
     flex-direction: row !important;
 }
 
@@ -134,7 +134,7 @@ nav {
 }
 
 :global(body.size-and-spacing-sm) .navLogoContainer {
-    padding: var(--Spacing-Spaceing-XXXS, 4px) var(--Spacing-Spaceing-XXXS, 4px) var(--Spacing-Spaceing-XXXS, 4px) var(--Spacing-Spaceing-S, 16px);
+    padding: var(--Spacing-Spacing-XXXS, 4px) var(--Spacing-Spacing-XXXS, 4px) var(--Spacing-Spacing-XXXS, 4px) var(--Spacing-Spacing-S, 16px);
 }
 
 :global(body.size-and-spacing-sm) .navMenuContainer {

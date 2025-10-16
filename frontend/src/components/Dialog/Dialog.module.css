@@ -1,0 +1,44 @@
+.dialogBG {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+    overflow: hidden;
+    height: 100dvh;
+    width: 100dvw;
+    padding: var(--Spacing-Spacing-S);
+
+    /* background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px); */
+
+}
+
+.bgDark {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+}
+
+.dialogContent {
+    z-index: 2001;
+    min-width: 10rem;
+    min-height: 10rem;
+    background-color: var(--Schemes-Surface-Container);
+    padding: var(--Spacing-Spacing-S);
+    gap: var(--Spacing-Spacing-XS)
+}
+
+.destructive {
+    color: var(--Schemes-Error);
+}
+
+.textPadding {
+    padding: 0 var(--Spacing-Spacing-XXS)
+}
+
+.full button {
+    width: 100%;
+}
+
+.full, .full div {
+    flex-direction: column-reverse !important;
+}

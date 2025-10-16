@@ -21,14 +21,14 @@ export default function Footer() {
         <footer
             style={{
                 display: 'flex',
-                padding: 'var(--Spacing-Spaceing-M, 24px) var(--Spacing-Spaceing-M, 24px) var(--Spacing-Spaceing-XL, 48px) var(--Spacing-Spaceing-M, 24px)',
+                padding: 'var(--Spacing-Spacing-M, 24px) var(--Spacing-Spacing-M, 24px) var(--Spacing-Spacing-XL, 48px) var(--Spacing-Spacing-M, 24px)',
                 flexDirection: 'column',
                 alignItems: 'flex-start',
-                gap: 'var(--Spacing-Spaceing-M, 24px)',
+                gap: 'var(--Spacing-Spacing-M, 24px)',
                 alignSelf: 'stretch',
             }}>
             <DivFlexColumn
-                style={{ gap: 'var(--Spacing-Spaceing-XXS, 8px)', }}
+                style={{ gap: 'var(--Spacing-Spacing-XXS, 8px)', }}
             >
                 <TextHeadlineLarge children='The insightArc' color='var(--Schemes-On-Surface-Variant, #434843)' />
                 <TextBodySmall>

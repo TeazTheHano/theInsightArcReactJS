@@ -54,7 +54,7 @@ interface ButtonProps {
     /**
      * Color mode: 'Primary', 'Secondary', 'Tertiary', or 'Default'.
      */
-    colorMode?: 'Primary' | 'Secondary' | 'Tertiary' | 'Default' | 'Error';
+    colorMode?: 'Primary' | 'Secondary' | 'Tertiary' | 'Default' | 'Error' | 'Destructive';
     /**
      * Scale factor: '0_75', '1', '1_5', or '2'.
      */

@@ -10,24 +10,19 @@ import Divider from '../../components/Divider/Divider';
 import { useEffect, useState, useMemo, useCallback } from 'react';
 import type { BlogItemProps } from '../../data/type';
 import { fetchBlogList } from '../../utils/fetchContent';
+import useCheckScreenSize from '../../hooks/useCheckScreenSize';
 
 export default function BlogList() {
   const { t } = useTranslation('blog')
   const { t: t_toast } = useTranslation('toast')
 
-  const [isInSM, setIsInSM] = useState<boolean>(false);
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      setIsInSM(document.body.classList.contains('size-and-spacing-sm'));
-    });
-    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-    setIsInSM(document.body.classList.contains('size-and-spacing-sm'));
-    return () => observer.disconnect();
-  }, []);
+  let isInSM = useCheckScreenSize(['sm'])
+  const direction = useMemo(() => isInSM ? "column" : "row", [isInSM]);
+  const trendingThumbSize = useMemo(() => isInSM ? 100 : 300, [isInSM]);
+  const trendingRatio = useMemo(() => isInSM ? '1' : undefined, [isInSM]);
 
   const [LATEST_POSTS, set_LATEST_POSTS] = useState<BlogItemProps[]>([]);
   const [TRENDING_POSTS, set_TRENDING_POSTS] = useState<BlogItemProps[]>([]);
@@ -59,9 +54,6 @@ export default function BlogList() {
       .catch((err) => { setError(err.message); setLoading(false); });
   }, []);
 
-  const direction = useMemo(() => isInSM ? "column" : "row", [isInSM]);
-  const trendingThumbSize = useMemo(() => isInSM ? 100 : 300, [isInSM]);
-  const trendingRatio = useMemo(() => isInSM ? '1' : undefined, [isInSM]);
   // TODO: handle view all
   const handleViewAll = useCallback(() => { }, []);
 
@@ -84,21 +76,21 @@ export default function BlogList() {
             colorMode='Primary'
             onClick={handleViewAll} />
         </DivFlexColumn>
-        <BlogItem2RowGen dataList={LATEST_POSTS} thumbSize={600} direction={direction} />
+        <BlogItem2RowGen dataList={LATEST_POSTS} thumbSize={direction == 'column' ? 'full' : 600} direction={direction} />
       </DivFlexColumn>
 
       <Divider />
       {/* CATEGORY 1 */}
       <DivFlexColumn className={styles.inspirationContainer}>
         <LazyImage alt="Category 1 Banner" src="/placeholder" height={'20dvh'} maxHeight='50dvw' />
-        <BlogItem2RowGen dataList={CATE_1_POSTS} thumbSize={600} direction={direction} />
+        <BlogItem2RowGen dataList={CATE_1_POSTS} thumbSize={direction == 'column' ? 'full' : 600} direction={direction} />
       </DivFlexColumn>
 
       <Divider />
       {/* CATEGORY 2 */}
       <DivFlexColumn className={styles.inspirationContainer}>
         <LazyImage alt="Category 2 Banner" src="/placeholder" height={'20dvh'} maxHeight='50dvw' />
-        <BlogItem2RowGen dataList={CATE_2_POSTS} thumbSize={600} direction={direction} />
+        <BlogItem2RowGen dataList={CATE_2_POSTS} thumbSize={direction == 'column' ? 'full' : 600} direction={direction} />
       </DivFlexColumn>
 
       <Divider />

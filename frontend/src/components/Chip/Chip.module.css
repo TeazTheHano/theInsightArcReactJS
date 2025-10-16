@@ -42,7 +42,7 @@
 
 .layoutLabel {
     min-height: var(--Icon-BASE-Icon-size, 24px);
-    padding: 0 var(--Spacing-Spaceing-XXS, 4px);
+    padding: 0 var(--Spacing-Spacing-XXS, 4px);
 }
 
 .layoutIcon {
@@ -64,7 +64,7 @@
     display: flex;
     height: fit-content;
     width: fit-content;
-    padding: var(--Spacing-Spaceing-XXXS, 4px) var(--Spacing-Spaceing-XS, 12px);
+    padding: var(--Spacing-Spacing-XXXS, 4px) var(--Spacing-Spacing-XS, 12px);
     justify-content: center;
     align-items: center;
     position: relative;

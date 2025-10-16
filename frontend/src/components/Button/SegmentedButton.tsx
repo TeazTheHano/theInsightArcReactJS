@@ -102,7 +102,7 @@ const SegmentedButton: React.FC<SegmentedButtonProps> = ({
             ...(isSelected && borderOnSelected ? {
                 boxShadow: `inset 0 0 0 var(--Stroke-Stroke-2) var(--Fill-Fixed-Content)`
             } : {}),
-            ...(compactMode ? { padding: 'var(--Spacing-Spaceing-XXXS, 4px) var(--Spacing-Spaceing-XS, 12px)' } : {}),
+            ...(compactMode ? { padding: 'var(--Spacing-Spacing-XXXS, 4px) var(--Spacing-Spacing-XS, 12px)' } : {}),
             ...itemStyles,
         };
 

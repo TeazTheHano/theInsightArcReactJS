@@ -1,4 +1,4 @@
 .inspirationContainer {
-    gap: var(--Spacing-Spaceing-M, 24px);
-    padding: var(--Spacing-Spaceing-M, 24px) var(--Spacing-Spaceing-S, 16px);
+    gap: var(--Spacing-Spacing-M, 24px);
+    padding: var(--Spacing-Spacing-M, 24px) var(--Spacing-Spacing-S, 16px);
 }

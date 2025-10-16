@@ -34,7 +34,7 @@
     "canceled": "Yêu cầu đã bị hủy"
   },
   "info": {
-    "loading": "Đang tải...",
+    "loading": "Đang tải {{item}}...",
     "redirect": "Đang chuyển hướng...",
     "noData": "Chưa có dữ liệu",
     "noMoreData": "Không còn dữ liệu",

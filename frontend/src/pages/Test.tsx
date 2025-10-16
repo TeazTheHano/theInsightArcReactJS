@@ -5,7 +5,6 @@ import type { BlogItemProps } from '../data/type';
 import { IdealItemGen } from '../components/Blog/IdealItem';
 import { searchEngine } from '../utils/searchEngine';
 
-
 export default function Test() {
 
     const item112: BlogItemProps[] = [
@@ -46,7 +45,7 @@ export default function Test() {
     ]
 
     return (
-        <DivFlexColumn style={{ margin: 'var(--PAGE-Prop-Body-margin)', gap: 'var(--Spacing-Spaceing-M)' }}>
+        <DivFlexColumn style={{ margin: 'var(--PAGE-Prop-Body-margin)', gap: 'var(--Spacing-Spacing-M)' }}>
             <TextField
                 label='fill fill'
                 // onChange={() => {

@@ -28,11 +28,11 @@
 }
 
 .main {
-    padding: var(--Spacing-Spaceing-XS) var(--Spacing-Spaceing-XXXS) var(--Spacing-Spaceing-XS) 0;
+    padding: var(--Spacing-Spacing-XS) var(--Spacing-Spacing-XXXS) var(--Spacing-Spacing-XS) 0;
 }
 
 .leadingIcon {
-    padding: var(--Spacing-Spaceing-XXS, 8px) 0 var(--Spacing-Spaceing-XXS, 8px) var(--Spacing-Spaceing-XXS, 8px);
+    padding: var(--Spacing-Spacing-XXS, 8px) 0 var(--Spacing-Spacing-XXS, 8px) var(--Spacing-Spacing-XXS, 8px);
     width: var(--Icon-Icon-Base, 24px);
 }
 
@@ -42,7 +42,7 @@
 }
 
 .inputRow {
-    padding: var(--Spacing-Spaceing-0, 0) var(--Spacing-Spaceing-XS, 12px);
+    padding: var(--Spacing-Spacing-0, 0) var(--Spacing-Spacing-XS, 12px);
     position: relative;
     flex: 1;
     min-width: 10px;
@@ -81,7 +81,7 @@
 .iconHeightKeeper {
     height: var(--Icon-Icon-Base, 24px);
     width: 0px;
-    padding: var(--Spacing-Spaceing-XXS, 8px) 0;
+    padding: var(--Spacing-Spacing-XXS, 8px) 0;
     box-sizing: content-box !important;
 }
 
@@ -106,8 +106,8 @@
 .divider {
     position: absolute;
     bottom: 0;
-    left: var(--Spacing-Spaceing-XS);
-    width: calc(100% - var(--Spacing-Spaceing-XS) - var(--Spacing-Spaceing-XS)) !important;
+    left: var(--Spacing-Spacing-XS);
+    width: calc(100% - var(--Spacing-Spacing-XS) - var(--Spacing-Spacing-XS)) !important;
 }
 
 /* ===========================================
@@ -171,7 +171,7 @@
 }
 
 .compactMode .main {
-    padding: 0 var(--Spacing-Spaceing-XXXS, 4px) 0 0;
+    padding: 0 var(--Spacing-Spacing-XXXS, 4px) 0 0;
 }
 
 /* width mode */

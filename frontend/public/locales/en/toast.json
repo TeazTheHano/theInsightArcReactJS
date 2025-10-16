@@ -34,7 +34,7 @@
     "canceled": "Request has been canceled"
   },
   "info": {
-    "loading": "Loading...",
+    "loading": "Loading {{item}}...",
     "redirect": "Redirecting...",
     "noData": "No data available",
     "noMoreData": "No more data",

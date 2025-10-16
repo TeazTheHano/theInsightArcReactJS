@@ -259,7 +259,7 @@ const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({
                         className={TextFieldStyle.label}
                         style={{
                             position: 'absolute',
-                            paddingLeft: 'var(--Spacing-Spaceing-XS)',
+                            paddingLeft: 'var(--Spacing-Spacing-XS)',
                             bottom: 0,
                         }}
                     >
@@ -411,7 +411,7 @@ const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({
                                 className={TextFieldStyle.divider}
                             />
                         </div>
-                        <div className={TextFieldStyle.supportText} style={{ padding: 'var(--Spacing-Spaceing-XXXS, 4px) var(--Spacing-Spaceing-M, 24px) 0 var(--Spacing-Spaceing-M, 24px)' }}>
+                        <div className={TextFieldStyle.supportText} style={{ padding: 'var(--Spacing-Spacing-XXXS, 4px) var(--Spacing-Spacing-M, 24px) 0 var(--Spacing-Spacing-M, 24px)' }}>
                             <TextBodySmall color={isError ? 'var(--Schemes-Error)' : 'var(--Schemes-On-Surface-Variant)'} children={currentSupportText} />
                         </div>
                     </>
@@ -425,7 +425,7 @@ const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({
                 && variant == 'Outlined'
                 && !compactMode
                 && (
-                    <div className={TextFieldStyle.supportText} style={{ padding: 'var(--Spacing-Spaceing-XXXS, 4px) var(--Spacing-Spaceing-M, 24px) 0 var(--Spacing-Spaceing-XS, 12px)' }}>
+                    <div className={TextFieldStyle.supportText} style={{ padding: 'var(--Spacing-Spacing-XXXS, 4px) var(--Spacing-Spacing-M, 24px) 0 var(--Spacing-Spacing-XS, 12px)' }}>
                         <TextBodySmall color={isError ? 'var(--Schemes-Error)' : 'var(--Schemes-On-Surface-Variant)'} children={currentSupportText} />
                     </div>
                 )

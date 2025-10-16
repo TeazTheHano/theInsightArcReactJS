@@ -33,7 +33,6 @@ function LandingPage() {
                 setBlogData(sortedByTime.slice(0, 3) || placeholderData);
 
                 setLoading(false);
-                console.log(loading, error);
 
             })
             .catch((err) => { setError(err.message); setLoading(false); });
@@ -57,7 +56,7 @@ function LandingPage() {
                 id='landingPage_direction'
                 className={styles.wrapperLayout}>
                 {/* left */}
-                <DivFlexColumn style={{ gap: `var(--Spacing-Spaceing-XXS, 8px)`, flex: 1 }}>
+                <DivFlexColumn style={{ gap: `var(--Spacing-Spacing-XXS, 8px)`, flex: 1 }}>
                     <TextDisplayMedium>{t('section-1-title-1')} <br />{t('section-1-title-2')}</TextDisplayMedium>
                     <ButtonDefault
                         variantMode='Extreme'
@@ -68,7 +67,7 @@ function LandingPage() {
                     />
                 </DivFlexColumn>
                 {/* right */}
-                <DivFlexColumn style={{ gap: `var(--Spacing-Spaceing-XS, 12px)`, flex: 1, textAlign: 'justify' }}>
+                <DivFlexColumn style={{ gap: `var(--Spacing-Spacing-XS, 12px)`, flex: 1, textAlign: 'justify' }}>
                     <TextBodyMedium children={t('section-1-description-1')} />
                     <TextBodyMedium children={t('section-1-description-2')} />
                     <TextBodyMedium children={t('section-1-description-3')} />
@@ -79,11 +78,11 @@ function LandingPage() {
             <Divider />
             <DivFlexRow className={styles.wrapperLayout}>
                 {/* left */}
-                <DivFlexColumn style={{ gap: `var(--Spacing-Spaceing-XXS, 8px)`, flex: 1 }}>
+                <DivFlexColumn style={{ gap: `var(--Spacing-Spacing-XXS, 8px)`, flex: 1 }}>
                     <TextHeadlineSmall children={t('section-2-title')} />
                 </DivFlexColumn>
                 {/* right */}
-                <DivFlexColumn style={{ gap: `var(--Spacing-Spaceing-XS, 12px)`, flex: 1, }}>
+                <DivFlexColumn style={{ gap: `var(--Spacing-Spacing-XS, 12px)`, flex: 1, }}>
                     <TextBodyMedium children={t('section-2-description-1')} />
                     <TextBodyMedium children={t('section-2-description-2')} />
                     <TextBodyMedium children={t('section-2-description-3')} />
@@ -101,7 +100,7 @@ function LandingPage() {
                     <TextHeadlineLarge>{t('section-3-title-1')} <br />{t('section-3-title-2')}</TextHeadlineLarge>
                 </DivFlexColumn>
                 {/* right */}
-                <DivFlexColumn style={{ gap: `var(--Spacing-Spaceing-XS, 12px)`, flex: 1, textAlign: 'justify' }}>
+                <DivFlexColumn style={{ gap: `var(--Spacing-Spacing-XS, 12px)`, flex: 1, textAlign: 'justify' }}>
                     <TextBodyMedium children={t('section-3-description-1')} />
 
                     <LazyImage errorMessage='Will update sooooon' onErrorIcon="🙆" src='placeholder' alt='' aspectRatio='1' />
@@ -129,7 +128,7 @@ function LandingPage() {
                 {/* text */}
                 <DivFlexRow className={styles.wrapperLayoutVer2_itemWrapper}>
                     {/* left */}
-                    <DivFlexColumn style={{ gap: `var(--Spacing-Spaceing-XXS, 8px)`, flex: 1 }}>
+                    <DivFlexColumn style={{ gap: `var(--Spacing-Spacing-XXS, 8px)`, flex: 1 }}>
                         <TextHeadlineLarge children={t('section-4-title')} />
                         <ButtonDefault
                             children={t('section-4-button')}
@@ -139,7 +138,7 @@ function LandingPage() {
                         />
                     </DivFlexColumn>
                     {/* right */}
-                    <DivFlexColumn style={{ gap: `var(--Spacing-Spaceing-XS, 12px)`, flex: 1, textAlign: 'justify' }}>
+                    <DivFlexColumn style={{ gap: `var(--Spacing-Spacing-XS, 12px)`, flex: 1, textAlign: 'justify' }}>
                         <TextBodyMedium children={t('section-4-description')} />
                     </DivFlexColumn>
                 </DivFlexRow>
@@ -155,7 +154,7 @@ function LandingPage() {
                 {/* text */}
                 <DivFlexRow className={styles.wrapperLayoutVer2_itemWrapper}>
                     {/* left */}
-                    <DivFlexColumn style={{ gap: `var(--Spacing-Spaceing-XXS, 8px)`, flex: 1 }}>
+                    <DivFlexColumn style={{ gap: `var(--Spacing-Spacing-XXS, 8px)`, flex: 1 }}>
                         <TextHeadlineLarge children={t('section-5-title')} />
                         <ButtonDefault
                             children={t('section-5-button')}
@@ -165,12 +164,12 @@ function LandingPage() {
                         />
                     </DivFlexColumn>
                     {/* right */}
-                    <DivFlexColumn style={{ gap: `var(--Spacing-Spaceing-XS, 12px)`, flex: 1, textAlign: 'justify' }}>
+                    <DivFlexColumn style={{ gap: `var(--Spacing-Spacing-XS, 12px)`, flex: 1, textAlign: 'justify' }}>
                         <TextBodyMedium children={t('section-5-description')} />
                     </DivFlexColumn>
                 </DivFlexRow>
                 {/* blog list */}
-                <DivFlexRow className='shiftVerticalSm' style={{ gap: `var(--Spacing-Spaceing-M, 24px)`, flex: 1 }}>
+                <DivFlexRow className='shiftVerticalSm' style={{ gap: `var(--Spacing-Spacing-M, 24px)`, flex: 1 }}>
                     <BlogSquareItemGen dataList={blogData} openAsNewTab />
                 </DivFlexRow>
             </DivFlexColumn>
@@ -183,7 +182,7 @@ function LandingPage() {
                 {/* text */}
                 <DivFlexRow className={styles.wrapperLayoutVer2_itemWrapper}>
                     {/* left */}
-                    <DivFlexColumn style={{ gap: `var(--Spacing-Spaceing-XXS, 8px)`, flex: 1 }}>
+                    <DivFlexColumn style={{ gap: `var(--Spacing-Spacing-XXS, 8px)`, flex: 1 }}>
                         <TextHeadlineLarge children={t('section-6-title')} />
                         <ButtonDefault
                             children={t('section-6-button')}
@@ -193,13 +192,13 @@ function LandingPage() {
                         />
                     </DivFlexColumn>
                     {/* right */}
-                    <DivFlexColumn style={{ gap: `var(--Spacing-Spaceing-XS, 12px)`, flex: 1, textAlign: 'justify' }}>
+                    <DivFlexColumn style={{ gap: `var(--Spacing-Spacing-XS, 12px)`, flex: 1, textAlign: 'justify' }}>
                         <TextBodyMedium children={t('section-6-description')} />
                     </DivFlexColumn>
                 </DivFlexRow>
                 {/* blog list */}
-                <DivFlexRow className='shiftVerticalSm shiftVerticalMd' style={{ gap: `var(--Spacing-Spaceing-M, 24px)`, flex: 1 }}>
-                    <DivFlexColumn style={{ gap: `var(--Spacing-Spaceing-M, 24px)`, flex: 1 }}>
+                <DivFlexRow className='shiftVerticalSm shiftVerticalMd' style={{ gap: `var(--Spacing-Spacing-M, 24px)`, flex: 1 }}>
+                    <DivFlexColumn style={{ gap: `var(--Spacing-Spacing-M, 24px)`, flex: 1 }}>
                         <TextHeadlineSmall children={t('section-6-subTitle-1')} />
                         <BlogSquareItemGen
                             maxHeight={500}
@@ -214,7 +213,7 @@ function LandingPage() {
                             ] as BlogItemProps[]}
                         />
                     </DivFlexColumn>
-                    <DivFlexColumn style={{ gap: `var(--Spacing-Spaceing-M, 24px)`, flex: 1 }}>
+                    <DivFlexColumn style={{ gap: `var(--Spacing-Spacing-M, 24px)`, flex: 1 }}>
                         <TextHeadlineSmall children={t('section-6-subTitle-2')} />
                         <BlogItem2RowGen dataList={placeholderData} compactMode />
                     </DivFlexColumn>

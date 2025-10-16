@@ -1,22 +1,22 @@
 /* Size and spacing - Value */
 :root {
-  --Spacing-Spaceing-Base: 24px;
+  --Spacing-Spacing-Base: 24px;
   --Icon-Icon-Base: 24px;
   --Icon-Icon-Dense: 20px;
   --Icon-FAB-Icon: 36px;
   --Icon-Thumb-M: 40px;
   --Icon-Thumb-L: 48px;
   --Icon-Thumb-XL: 100px;
-  --Spacing-Spaceing-0: 0px;
-  --Spacing-Spaceing-XXXS: 4px;
-  --Spacing-Spaceing-XXS: 8px;
-  --Spacing-Spaceing-XS: 12px;
+  --Spacing-Spacing-0: 0px;
+  --Spacing-Spacing-XXXS: 4px;
+  --Spacing-Spacing-XXS: 8px;
+  --Spacing-Spacing-XS: 12px;
   --Border-radius-BR-Base: 16px;
-  --Spacing-Spaceing-S: 16px;
-  --Spacing-Spaceing-M: var(--Spacing-Spaceing-Base);
-  --Spacing-Spaceing-L: 36px;
-  --Spacing-Spaceing-XL: 48px;
-  --Spacing-Spaceing-XXL: 56px;
+  --Spacing-Spacing-S: 16px;
+  --Spacing-Spacing-M: var(--Spacing-Spacing-Base);
+  --Spacing-Spacing-L: 36px;
+  --Spacing-Spacing-XL: 48px;
+  --Spacing-Spacing-XXL: 56px;
   --Border-radius-BR-0: 0px;
   --Border-radius-BR-S: 12px;
   --Border-radius-BR-M: var(--Border-radius-BR-Base);

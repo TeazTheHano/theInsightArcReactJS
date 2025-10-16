@@ -16,8 +16,8 @@
 
 .inspirationContainer {
     /* display: grid; */
-    gap: var(--Spacing-Spaceing-M, 24px);
-    padding: var(--Spacing-Spaceing-M, 24px) var(--Spacing-Spaceing-S, 16px);
+    gap: var(--Spacing-Spacing-M, 24px);
+    padding: var(--Spacing-Spacing-M, 24px) var(--Spacing-Spacing-S, 16px);
 }
 
 .inspirationContainer.gridView-true {
@@ -34,13 +34,13 @@
     break-inside: avoid;
     -webkit-column-break-inside: avoid;
     page-break-inside: avoid;
-    padding-bottom: var(--Spacing-Spaceing-M, 24px);
+    padding-bottom: var(--Spacing-Spacing-M, 24px);
 }
 
 .titleSectionStyle {
-    gap: var(--Spacing-Spaceing-XS, 12px);
+    gap: var(--Spacing-Spacing-XS, 12px);
 }
 
 .controlsStyle {
-    gap: var(--Spacing-Spaceing-S, 16px);
+    gap: var(--Spacing-Spacing-S, 16px);
 }
