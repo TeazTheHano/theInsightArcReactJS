@@ -208,6 +208,6 @@ export const fetchInspirationList = async (useCache: boolean = false): Promise<B
 
         return metadata;
     } catch (error) {
-        throw new Error(`Error fetching blog list: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        throw new Error(`Error fetching inspiration list: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
 };

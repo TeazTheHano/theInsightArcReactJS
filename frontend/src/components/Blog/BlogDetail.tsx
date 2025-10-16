@@ -13,15 +13,16 @@ import mermaid from "mermaid";
 import { fetchBlogContent } from "../../utils/fetchContent";
 import { SEOhead } from "./SEOhead";
 import useCheckScreenSize from "../../hooks/useCheckScreenSize";
+import ContainerWithLoading from "../ContainerWithLoading/ContainerWithLoading";
 
 marked.setOptions({ async: false });
 
 const BlogDetail: React.FC<{ metadata: BlogItemProps }> = ({ metadata }) => {
     const { t } = useTranslation('blog');
     const { t: t_common } = useTranslation('common');
-    const { t: t_toast } = useTranslation('toast');
     const isInSM = useCheckScreenSize(['md', 'sm']);
     const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string>('')
 
     const [html, setHtml] = useState("");
     const [meta, setMeta] = useState<any>(null);
@@ -56,8 +57,8 @@ const BlogDetail: React.FC<{ metadata: BlogItemProps }> = ({ metadata }) => {
                 setHtml(parsedHtml);
                 setIsLoading(false);
                 setMeta(res.meta);
-            } catch (error) {
-                console.error("Error fetching or rendering markdown:", error);
+            } catch (err) {
+                setError(`BlogDetail.tsx - ${err}`);
             }
         };
         fetchMarkdown();
@@ -96,15 +97,12 @@ const BlogDetail: React.FC<{ metadata: BlogItemProps }> = ({ metadata }) => {
                         aspectRatio='21/9'
                     />
                 )}
-                {
-                    isLoading ? (
-                        <TextBodyMedium children={t_toast('info.loading')} />
-                    ) : (
-                        <div
-                            className={styles.markdownContent}
-                            dangerouslySetInnerHTML={{ __html: html }}
-                        />)
-                }
+                <ContainerWithLoading loadingState={isLoading} errMessage={error}>
+                    <div
+                        className={styles.markdownContent}
+                        dangerouslySetInnerHTML={{ __html: html }}
+                    />
+                </ContainerWithLoading>
             </section>
         </div>
     );

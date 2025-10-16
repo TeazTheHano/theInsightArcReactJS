@@ -10,6 +10,7 @@ import styles from './Inspiration.module.css'
 import { IdealItemGen } from "../../components/Blog/IdealItem";
 import { type BlogItemProps } from "../../data/type";
 import { fetchInspirationList } from "../../utils/fetchContent";
+import ContainerWithLoading from "../../components/ContainerWithLoading/ContainerWithLoading";
 
 export default function Inspiration() {
   const { t: t_landingPage } = useTranslation('landingPage')
@@ -44,7 +45,6 @@ export default function Inspiration() {
       .catch((err) => {
         setError(err.message);
         setLoading(false);
-        console.log(error);
       });
   }, []);
 
@@ -52,45 +52,49 @@ export default function Inspiration() {
     <div>
       <LazyImage alt="Inspiration Banner" src="/placeholder" height={'30dvh'} maxHeight='50dvw' />
 
-      <DivFlexColumn className={styles.inspirationContainer}>
-        <DivFlexColumn className={styles.titleSectionStyle}>
-          <TextHeadlineLarge children={t_landingPage('section-4-title')} />
-          <DivFlexRow className={styles.controlsStyle}>
-            <SegmentedButton
-              preSelected={gridView ? '1' : '0'}
-              compactMode
-              onChange={handleGridViewChange}
-              dataList={[
-                {
-                  label: t_inspiration("inspiration-segment-freeform"),
-                  value: '0',
-                  icon: 'dashboard_filled'
-                },
-                {
-                  label: t_inspiration("inspiration-segment-grid"),
-                  value: '1',
-                  icon: 'grid_on_filled'
-                }
-              ]}
-            />
-            <Button
-              variantMode="Icon"
-              colorMode="Secondary"
-              label={showDescription ? t_inspiration("hide-description") : t_inspiration("show-description")}
-              leadingIcon={showDescription ? 'comment_disabled_filled' : 'comment_filled'}
-              onClick={handleToggleDescription}
-              children={showDescription ? t_inspiration("hide-description") : t_inspiration("show-description")}
-              showTitleWhileHover
-            />
-          </DivFlexRow>
-        </DivFlexColumn>
-        <TextBodyMedium children={t_landingPage('section-4-description')} />
-      </DivFlexColumn>
+      <ContainerWithLoading loadingState={loading} errMessage={error}>
 
-      <div className={[styles.inspirationContainer, styles[`gridView-${gridView}`]].join(' ')}>
-        {loading ? <TextBodyMedium children={t_toast('info.loading')} /> : null}
-        <IdealItemGen dataList={data} squareRatio={gridView} compactMode={!showDescription} openAsNewTab />
-      </div>
+        <DivFlexColumn className={styles.inspirationContainer}>
+          <DivFlexColumn className={styles.titleSectionStyle}>
+            <TextHeadlineLarge children={t_landingPage('section-4-title')} />
+            <DivFlexRow className={styles.controlsStyle}>
+              <SegmentedButton
+                preSelected={gridView ? '1' : '0'}
+                compactMode
+                onChange={handleGridViewChange}
+                dataList={[
+                  {
+                    label: t_inspiration("inspiration-segment-freeform"),
+                    value: '0',
+                    icon: 'dashboard_filled'
+                  },
+                  {
+                    label: t_inspiration("inspiration-segment-grid"),
+                    value: '1',
+                    icon: 'grid_on_filled'
+                  }
+                ]}
+              />
+              <Button
+                variantMode="Icon"
+                colorMode="Secondary"
+                label={showDescription ? t_inspiration("hide-description") : t_inspiration("show-description")}
+                leadingIcon={showDescription ? 'comment_disabled_filled' : 'comment_filled'}
+                onClick={handleToggleDescription}
+                children={showDescription ? t_inspiration("hide-description") : t_inspiration("show-description")}
+                showTitleWhileHover
+              />
+            </DivFlexRow>
+          </DivFlexColumn>
+          <TextBodyMedium children={t_landingPage('section-4-description')} />
+        </DivFlexColumn>
+
+        <div className={[styles.inspirationContainer, styles[`gridView-${gridView}`]].join(' ')}>
+          {loading ? <TextBodyMedium children={t_toast('info.loading')} /> : null}
+          <IdealItemGen dataList={data} squareRatio={gridView} compactMode={!showDescription} openAsNewTab />
+        </div>
+
+      </ContainerWithLoading>
     </div>
   )
 }

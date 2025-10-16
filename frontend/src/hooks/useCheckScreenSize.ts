@@ -36,4 +36,4 @@ const useCheckScreenSize = (sizes: ('xl' | 'lg' | 'md' | 'sm')[]) => {
     return isInSizes;
 };
 
-export default useCheckScreenSize
+export default useCheckScreenSize;

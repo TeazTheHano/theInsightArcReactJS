@@ -12,7 +12,7 @@
     "network": "Mất kết nối, kiểm tra lại mạng",
     "loadFailed": "Tải không thành công",
     "uploadFailed": "Tải lên không thành công",
-    "unexpected": "Đã xảy ra lỗi không mong muốn",
+    "unexpected": "Đã xảy ra lỗi không mong muốn, vui lòng thử lại",
     "formInvalid": "Dữ liệu không hợp lệ, vui lòng kiểm tra lại",
     "noPermission": "Bạn không có quyền thực hiện hành động này",
     "notFound": "Không tìm thấy tài nguyên",
@@ -34,7 +34,7 @@
     "canceled": "Yêu cầu đã bị hủy"
   },
   "info": {
-    "loading": "Đang tải {{item}}...",
+    "loading": "Đang tải...",
     "redirect": "Đang chuyển hướng...",
     "noData": "Chưa có dữ liệu",
     "noMoreData": "Không còn dữ liệu",

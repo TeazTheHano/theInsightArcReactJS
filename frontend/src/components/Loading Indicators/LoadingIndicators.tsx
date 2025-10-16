@@ -5,10 +5,9 @@ import { useTranslation } from 'react-i18next';
 
 interface LoadingIndicatorsProps {
     isLoading: boolean;
-    itemName?: string;
 }
 
-const LoadingIndicators: React.FC<LoadingIndicatorsProps> = ({ isLoading, itemName }) => {
+const LoadingIndicators: React.FC<LoadingIndicatorsProps> = ({ isLoading }) => {
     if (!isLoading) return null;
 
     const { t } = useTranslation('toast')
@@ -32,7 +31,7 @@ const LoadingIndicators: React.FC<LoadingIndicatorsProps> = ({ isLoading, itemNa
                     animation: 'spin 1s linear infinite'
                 }} />
                 <TextTitleSmall color="var(--Schemes-On-Surface-Variant)">
-                    {t('info.loading', { item: itemName })}
+                    {t('info.loading')}
                 </TextTitleSmall>
             </DivFlexRow>
             <style>{`

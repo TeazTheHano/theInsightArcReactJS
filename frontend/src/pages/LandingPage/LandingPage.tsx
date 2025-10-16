@@ -16,12 +16,9 @@ import { fetchBlogList } from '../../utils/fetchContent'
 function LandingPage() {
 
     const { t } = useTranslation('landingPage')
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
     const [blogData, setBlogData] = useState<BlogItemProps[]>([]);
 
     useEffect(() => {
-        setLoading(true);
         fetchBlogList()
             .then((data) => {
                 const sortedByTime = [...data].sort((a, b) => {
@@ -31,11 +28,7 @@ function LandingPage() {
                 });
 
                 setBlogData(sortedByTime.slice(0, 3) || placeholderData);
-
-                setLoading(false);
-
             })
-            .catch((err) => { setError(err.message); setLoading(false); });
     }, []);
 
     return (

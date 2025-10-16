@@ -11,18 +11,20 @@ import { useEffect, useState, useMemo, useCallback } from 'react';
 import type { BlogItemProps } from '../../data/type';
 import { fetchBlogList } from '../../utils/fetchContent';
 import useCheckScreenSize from '../../hooks/useCheckScreenSize';
+import ContainerWithLoading from '../../components/ContainerWithLoading/ContainerWithLoading';
 
 export default function BlogList() {
   const { t } = useTranslation('blog')
-  const { t: t_toast } = useTranslation('toast')
 
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string>('');
 
-  let isInSM = useCheckScreenSize(['sm'])
-  const direction = useMemo(() => isInSM ? "column" : "row", [isInSM]);
-  const trendingThumbSize = useMemo(() => isInSM ? 100 : 300, [isInSM]);
-  const trendingRatio = useMemo(() => isInSM ? '1' : undefined, [isInSM]);
+  const isInSM = useCheckScreenSize(['sm']);
+  const layoutConfig = useMemo(() => ({
+    direction: isInSM ? "column" as const : "row" as const,
+    trendingThumbSize: isInSM ? 100 as const : 300 as const,
+    trendingRatio: isInSM ? '1' : undefined,
+  }), [isInSM]);
 
   const [LATEST_POSTS, set_LATEST_POSTS] = useState<BlogItemProps[]>([]);
   const [TRENDING_POSTS, set_TRENDING_POSTS] = useState<BlogItemProps[]>([]);
@@ -57,48 +59,49 @@ export default function BlogList() {
   // TODO: handle view all
   const handleViewAll = useCallback(() => { }, []);
 
-  // TODO: modal needed
-  if (loading) return <div>{t_toast('info.loading')}</div>;
-  if (error) return <div>{t_toast('error.loadFailed')} - {error}</div>
-
   return (
     <div>
       <LazyImage alt="Inspiration Banner" src="/placeholder" height={'30dvh'} maxHeight='50dvw' />
 
-      {/* LATEST */}
-      <DivFlexColumn className={styles.inspirationContainer}>
-        <DivFlexColumn>
-          <TextHeadlineLarge children={t('latestPost')} />
-          <Button
-            label={t('viewAll')}
-            children={t('viewAll')}
-            leadingIcon='arrow_outward'
-            colorMode='Primary'
-            onClick={handleViewAll} />
+      <ContainerWithLoading loadingState={loading} errMessage={error}>
+
+        {/* LATEST */}
+        <DivFlexColumn className={styles.inspirationContainer}>
+          <DivFlexColumn>
+            <TextHeadlineLarge children={t('latestPost')} />
+            <Button
+              label={t('viewAll')}
+              children={t('viewAll')}
+              leadingIcon='arrow_outward'
+              colorMode='Primary'
+              onClick={handleViewAll} />
+          </DivFlexColumn>
+          <BlogItem2RowGen dataList={LATEST_POSTS} thumbSize={600} direction={layoutConfig.direction} />
         </DivFlexColumn>
-        <BlogItem2RowGen dataList={LATEST_POSTS} thumbSize={direction == 'column' ? 'full' : 600} direction={direction} />
-      </DivFlexColumn>
 
-      <Divider />
-      {/* CATEGORY 1 */}
-      <DivFlexColumn className={styles.inspirationContainer}>
-        <LazyImage alt="Category 1 Banner" src="/placeholder" height={'20dvh'} maxHeight='50dvw' />
-        <BlogItem2RowGen dataList={CATE_1_POSTS} thumbSize={direction == 'column' ? 'full' : 600} direction={direction} />
-      </DivFlexColumn>
+        <Divider />
+        {/* CATEGORY 1 */}
+        <DivFlexColumn className={styles.inspirationContainer}>
+          <LazyImage alt="Category 1 Banner" src="/placeholder" height={'20dvh'} maxHeight='50dvw' />
+          <BlogItem2RowGen dataList={CATE_1_POSTS} thumbSize={600} direction={layoutConfig.direction} />
+        </DivFlexColumn>
 
-      <Divider />
-      {/* CATEGORY 2 */}
-      <DivFlexColumn className={styles.inspirationContainer}>
-        <LazyImage alt="Category 2 Banner" src="/placeholder" height={'20dvh'} maxHeight='50dvw' />
-        <BlogItem2RowGen dataList={CATE_2_POSTS} thumbSize={direction == 'column' ? 'full' : 600} direction={direction} />
-      </DivFlexColumn>
+        <Divider />
+        {/* CATEGORY 2 */}
+        <DivFlexColumn className={styles.inspirationContainer}>
+          <LazyImage alt="Category 2 Banner" src="/placeholder" height={'20dvh'} maxHeight='50dvw' />
+          <BlogItem2RowGen dataList={CATE_2_POSTS} thumbSize={600} direction={layoutConfig.direction} />
+        </DivFlexColumn>
 
-      <Divider />
-      {/* TRENDING */}
-      <DivFlexColumn className={styles.inspirationContainer}>
-        <TextHeadlineLarge children={t('trending')} />
-        <BlogItem2RowGen dataList={TRENDING_POSTS} thumbSize={trendingThumbSize} ratio={trendingRatio} hideDescription />
-      </DivFlexColumn>
+        <Divider />
+        {/* TRENDING */}
+        <DivFlexColumn className={styles.inspirationContainer}>
+          <TextHeadlineLarge children={t('trending')} />
+          <BlogItem2RowGen dataList={TRENDING_POSTS} thumbSize={layoutConfig.trendingThumbSize} ratio={layoutConfig.trendingRatio} hideDescription />
+        </DivFlexColumn>
+      </ContainerWithLoading>
+
+
     </div>
   )
 }

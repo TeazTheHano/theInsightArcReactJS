@@ -2,8 +2,8 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchBlogList } from "../../utils/fetchContent";
 import BlogDetail from "../../components/Blog/BlogDetail";
-import { TextBodyLarge } from "../../components/TextBox/textBox";
 import { useTranslation } from "react-i18next";
+import ContainerWithLoading from "../../components/ContainerWithLoading/ContainerWithLoading";
 
 export default function BlogDetailPage() {
   const { id } = useParams();
@@ -22,8 +22,9 @@ export default function BlogDetailPage() {
     load();
   }, [id]);
 
-  if (notFound) return <TextBodyLarge children={t_toast('error.notFound')} />;
-  if (!metadata) return <TextBodyLarge children={t_toast('info.loading')} />;
-
-  return <BlogDetail metadata={metadata} />;
+  return (
+    <ContainerWithLoading loadingState={!metadata} errMessage={notFound ? t_toast('error.notFound') : ""} >
+      <BlogDetail metadata={metadata} />
+    </ContainerWithLoading>
+  );
 }

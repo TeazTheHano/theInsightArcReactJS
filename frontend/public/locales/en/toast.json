@@ -12,7 +12,7 @@
     "network": "Connection lost, please check your network",
     "loadFailed": "Loading failed",
     "uploadFailed": "Upload failed",
-    "unexpected": "An unexpected error occurred",
+    "unexpected": "An unexpected error occurred, please check again",
     "formInvalid": "Invalid data, please check again",
     "noPermission": "You do not have permission to perform this action",
     "notFound": "Resource not found",
@@ -34,7 +34,7 @@
     "canceled": "Request has been canceled"
   },
   "info": {
-    "loading": "Loading {{item}}...",
+    "loading": "Loading...",
     "redirect": "Redirecting...",
     "noData": "No data available",
     "noMoreData": "No more data",
