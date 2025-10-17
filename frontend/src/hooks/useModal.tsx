@@ -5,11 +5,11 @@ import Modal, { type ModalProps } from '../components/Modal/Modal';
  * Mô tả một modal trong stack.
  * ModalDescriptor định nghĩa nội dung và thuộc tính của một modal.
  */
-type ModalDescriptor = {
+export type ModalDescriptor = {
     /** ID duy nhất của modal. Nếu không cung cấp, sẽ tự động tạo. */
     id?: string;
-    /** Nội dung React element của modal. */
-    element: ReactNode;
+    /** Nội dung React element của modal. Có thể là ReactNode hoặc hàm trả về ReactNode. */
+    element: ReactNode | (() => ReactNode);
     /** Các props bổ sung cho Modal component. */
     props?: Partial<ModalProps>;
 };
@@ -19,14 +19,16 @@ type ModalDescriptor = {
  * Cung cấp các hàm để quản lý stack modal.
  */
 type ModalContextType = {
-    /** Mở một modal mới và trả về ID của nó. */
-    openModal: (m: ModalDescriptor) => string;
+    /** Mở một modal mới và trả về ID và hàm update của nó. */
+    openModal: (m: ModalDescriptor) => { id: string; update: (updates: Partial<ModalDescriptor>) => void };
     /** Đóng modal trên cùng của stack. */
     closeTopModal: () => void;
     /** Đóng modal theo ID. */
     closeModalById: (id: string) => void;
     /** Xóa tất cả modal trong stack. */
     clearModals: () => void;
+    /** Cập nhật nội dung modal theo ID. */
+    updateModal: (id: string, updates: Partial<ModalDescriptor>) => void;
     /** Stack hiện tại của các modal. */
     modalStack: ModalDescriptor[];
 };
@@ -47,14 +49,15 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
     /**
      * Mở một modal mới.
-     * Thêm modal vào stack và trả về ID của nó.
+     * Thêm modal vào stack và trả về ID và hàm update của nó.
      * @param m - Mô tả modal cần mở.
-     * @returns ID của modal vừa mở.
+     * @returns Object chứa ID và hàm update của modal vừa mở.
      */
-    const openModal = useCallback((m: ModalDescriptor): string => {
+    const openModal = useCallback((m: ModalDescriptor): { id: string; update: (updates: Partial<ModalDescriptor>) => void } => {
         const id = m.id ?? `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
         setStack(prev => [...prev, { ...m, id }]);
-        return id;
+        const update = (updates: Partial<ModalDescriptor>) => updateModal(id, updates);
+        return { id, update };
     }, []);
 
     /**
@@ -88,8 +91,25 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         setStack([]);
     }, []);
 
+    /**
+     * Cập nhật nội dung modal theo ID.
+     * Nếu ID không tồn tại, ghi log cảnh báo nhưng không throw error.
+     * @param id - ID của modal cần cập nhật.
+     * @param updates - Các thuộc tính cần cập nhật.
+     */
+    const updateModal = useCallback((id: string, updates: Partial<ModalDescriptor>): void => {
+        setStack(prev => {
+            const exists = prev.some(m => m.id === id);
+            if (!exists) {
+                console.warn(`Modal with id "${id}" not found in stack. Cannot update.`);
+                return prev;
+            }
+            return prev.map(m => m.id === id ? { ...m, ...updates } : m);
+        });
+    }, []);
+
     return (
-        <ModalContext.Provider value={{ openModal, closeTopModal, closeModalById, clearModals, modalStack: stack }}>
+        <ModalContext.Provider value={{ openModal, closeTopModal, closeModalById, clearModals, updateModal, modalStack: stack }}>
             {children}
             {/* ModalHost: Render các modal từ stack, modal trên cùng là active */}
             {stack.map((m, idx) => (
@@ -100,7 +120,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
                     isTop={idx === stack.length - 1}
                     {...m.props}
                 >
-                    {m.element}
+                    {typeof m.element === 'function' ? m.element() : m.element}
                 </Modal>
             ))}
         </ModalContext.Provider>
