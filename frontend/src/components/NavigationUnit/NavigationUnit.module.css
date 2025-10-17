@@ -20,7 +20,7 @@ nav {
     padding: var(--Spacing-Spacing-S, 16px) var(--Spacing-Spacing-M, 24px);
 }
 
-.navLogoContainer > div {
+.navLogoContainer>div {
     display: none !important;
     flex: 1;
     justify-content: flex-end;
@@ -105,8 +105,8 @@ nav {
     padding: var(--Spacing-Spacing-XXXS, 4px) var(--Spacing-Spacing-M, 24px);
 }
 
-:global(body.size-and-spacing-md) .navLogoContainer > div,
-:global(body.size-and-spacing-sm) .navLogoContainer > div {
+:global(body.size-and-spacing-md) .navLogoContainer>div,
+:global(body.size-and-spacing-sm) .navLogoContainer>div {
     display: flex !important;
 }
 
@@ -143,7 +143,7 @@ nav {
     top: 100%;
     left: 0;
     right: 0;
-    height: 110dvh;
+    height: calc(100dvh - var(--Icon-Icon-Base) - (calc(var(--Spacing-Spacing-XXS))*2) - (calc(var(--Spacing-Spacing-XXXS))*2));
     backdrop-filter: blur(20px);
     background-color: color-mix(in srgb, var(--Schemes-Surface) 50%, transparent);
     opacity: 1;

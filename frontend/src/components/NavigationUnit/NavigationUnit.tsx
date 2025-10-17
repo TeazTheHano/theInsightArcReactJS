@@ -3,7 +3,7 @@ import { DivFlexColumn, DivFlexRow, DivFlexRowSpaceBetweenCenter } from '../Layo
 import { TextBodyMedium, TextTitleLarge, TextTitleMedium, TextTitleSmall } from '../TextBox/textBox'
 import TheInsightArcLogo from '../../assets/icon/Logo'
 import Divider from '../Divider/Divider'
-import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react'
+import React, { useState, useMemo, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import styles from './NavigationUnit.module.css'
@@ -74,7 +74,7 @@ const BasicSearchResult: React.FC<{
                         }
                         {renderItemGroup(item.result.title, t('title'))}
                         {renderItemGroup(item.result.category, t('category'))}
-                        {renderItemGroup(item.result.tag, t('tag'))}
+                        {renderItemGroup(item.result.tag, t('tags'))}
                         {renderItemGroup(item.result.author, t('author'))}
                     </React.Fragment>
                 ))
@@ -95,7 +95,7 @@ const NavigationUnit: React.FC = () => {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const { searchInput, searchResult, isSearchFocus, setSearchFocus, performSearch, isLoading } = useSearch()
+    const { searchInput, searchResult, isSearchFocus, performSearch, isLoading } = useSearch()
     const searchContainerRef = useRef<HTMLDivElement>(null)
 
     const handleNavItemClick = useCallback(() => {
@@ -105,17 +105,17 @@ const NavigationUnit: React.FC = () => {
         }
     }, [isMenuOpen]);
 
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
-                setSearchFocus(false);
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
+    // useEffect(() => {
+    //     const handleClickOutside = (event: MouseEvent) => {
+    //         if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
+    //                 setSearchFocus(false);
+    //         }
+    //     };
+    //     document.addEventListener('mousedown', handleClickOutside);
+    //     return () => {
+    //         document.removeEventListener('mousedown', handleClickOutside);
+    //     };
+    // }, []);
 
     const navItems = useMemo(() => navItemsData.map(({ href, key, supText }, index) => (
         <Link key={index} to={href}
@@ -150,11 +150,15 @@ const NavigationUnit: React.FC = () => {
                         {/* SLOT FOR SEARCH */}
                         <ButtonDefault
                             label={t('search')}
-                            // TODO: update with text
                             variantMode='Icon'
                             styleMode='Text'
                             leadingIcon='search'
                             colorMode='Default'
+                            onClick={() => {
+                                const newState = !isMenuOpen;
+                                setIsMenuOpen(newState);
+                                setLogoSubButtonIcon(newState ? 'cancel_filled' : 'dehaze');
+                            }}
                         />
                         {/* Hamburger menu */}
                         <ButtonDefault
@@ -182,6 +186,29 @@ const NavigationUnit: React.FC = () => {
                         styles.navMenuContainer, isMenuOpen ? '' : styles.hideSm,
                     ].join(' ')}>
                     {navItems}
+                    {
+                        isMenuOpen ?
+                            <>
+                                <Divider style={{
+                                    margin: 'var(--Spacing-Spacing-XS) 0'
+                                }} />
+                                <TextField
+                                    leadingIcon='search'
+                                    placeholder={t("search")}
+                                    widthMode='fill'
+                                    onChange={(e) => performSearch(e.target.value)}
+                                    compactMode
+
+                                />
+                                {
+                                    isLoading ?
+                                        <LoadingIndicators isLoading={isLoading} />
+                                        : searchInput && isSearchFocus ?
+                                            <BasicSearchResult data={searchResult} />
+                                            : null
+                                }
+                            </> : null
+                    }
                 </DivFlexColumn>
 
                 {/* Other in nav */}
@@ -191,7 +218,9 @@ const NavigationUnit: React.FC = () => {
                     className={[styles.navMenuContainer, styles.hideMdSm].join(' ')}
                     style={{
                         flex: 1,
-                        color: 'var(--Schemes-On-Surface-Variant)'
+                        color: 'var(--Schemes-On-Surface-Variant)',
+                        overflowY: 'scroll',
+                        scrollbarWidth: 'none'
                     }}>
                     {/* SLOT FOR SEARCH BAR */}
                     <TextField
