@@ -6,7 +6,6 @@ import Divider from '../components/Divider/Divider';
 import CircleFollowMouse from '../components/CircleFollowMouse/CircleFollowMouse';
 
 import styles from './GlobalLayout.module.css'
-import Dialog from '../components/Dialog/Dialog';
 
 export default function GlobalLayout({ children }: { children: React.ReactNode }) {
 
@@ -61,9 +60,6 @@ export default function GlobalLayout({ children }: { children: React.ReactNode }
         <Divider />
         <Footer />
       </div>
-
-      {/* Dialog */}
-      <Dialog />
 
       {/* Circle that follows the mouse */}
       {

@@ -15,6 +15,7 @@ import Inspiration from './pages/Inspiration/Inspiration';
 import BlogList from './pages/Blog/Blog';
 import Contact from './pages/Contact/Contact';
 import BlogDetailPage from './pages/Blog/BlogDetailPage';
+import { ModalProvider } from './hooks/useModal';
 
 export default function App() {
 
@@ -24,21 +25,23 @@ export default function App() {
       <ThemeProvider>
         {/* Kiểm soát layout lớn của web, tương lai có thể tích hợp chuyển layout tại đối tượng này */}
         <GlobalLayout>
-          {/* Các trang */}
-          <Routes>
-            <Route path="/" element={<Navigate to="/landingpage" replace />} />
-            <Route path="/landingpage" element={<LandingPage />} />
-            <Route path="/blog" element={<BlogList />} />
-            <Route path="/inspiration" element={<Inspiration />} />
-            <Route path="/game" element={<Game />} />
-            <Route path="/test" element={<Test />} />
+          <ModalProvider>
+            {/* Các trang */}
+            <Routes>
+              <Route path="/" element={<Navigate to="/landingpage" replace />} />
+              <Route path="/landingpage" element={<LandingPage />} />
+              <Route path="/blog" element={<BlogList />} />
+              <Route path="/inspiration" element={<Inspiration />} />
+              <Route path="/game" element={<Game />} />
+              <Route path="/test" element={<Test />} />
 
-            {/* Blog */}
-            <Route path="/blog/:id" element={<BlogDetailPage />} />
-            <Route path='/contact' element={<Contact />} />
-            {/* 404 */}
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
+              {/* Blog */}
+              <Route path="/blog/:id" element={<BlogDetailPage />} />
+              <Route path='/contact' element={<Contact />} />
+              {/* 404 */}
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </ModalProvider>
         </GlobalLayout>
       </ThemeProvider>
     </BrowserRouter>

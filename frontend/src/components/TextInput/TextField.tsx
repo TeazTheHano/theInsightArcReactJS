@@ -7,7 +7,7 @@ import { TextBodyMedium, TextBodySmall } from '../TextBox/textBox';
 import Divider from '../Divider/Divider';
 import Button from '../Button/Button';
 import { useTranslation } from 'react-i18next';
-import Dialog from '../Dialog/Dialog';
+import Dialog from '../Modal/Modal';
 
 const Perfect_Typo_length_Sized_Paragraph_Min_4char = 4;
 const Perfect_Typo_length_Sized_Paragraph_Short_20_char = 20;
@@ -277,7 +277,7 @@ const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({
                 ].join(' ').trim()}
             >
                 {/* leading icon */}
-                {leadingIcon && typeof leadingIcon === 'string' ? <IconGen className={TextFieldStyle.leadingIcon} svgName={leadingIcon} /> : <span className={[`leadingIcon`, TextFieldStyle.icon].join(' ')}>{leadingIcon}</span>}
+                {leadingIcon ? typeof leadingIcon === 'string' ? <IconGen className={TextFieldStyle.leadingIcon} svgName={leadingIcon} /> : <span className={[`leadingIcon`, TextFieldStyle.icon].join(' ')}>{leadingIcon}</span> : null}
                 {/* end of leading icon */}
 
                 {/* Text */}

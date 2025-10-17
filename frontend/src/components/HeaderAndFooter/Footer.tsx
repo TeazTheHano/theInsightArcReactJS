@@ -66,8 +66,8 @@ export default function Footer() {
 
             <SegmentedButton
                 dataList={[
-                    { label: 'English', value: 'en' },
-                    { label: 'Tiếng Việt', value: 'vi' },
+                    { label: 'English', value: 'en-US' },
+                    { label: 'Tiếng Việt', value: 'vi-VN' },
                 ]}
                 onChange={(value: string) => {
                     changeLanguage(value)

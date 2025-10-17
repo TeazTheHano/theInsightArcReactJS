@@ -1,3 +1,4 @@
+// ...existing code...
 import React, { useMemo, forwardRef } from 'react'
 import buttonStyle from './Button.module.css'
 import { IconGen } from '../../assets/icon/OtherIcon';
@@ -16,8 +17,9 @@ interface ButtonProps {
     children?: React.ReactNode;
     /**
      * Accessibility label for the button.
+     * Made optional: if absent and children is a string, children will be used as accessible name.
      */
-    label: string;
+    label?: string;
     /**
      * Additional CSS class names.
      */
@@ -132,10 +134,18 @@ const ButtonDefault = forwardRef<HTMLButtonElement, ButtonProps>(({
         ].join(' ').trim();
     }, [styleMode, variantMode, colorMode, scale, borderRadius, className]);
 
+    // Accessible name logic:
+    // prefer explicit label prop; if absent and children is a string use children.
+    const ariaLabel = label ?? (typeof children === 'string' ? children : undefined);
+
+    // Decide visible text: show children when provided; otherwise show label only if not an icon-only variant.
+    const visibleText = children ?? (variantMode !== 'Icon' && typeof label === 'string' ? label : undefined);
+
     return (
         <button
             ref={ref}
-            aria-label={label}
+            // only set aria-label if we have an accessible name different/necessary
+            aria-label={ariaLabel}
             onClick={onClick}
             onMouseDown={mouseDownFnc}
             onMouseUp={mouseUpFnc}
@@ -149,21 +159,37 @@ const ButtonDefault = forwardRef<HTMLButtonElement, ButtonProps>(({
                 ...style,
             }}
             autoFocus={autoFocus}
-            title={showTitleWhileHover && typeof children == 'string' ? children : undefined}
+            // use ariaLabel as title when requested so hover text matches accessible name
+            title={showTitleWhileHover ? ariaLabel : undefined}
         >
             <div className={[
                 buttonStyle.stateLayer,
                 typeof borderRadius !== 'number' ? `CM-border-radius-mode-${borderRadius}` : '',
             ].join(' ')}></div>
-            {leadingIcon ? typeof leadingIcon === 'string' ? <IconGen className={[`leadingIcon`, buttonStyle.layoutIcon].join(' ')} svgName={leadingIcon} /> : <span className={[`leadingIcon`, buttonStyle.layoutIcon].join(' ')}>{leadingIcon}</span> : null}
-            {children ? (
+
+            {/* Leading icon */}
+            {leadingIcon ? (
+                typeof leadingIcon === 'string'
+                    ? <IconGen className={[`leadingIcon`, buttonStyle.layoutIcon].join(' ')} svgName={leadingIcon} aria-hidden="true" />
+                    : <span className={[`leadingIcon`, buttonStyle.layoutIcon].join(' ')} aria-hidden="true">{leadingIcon}</span>
+            ) : null}
+
+            {/* Visible label / children */}
+            {visibleText ? (
                 <span className={[buttonStyle.layoutLabel, `typography-system-medium`].join(' ')}>
-                    {children}
+                    {visibleText}
                 </span>
             ) : null}
-            {trailingIcon ? typeof trailingIcon === 'string' ? <IconGen className={buttonStyle.layoutIcon} svgName={trailingIcon} /> : <span className={buttonStyle.layoutIcon}>{trailingIcon}</span> : null}
+
+            {/* Trailing icon */}
+            {trailingIcon ? (
+                typeof trailingIcon === 'string'
+                    ? <IconGen className={buttonStyle.layoutIcon} svgName={trailingIcon} aria-hidden="true" />
+                    : <span className={buttonStyle.layoutIcon} aria-hidden="true">{trailingIcon}</span>
+            ) : null}
         </button >
     );
 })
 
 export default React.memo(ButtonDefault);
+// ...existing code...

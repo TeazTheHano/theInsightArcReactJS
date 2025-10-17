@@ -1,4 +1,4 @@
-.dialogBG {
+.modalBG {
     position: absolute;
     top: 0;
     left: 0;
@@ -18,7 +18,7 @@
     backdrop-filter: blur(2px);
 }
 
-.dialogContent {
+.modalContent {
     z-index: 2001;
     min-width: 10rem;
     min-height: 10rem;

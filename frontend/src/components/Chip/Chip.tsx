@@ -17,8 +17,9 @@ interface ChipProps {
     children?: React.ReactNode;
     /**
      * Accessibility label for the chip.
+     * Optional: if absent and children is a string, children will be used as accessible name.
      */
-    label: string;
+    label?: string;
     /**
      * Additional CSS class names.
      */
@@ -112,9 +113,13 @@ const Chip: React.FC<ChipProps> = ({
         if (toggle) setSelectedState(prev => !prev)
     }, [onClick, toggle])
 
+    // accessible name logic: prefer explicit label, fallback to children string
+    const ariaLabel = label ?? (typeof children === 'string' ? children : undefined);
+    const titleAttr = showTitleWhileHover ? ariaLabel : undefined;
+
     return (
         <button
-            aria-label={label}
+            aria-label={ariaLabel}
             onClick={handleClick}
             className={buttonClass}
             disabled={disabled}
@@ -122,7 +127,7 @@ const Chip: React.FC<ChipProps> = ({
                 borderRadius: typeof borderRadius === 'number' ? `${borderRadius}px` : undefined,
                 ...style,
             }}
-            title={showTitleWhileHover && typeof children == 'string' ? children : undefined}
+            title={titleAttr}
         >
             <div className={[
                 chipStyle.stateLayer,
@@ -134,9 +139,23 @@ const Chip: React.FC<ChipProps> = ({
                 : null
             }
 
-            {leadingIcon ? typeof leadingIcon === 'string' ? <IconGen className={[`leadingIcon`, chipStyle.layoutIcon].join(' ')} svgName={leadingIcon} /> : <span className={[`leadingIcon`, chipStyle.layoutIcon].join(' ')}>{leadingIcon}</span> : null}
-            {children ? typeof children === 'string' ? <TextBodyMedium children={children} color='currentColor' className={chipStyle.layoutLabel} /> : children : null}
-            {trailingIcon ? typeof trailingIcon === 'string' ? <IconGen className={chipStyle.layoutIcon} svgName={trailingIcon} /> : <span className={chipStyle.layoutIcon}>{trailingIcon}</span> : null}
+            {leadingIcon ? (
+                typeof leadingIcon === 'string'
+                    ? <IconGen className={[`leadingIcon`, chipStyle.layoutIcon].join(' ')} svgName={leadingIcon} aria-hidden="true" />
+                    : <span className={[`leadingIcon`, chipStyle.layoutIcon].join(' ')} aria-hidden="true">{leadingIcon}</span>
+            ) : null}
+
+            {children ? (
+                typeof children === 'string'
+                    ? <TextBodyMedium children={children} color='currentColor' className={chipStyle.layoutLabel} />
+                    : children
+            ) : null}
+
+            {trailingIcon ? (
+                typeof trailingIcon === 'string'
+                    ? <IconGen className={chipStyle.layoutIcon} svgName={trailingIcon} aria-hidden="true" />
+                    : <span className={chipStyle.layoutIcon} aria-hidden="true">{trailingIcon}</span>
+            ) : null}
         </button >
     );
 };

@@ -143,5 +143,5 @@ package.json
 - [x] Fix dark mode for mermaid diagrams
 - [ ] Try auto generating table of contents from markdown
 - [x] Search engine
-- [ ] make list view for search result in navigation and custom screen
+- [x] make list view for search result in navigation and custom screen
 - [ ] make custom hook for fetching and save to data. to reduce repeat code and control re-fetch with cache access.
