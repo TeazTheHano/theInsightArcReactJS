@@ -7,15 +7,11 @@
     height: 100dvh;
     width: 100dvw;
     padding: var(--Spacing-Spacing-S);
-
-    /* background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(2px); */
-
 }
 
 .bgDark {
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(10px);
+    background-color: color-mix(in srgb, var(--Schemes-Surface) 50%, transparent);
 }
 
 .modalContent {
@@ -24,7 +20,9 @@
     min-height: 10rem;
     background-color: var(--Schemes-Surface-Container);
     padding: var(--Spacing-Spacing-S);
-    gap: var(--Spacing-Spacing-XS)
+    gap: var(--Spacing-Spacing-XS);
+    align-content: space-between;
+    color: var(--Schemes-On-Surface);
 }
 
 .destructive {
@@ -39,6 +37,7 @@
     width: 100%;
 }
 
-.full, .full div {
+.full,
+.full div {
     flex-direction: column-reverse !important;
 }

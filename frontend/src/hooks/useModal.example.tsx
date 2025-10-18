@@ -57,11 +57,11 @@ const ModalExample: React.FC = () => {
     // Hàm mở modal đơn giản
     const handleOpenSimpleModal = useCallback(() => {
         openModal({
-            element: <div>Đây là nội dung modal đơn giản!</div>,
             props: {
                 title: 'Modal Đơn Giản',
                 sizeMode: 'fit',
-                primaryAction: <Button label='close top' onClick={() => closeTopModal()} />
+                primaryAction: <Button label='close top' onClick={() => closeTopModal()} />,
+                bgDark: true
             },
         });
     }, [openModal, closeTopModal]);

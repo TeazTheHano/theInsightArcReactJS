@@ -3,7 +3,7 @@ import { DivFlexColumn, DivFlexRow, DivFlexRowSpaceBetweenCenter } from '../Layo
 import { TextBodyMedium, TextTitleLarge, TextTitleMedium, TextTitleSmall } from '../TextBox/textBox'
 import TheInsightArcLogo from '../../assets/icon/Logo'
 import Divider from '../Divider/Divider'
-import React, { useState, useMemo, useCallback, useRef } from 'react'
+import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import styles from './NavigationUnit.module.css'
@@ -116,6 +116,19 @@ const NavigationUnit: React.FC = () => {
     //         document.removeEventListener('mousedown', handleClickOutside);
     //     };
     // }, []);
+
+    useEffect(() => {
+        if (isMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+
+        // Dọn dẹp khi unmount
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isMenuOpen]);
 
     const navItems = useMemo(() => navItemsData.map(({ href, key, supText }, index) => (
         <Link key={index} to={href}

@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from "react";
 import styles from './Modal.module.css'
-import { DivFlexColumn, DivFlexRowCenter, DivFlexRowSpaceBetween, DivFlexRow } from "../LayoutDiv/LayoutDiv";
+import { DivFlexColumn, DivFlexRowCenter, DivFlexRowSpaceBetween, DivFlexRow, DivFlexColumnSpaceBetween } from "../LayoutDiv/LayoutDiv";
 import { TextBodyLarge, TextTitleLarge, TextTitleSmall } from "../TextBox/textBox";
 import Button from "../Button/Button";
 import { useTranslation } from "react-i18next";
@@ -137,7 +137,7 @@ function Modal(props: ModalProps) {
             onClick={handleBackdropClick}
             aria-hidden={!isTop}
         >
-            <DivFlexColumn
+            <DivFlexColumnSpaceBetween
                 className={[
                     styles.modalContent,
                     `shadow-5`,
@@ -151,7 +151,7 @@ function Modal(props: ModalProps) {
             >
                 {/* Phần header của modal */}
                 <DivFlexRowSpaceBetween>
-                    <DivFlexColumn className={styles.textPadding} style={{justifyContent: 'center'}}>
+                    <DivFlexColumn className={styles.textPadding} style={{ justifyContent: 'center' }}>
                         <TextTitleLarge children={title} color="currentColor" />
                         {subTitle ? <TextTitleSmall children={subTitle} /> : null}
                     </DivFlexColumn>
@@ -193,7 +193,7 @@ function Modal(props: ModalProps) {
                         </DivFlexRow>
                     )}
                 </DivFlexRow>
-            </DivFlexColumn>
+            </DivFlexColumnSpaceBetween>
         </DivFlexRowCenter>
     );
 }

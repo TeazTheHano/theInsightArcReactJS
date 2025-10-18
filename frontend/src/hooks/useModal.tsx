@@ -9,7 +9,7 @@ export type ModalDescriptor = {
     /** ID duy nhất của modal. Nếu không cung cấp, sẽ tự động tạo. */
     id?: string;
     /** Nội dung React element của modal. Có thể là ReactNode hoặc hàm trả về ReactNode. */
-    element: ReactNode | (() => ReactNode);
+    element?: ReactNode | (() => ReactNode);
     /** Các props bổ sung cho Modal component. */
     props?: Partial<ModalProps>;
 };
