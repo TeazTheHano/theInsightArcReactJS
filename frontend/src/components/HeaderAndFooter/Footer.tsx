@@ -1,7 +1,7 @@
 import ButtonDefault from '../Button/Button'
 import { useTheme, type Theme } from '../../hooks/useTheme'
-import { TextBodySmall, TextHeadlineLarge, TextHeadlineSmall } from '../TextBox/textBox'
-import { DivFlexColumn } from '../LayoutDiv/LayoutDiv'
+import { TextBodySmall, TextHeadlineLarge, TextHeadlineSmall, TextTitleLarge } from '../TextBox/textBox'
+import { DivFlexColumn, DivFlexRowSpaceBetweenBaseline } from '../LayoutDiv/LayoutDiv'
 import i18n from '../../i18n'
 import { useTranslation } from 'react-i18next'
 import SegmentedButton from '../Button/SegmentedButton'
@@ -30,7 +30,7 @@ export default function Footer() {
             <DivFlexColumn
                 style={{ gap: 'var(--Spacing-Spacing-XXS, 8px)', }}
             >
-                <TextHeadlineLarge children='The insightArc' color='var(--Schemes-On-Surface-Variant, #434843)' />
+                <TextHeadlineLarge children='The insightArc - Khuong Anh Kiet' color='var(--Schemes-On-Surface-Variant, #434843)' />
                 <TextBodySmall>
                     {t('footer-item-1')}<br />{t('footer-item-2')}
                 </TextBodySmall>
@@ -48,13 +48,13 @@ export default function Footer() {
                     }}
                 />
                 <ButtonDefault
-                    children='contact@theinsightarc.id.vn'
-                    label='Contact us via email: contact@theinsightarc.id.vn'
+                    children='teaz.khuonganhkiet@gmail.com'
+                    label='Contact us via email: teaz.khuonganhkiet@gmail.com'
                     styleMode='Text'
                     colorMode='Primary'
                     leadingIcon={'mail'}
                     onClick={() => {
-                        window.open('mailto:contact@theinsightarc.id.vn', '_blank')
+                        window.open('mailto:teaz.khuonganhkiet@gmail.com', '_blank')
                     }}
                 />
             </DivFlexColumn>
@@ -62,36 +62,48 @@ export default function Footer() {
             {/* change themes */}
 
             <Divider />
+
+            <DivFlexRowSpaceBetweenBaseline style={{ width: '100%' }}>
+                <TextTitleLarge children={t('language')} />
+                <SegmentedButton
+                    dataList={[
+                        { label: 'English', value: 'en-US' },
+                        { label: 'Tiếng Việt', value: 'vi-VN' },
+                    ]}
+                    onChange={(value: string) => {
+                        changeLanguage(value)
+                    }}
+                    preSelected={i18n.language}
+                    iconOnSelected='check'
+                />
+            </DivFlexRowSpaceBetweenBaseline>
+
+            <DivFlexRowSpaceBetweenBaseline style={{ width: '100%' }}>
+                <TextTitleLarge children={t('theme')} />
+                <select
+                    name="themeSet"
+                    value={theme}
+                    onChange={(e) => {
+                        setTheme(e.target.value as Theme)
+                    }}
+                    style={{
+                        padding: 'var(--Spacing-Spacing-XS)',
+                        backgroundColor: 'var(--Schemes-Surface-Variant)',
+                        color: 'var(--Schemes-On-Surface)',
+                    }}
+                    className='CM-border-radius-mode-default'
+                >
+                    <option value={'light'}>Light</option>
+                    <option value={'dark'}>Dark</option>
+                    <option value={'light-medium-contrast'}>Light Medium Contrast</option>
+                    <option value={'light-high-contrast'}>Light High Contrast</option>
+                    <option value={'system'}>System</option>
+                </select>
+            </DivFlexRowSpaceBetweenBaseline>
+
+            <Divider />
             <TextHeadlineSmall children='DEV Mode' />
-
-            <SegmentedButton
-                dataList={[
-                    { label: 'English', value: 'en-US' },
-                    { label: 'Tiếng Việt', value: 'vi-VN' },
-                ]}
-                onChange={(value: string) => {
-                    changeLanguage(value)
-                }}
-                preSelected={i18n.language}
-                iconOnSelected='check'
-            />
-
-            <SegmentedButton
-                dataList={[
-                    { label: 'Light', value: 'light' },
-                    { label: 'Dark', value: 'dark' },
-                    { label: 'Light Medium Contrast', value: 'light-medium-contrast' },
-                    { label: 'Light High Contrast', value: 'light-high-contrast' },
-                    { label: 'System', value: 'system' }
-                ]}
-                onChange={(value: string) => {
-                    setTheme(value as Theme)
-                }}
-                preSelected={theme}
-                compactMode
-            />
-
-            <Button 
+            <Button
                 label="clear cache"
                 children="Clear Cache"
                 styleMode='Outlined'
@@ -101,6 +113,7 @@ export default function Footer() {
                     window.location.reload();
                 }}
             />
+
 
         </footer >
     )

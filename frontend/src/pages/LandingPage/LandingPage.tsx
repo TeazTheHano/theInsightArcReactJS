@@ -55,7 +55,9 @@ function LandingPage() {
                         variantMode='Extreme'
                         children={t('section-1-button')}
                         label={t('section-1-button')}
-                        onClick={() => { }}
+                        onClick={() => {
+                            window.location.href = '/contact'
+                        }}
                         leadingIcon={'phone_filled'}
                     />
                 </DivFlexColumn>
